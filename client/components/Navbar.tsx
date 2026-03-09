@@ -1,60 +1,174 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import {
+  Home,
+  Info,
+  CalendarDays,
+  HelpCircle,
+  ChevronDown,
+  Menu,
+  X,
+  UserPlus,
+  TrendingUp,
+  ClipboardCheck,
+  Building2,
+  Rocket,
+  CalendarRange,
+} from "lucide-react";
+
+const programsItems = [
+  { label: "Investment", icon: TrendingUp, href: "/programs/investment" },
+  { label: "QMS", icon: ClipboardCheck, href: "/programs/qms" },
+  { label: "Industry Partners", icon: Building2, href: "/programs/industry-partners" },
+  { label: "Future Programs", icon: Rocket, href: "/programs/future" },
+  { label: "Events", icon: CalendarRange, href: "/programs/events" },
+];
+
+// Logos
+const LOGO_OUTLINE =
+  "https://cdn.builder.io/api/v1/image/assets%2Fc82f69c03d1a4d3a8a3c2651cae51f04%2F24a5e5f030e249c8a711be872a794c6f?format=webp&width=400";
+const LOGO_FILLED =
+  "https://cdn.builder.io/api/v1/image/assets%2Fc82f69c03d1a4d3a8a3c2651cae51f04%2Faf0e0a18ee0243cb98fca22f296d3c0c?format=webp&width=400";
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [programsOpen, setProgramsOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 30);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const isActive = (path: string) => location.pathname === path;
+  const isProgramsActive = location.pathname.startsWith("/programs");
+
+  const textCls = scrolled
+    ? "text-rellia-teal hover:text-rellia-teal/70"
+    : "text-white hover:text-white/80";
+
+  const underlineCls = scrolled ? "bg-rellia-mint" : "bg-white";
 
   return (
-    <nav className="bg-rellia-cream w-full z-50 sticky top-0">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex items-center justify-between h-[80px] md:h-[100px]">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 shrink-0">
-          <div className="w-[100px] h-[44px] md:w-[120px] md:h-[52px] bg-rellia-teal rounded flex items-center justify-center px-3">
-            <span className="font-host-grotesk font-bold text-white text-lg md:text-xl tracking-tight">
-              Rellia
-            </span>
-          </div>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-rellia-cream shadow-md" : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex items-center justify-between h-[72px] md:h-[86px]">
+        {/* Logo — swaps on scroll */}
+        <Link to="/" className="flex items-center shrink-0">
+          <img
+            src={scrolled ? LOGO_FILLED : LOGO_OUTLINE}
+            alt="Rellia"
+            className="h-9 md:h-11 w-auto object-contain transition-all duration-300"
+          />
         </Link>
 
         {/* Desktop Nav Links */}
-        <div className="hidden md:flex items-center gap-8 lg:gap-12">
+        <div className="hidden md:flex items-center gap-5 lg:gap-7">
+          {/* Home */}
           <Link
             to="/"
-            className="font-host-grotesk text-lg lg:text-xl text-black hover:text-rellia-teal transition-colors"
+            className={`relative flex items-center gap-1.5 font-host-grotesk text-[15px] lg:text-[16px] font-medium transition-colors pb-1 ${textCls}`}
           >
+            <Home className="w-4 h-4 shrink-0" />
             Home
+            {isActive("/") && (
+              <span
+                className={`absolute bottom-0 left-0 right-0 h-[2px] rounded-full ${underlineCls} transition-colors`}
+              />
+            )}
           </Link>
-          <div className="relative group flex items-center gap-1 cursor-pointer">
-            <span className="font-host-grotesk text-lg lg:text-xl text-black group-hover:text-rellia-teal transition-colors">
-              About
-            </span>
-            <ChevronDown className="w-5 h-5 text-black group-hover:text-rellia-teal transition-colors" />
-          </div>
+
+          {/* About — no chevron */}
           <Link
-            to="/programs"
-            className="font-host-grotesk text-lg lg:text-xl text-black hover:text-rellia-teal transition-colors"
+            to="/about"
+            className={`relative flex items-center gap-1.5 font-host-grotesk text-[15px] lg:text-[16px] font-medium transition-colors pb-1 ${textCls}`}
           >
-            Programs &amp; Events
+            <Info className="w-4 h-4 shrink-0" />
+            About
+            {isActive("/about") && (
+              <span
+                className={`absolute bottom-0 left-0 right-0 h-[2px] rounded-full ${underlineCls} transition-colors`}
+              />
+            )}
           </Link>
+
+          {/* Programs & Events — with dropdown chevron */}
+          <div className="relative group">
+            <button
+              className={`relative flex items-center gap-1.5 font-host-grotesk text-[15px] lg:text-[16px] font-medium transition-colors pb-1 ${textCls}`}
+            >
+              <CalendarDays className="w-4 h-4 shrink-0" />
+              Programs &amp; Events
+              <ChevronDown className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:rotate-180" />
+              {isProgramsActive && (
+                <span
+                  className={`absolute bottom-0 left-0 right-0 h-[2px] rounded-full ${underlineCls} transition-colors`}
+                />
+              )}
+            </button>
+
+            {/* Dropdown */}
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="bg-white rounded-xl shadow-2xl border border-black/5 overflow-hidden min-w-[220px]">
+                {programsItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.label}
+                      to={item.href}
+                      className="flex items-center gap-3 px-5 py-3.5 text-rellia-teal hover:bg-rellia-cream transition-colors font-host-grotesk text-sm font-medium border-b border-black/5 last:border-0"
+                    >
+                      <Icon className="w-4 h-4 text-rellia-mint shrink-0" />
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* FAQ */}
           <Link
             to="/faq"
-            className="font-host-grotesk text-lg lg:text-xl text-black hover:text-rellia-teal transition-colors"
+            className={`relative flex items-center gap-1.5 font-host-grotesk text-[15px] lg:text-[16px] font-medium transition-colors pb-1 ${textCls}`}
           >
+            <HelpCircle className="w-4 h-4 shrink-0" />
             FAQ
+            {isActive("/faq") && (
+              <span
+                className={`absolute bottom-0 left-0 right-0 h-[2px] rounded-full ${underlineCls} transition-colors`}
+              />
+            )}
           </Link>
         </div>
 
-        {/* CTA Button */}
-        <div className="hidden md:flex">
-          <button className="bg-[#222221] text-white font-host-grotesk font-semibold text-base lg:text-lg px-7 py-4 rounded-full hover:bg-rellia-teal transition-colors whitespace-nowrap tracking-tight">
+        {/* Get Involved CTA */}
+        <div className="hidden md:flex shrink-0">
+          <button
+            className={`flex items-center gap-2 font-host-grotesk font-semibold text-[14px] lg:text-[15px] px-6 py-3 rounded-full border-2 transition-all duration-200 whitespace-nowrap tracking-tight
+              hover:-translate-y-0.5 hover:shadow-lg
+              ${
+                scrolled
+                  ? "bg-rellia-teal text-white border-rellia-teal hover:bg-transparent hover:text-rellia-teal"
+                  : "bg-white text-rellia-teal border-white hover:bg-transparent hover:text-white"
+              }`}
+          >
+            <UserPlus className="w-4 h-4" />
             Get Involved
           </button>
         </div>
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 text-rellia-teal"
+          className={`md:hidden p-2 transition-colors ${
+            scrolled ? "text-rellia-teal" : "text-white"
+          }`}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
@@ -62,35 +176,73 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-rellia-cream border-t border-black/10 px-6 pb-6 flex flex-col gap-5">
+        <div className="md:hidden bg-rellia-cream border-t border-black/10 px-6 pb-6 flex flex-col">
           <Link
             to="/"
-            className="font-host-grotesk text-lg text-black hover:text-rellia-teal pt-4"
+            className="flex items-center gap-3 py-4 border-b border-black/5 font-host-grotesk text-base font-medium text-rellia-teal"
             onClick={() => setMobileOpen(false)}
           >
+            <Home className="w-5 h-5 text-rellia-mint" />
             Home
           </Link>
-          <div className="flex items-center gap-1">
-            <span className="font-host-grotesk text-lg text-black">About</span>
-            <ChevronDown className="w-5 h-5" />
-          </div>
           <Link
-            to="/programs"
-            className="font-host-grotesk text-lg text-black hover:text-rellia-teal"
+            to="/about"
+            className="flex items-center gap-3 py-4 border-b border-black/5 font-host-grotesk text-base font-medium text-rellia-teal"
             onClick={() => setMobileOpen(false)}
           >
-            Programs &amp; Events
+            <Info className="w-5 h-5 text-rellia-mint" />
+            About
           </Link>
+
+          {/* Programs accordion */}
+          <div className="border-b border-black/5">
+            <button
+              className="flex items-center justify-between w-full py-4 font-host-grotesk text-base font-medium text-rellia-teal"
+              onClick={() => setProgramsOpen(!programsOpen)}
+            >
+              <span className="flex items-center gap-3">
+                <CalendarDays className="w-5 h-5 text-rellia-mint" />
+                Programs &amp; Events
+              </span>
+              <ChevronDown
+                className={`w-5 h-5 text-rellia-teal transition-transform duration-200 ${
+                  programsOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+            {programsOpen && (
+              <div className="pl-8 pb-3 flex flex-col gap-1">
+                {programsItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.label}
+                      to={item.href}
+                      className="flex items-center gap-3 py-2.5 font-host-grotesk text-sm font-medium text-rellia-teal/80 hover:text-rellia-teal"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      <Icon className="w-4 h-4 text-rellia-mint" />
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
           <Link
             to="/faq"
-            className="font-host-grotesk text-lg text-black hover:text-rellia-teal"
+            className="flex items-center gap-3 py-4 border-b border-black/5 font-host-grotesk text-base font-medium text-rellia-teal"
             onClick={() => setMobileOpen(false)}
           >
+            <HelpCircle className="w-5 h-5 text-rellia-mint" />
             FAQ
           </Link>
-          <button className="bg-[#222221] text-white font-host-grotesk font-semibold text-base px-7 py-4 rounded-full hover:bg-rellia-teal transition-colors w-full mt-2">
+
+          <button className="mt-5 flex items-center justify-center gap-2 bg-rellia-teal text-white font-host-grotesk font-semibold text-base px-7 py-3.5 rounded-full border-2 border-rellia-teal hover:bg-transparent hover:text-rellia-teal transition-all duration-200 w-full">
+            <UserPlus className="w-5 h-5" />
             Get Involved
           </button>
         </div>

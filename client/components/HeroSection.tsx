@@ -1,6 +1,6 @@
 export default function HeroSection() {
   return (
-    <section className="relative w-full min-h-[520px] md:min-h-[620px] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
       {/* Video background */}
       <video
         autoPlay
@@ -16,34 +16,45 @@ export default function HeroSection() {
         />
       </video>
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-rellia-teal/60" />
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-rellia-teal/65" />
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 py-16 md:py-24 max-w-4xl mx-auto">
-        {/* Headline */}
-        <h1 className="font-host-grotesk font-extrabold text-white text-4xl sm:text-5xl md:text-6xl lg:text-[82px] leading-tight mb-4">
-          You are the future{" "}
-          <span className="relative inline-block">
-            of healthcare.
-            <span
-              className="absolute bottom-0 left-0 w-full h-[10px] md:h-[14px] rounded-sm"
-              style={{ background: "#9DD6D0", bottom: "-4px" }}
-            />
+      {/* Content — padded for fixed navbar */}
+      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-24 pb-16 md:pt-28 md:pb-24 max-w-5xl mx-auto w-full">
+
+        {/* Headline — rises on load */}
+        <h1
+          className="font-host-grotesk font-extrabold text-white text-4xl sm:text-5xl md:text-6xl lg:text-[80px] leading-tight animate-fade-up"
+          style={{ animationDelay: "0s" }}
+        >
+          You are the future of{" "}
+          <span className="relative inline">
+            healthcare.
+            {/* Underline ONLY under "healthcare." */}
+            <span className="absolute left-0 -bottom-1 md:-bottom-2 w-full h-[10px] md:h-[14px] bg-rellia-mint rounded-sm opacity-90 pointer-events-none" />
           </span>
         </h1>
 
         {/* Subheading */}
-        <p className="font-urbanist font-semibold text-white text-lg md:text-2xl mt-8 mb-10">
+        <p
+          className="font-urbanist font-semibold text-white text-lg md:text-2xl mt-10 mb-10 animate-fade-up"
+          style={{ animationDelay: "0.2s" }}
+        >
           The expertise you need. The support you deserve.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 items-center">
-          <button className="bg-rellia-teal text-white font-host-grotesk font-semibold text-base md:text-xl px-8 py-4 rounded-full border-2 border-transparent hover:bg-rellia-teal/80 transition-all whitespace-nowrap tracking-tight">
+        <div
+          className="flex flex-col sm:flex-row gap-4 items-center animate-fade-up"
+          style={{ animationDelay: "0.4s" }}
+        >
+          {/* Primary — dark fill, inverts on hover */}
+          <button className="group relative bg-rellia-teal text-white font-host-grotesk font-semibold text-base md:text-lg px-9 py-4 rounded-full border-2 border-rellia-teal whitespace-nowrap tracking-tight transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:bg-transparent hover:text-rellia-mint hover:border-rellia-mint">
             Get Involved Now
           </button>
-          <button className="border-2 border-rellia-mint text-rellia-mint font-host-grotesk font-semibold text-base md:text-xl px-8 py-4 rounded-full hover:bg-rellia-mint/10 transition-all whitespace-nowrap tracking-tight">
+
+          {/* Secondary — outlined, inverts on hover */}
+          <button className="bg-transparent text-rellia-mint font-host-grotesk font-semibold text-base md:text-lg px-9 py-4 rounded-full border-2 border-rellia-mint whitespace-nowrap tracking-tight transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:bg-rellia-mint hover:text-rellia-teal">
             See our Programs
           </button>
         </div>
