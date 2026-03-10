@@ -20,7 +20,6 @@ const features = [
     title: "The Roadmap",
     description:
       "Avoid mistakes on your path to market by following our proven step-by-step framework.",
-    highlight: true,
   },
   {
     icon: Stethoscope,
@@ -60,49 +59,40 @@ export default function WhyRellia() {
         </ScrollReveal>
 
         {/* Cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, i) => {
             const Icon = feature.icon;
             return (
               <ScrollReveal key={feature.title} delay={0.08 * i}>
+                {/* 
+                  - White background initially
+                  - Soft outline (border-black/5)
+                  - Hover invert: bg-rellia-teal
+                  - Scale-105 and -translate-y-2
+                */}
                 <div
-                  className={`rounded-[10px] border-2 p-7 md:p-8 flex flex-col gap-4 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl cursor-default h-full
-                  ${
-                    feature.highlight
-                      ? "bg-rellia-teal border-rellia-teal text-white"
-                      : "bg-white border-[#D1D1D1] shadow-[0_11px_28.7px_0_rgba(0,0,0,0.07)]"
-                  }`}
+                  className="group relative bg-white border border-black/10 rounded-[20px] p-8 md:p-10 flex flex-col gap-6 transition-all duration-300 hover:bg-rellia-teal hover:scale-[1.05] hover:-translate-y-2 hover:shadow-2xl cursor-default h-full shadow-sm"
                 >
                   {/* Icon */}
                   <div
-                    className={`w-11 h-11 rounded-md flex items-center justify-center shrink-0 ${
-                      feature.highlight
-                        ? "bg-white/15"
-                        : "bg-rellia-mint/20"
-                    }`}
+                    className="w-14 h-14 bg-rellia-mint/20 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-white/10"
                   >
                     <Icon
-                      className={`w-6 h-6 ${
-                        feature.highlight ? "text-rellia-mint" : "text-rellia-teal"
-                      }`}
+                      className="w-7 h-7 text-rellia-teal transition-colors duration-300 group-hover:text-rellia-mint"
                       strokeWidth={1.75}
                     />
                   </div>
 
                   {/* Title */}
                   <h3
-                    className={`font-host-grotesk font-semibold text-2xl md:text-[26px] leading-tight tracking-tight ${
-                      feature.highlight ? "text-white" : "text-black"
-                    }`}
+                    className="font-host-grotesk font-bold text-black text-2xl md:text-[28px] leading-tight tracking-tight transition-colors duration-300 group-hover:text-white"
                   >
                     {feature.title}
                   </h3>
 
                   {/* Description */}
                   <p
-                    className={`font-urbanist text-base md:text-[17px] leading-relaxed tracking-tight ${
-                      feature.highlight ? "text-white/85" : "text-black"
-                    }`}
+                    className="font-urbanist font-medium text-black/70 text-base md:text-[18px] leading-relaxed tracking-tight transition-colors duration-300 group-hover:text-white/85"
                   >
                     {feature.description}
                   </p>
