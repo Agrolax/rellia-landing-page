@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import LogoMarquee from "@/components/LogoMarquee";
 import WhyRellia from "@/components/WhyRellia";
 import HowItWorks from "@/components/HowItWorks";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -16,6 +17,7 @@ export default function Index() {
         <LogoMarquee />
         <WhyRellia />
         <HowItWorks />
+        <TestimonialsSection />
         <CTASection />
       </main>
 
