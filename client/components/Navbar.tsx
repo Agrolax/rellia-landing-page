@@ -46,23 +46,17 @@ export default function Navbar() {
   const isActive = (path: string) => location.pathname === path;
   const isProgramsActive = location.pathname.startsWith("/programs");
 
-  const textCls = scrolled
-    ? "text-rellia-teal hover:text-rellia-teal/70"
-    : "text-white hover:text-white/80";
-
-  const underlineCls = scrolled ? "bg-rellia-mint" : "bg-white";
+  // Always use dark teal text and mint underline; scroll only controls dropdown visibility
+  const textCls = "text-rellia-teal hover:text-rellia-teal/70";
+  const underlineCls = "bg-rellia-mint";
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-rellia-cream shadow-md" : "bg-transparent"
-      }`}
-    >
+    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-rellia-cream border-b border-black/10">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex items-center justify-between h-[72px] md:h-[86px]">
-        {/* Logo — swaps on scroll */}
+        {/* Logo */}
         <Link to="/" className="flex items-center shrink-0">
           <img
-            src={scrolled ? LOGO_FILLED : LOGO_OUTLINE}
+            src={LOGO_FILLED}
             alt="Rellia"
             className="h-9 md:h-11 w-auto object-contain transition-all duration-300"
           />
@@ -98,7 +92,7 @@ export default function Navbar() {
             )}
           </Link>
 
-          {/* Programs & Events — with dropdown chevron */}
+          {/* Programs & Events — with dropdown chevron (shows dropdown only when scrolled) */}
           <div className="relative group">
             <button
               className={`relative flex items-center gap-1.5 font-host-grotesk text-[15px] lg:text-[16px] font-medium transition-colors pb-1 ${textCls}`}
@@ -113,24 +107,26 @@ export default function Navbar() {
               )}
             </button>
 
-            {/* Dropdown */}
-            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-              <div className="bg-white rounded-xl shadow-2xl border border-black/5 overflow-hidden min-w-[220px]">
-                {programsItems.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <Link
-                      key={item.label}
-                      to={item.href}
-                      className="flex items-center gap-3 px-5 py-3.5 text-rellia-teal hover:bg-rellia-cream transition-colors font-host-grotesk text-sm font-medium border-b border-black/5 last:border-0"
-                    >
-                      <Icon className="w-4 h-4 text-rellia-mint shrink-0" />
-                      {item.label}
-                    </Link>
-                  );
-                })}
+            {/* Dropdown (visible only when scrolled) */}
+            {scrolled && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="bg-white rounded-xl shadow-2xl border border-black/5 overflow-hidden min-w-[220px]">
+                  {programsItems.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <Link
+                        key={item.label}
+                        to={item.href}
+                        className="flex items-center gap-3 px-5 py-3.5 text-rellia-teal hover:bg-rellia-cream transition-colors font-host-grotesk text-sm font-medium border-b border-black/5 last:border-0"
+                      >
+                        <Icon className="w-4 h-4 text-rellia-mint shrink-0" />
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* FAQ */}
@@ -153,11 +149,7 @@ export default function Navbar() {
           <button
             className={`flex items-center gap-2 font-host-grotesk font-semibold text-[14px] lg:text-[15px] px-6 py-3 rounded-full border-2 transition-all duration-200 whitespace-nowrap tracking-tight
               hover:-translate-y-0.5 hover:shadow-lg
-              ${
-                scrolled
-                  ? "bg-rellia-teal text-white border-rellia-teal hover:bg-transparent hover:text-rellia-teal"
-                  : "bg-white text-rellia-teal border-white hover:bg-transparent hover:text-white"
-              }`}
+              bg-rellia-teal text-white border-rellia-teal hover:bg-transparent hover:text-rellia-teal`}
           >
             <UserPlus className="w-4 h-4" />
             Get Involved
@@ -166,9 +158,7 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className={`md:hidden p-2 transition-colors ${
-            scrolled ? "text-rellia-teal" : "text-white"
-          }`}
+          className="md:hidden p-2 transition-colors text-rellia-teal"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
