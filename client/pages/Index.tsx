@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import LogoMarquee from "@/components/LogoMarquee";
+import NetworkMetricsSection from "@/components/NetworkMetricsSection";
 import WhyRellia from "@/components/WhyRellia";
 import HowItWorks from "@/components/HowItWorks";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -14,6 +15,7 @@ export default function Index() {
       <main>
         <HeroSection />
         <LogoMarquee />
+        <NetworkMetricsSection />
         <WhyRellia />
         <HowItWorks />
         <TestimonialsSection />
