@@ -39,6 +39,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [programsOpen, setProgramsOpen] = useState(false);
+  const [networkOpen, setNetworkOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -264,7 +265,7 @@ export default function Navbar() {
           <div className="border-b border-black/5">
             <button
               className="flex items-center justify-between w-full py-4 font-host-grotesk text-base font-medium text-rellia-teal"
-              onClick={() => setProgramsOpen(!programsOpen)}
+              onClick={() => setNetworkOpen(!networkOpen)}
             >
               <span className="flex items-center gap-3">
                 <Users className="w-5 h-5 text-rellia-mint" />
@@ -272,11 +273,11 @@ export default function Navbar() {
               </span>
               <ChevronDown
                 className={`w-5 h-5 text-rellia-teal transition-transform duration-200 ${
-                  programsOpen ? "rotate-180" : ""
+                  networkOpen ? "rotate-180" : ""
                 }`}
               />
             </button>
-            {programsOpen && (
+            {networkOpen && (
               <div className="pl-8 pb-3 flex flex-col gap-1">
                 {networkItems.map((item) => {
                   const Icon = item.icon;

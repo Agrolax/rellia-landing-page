@@ -42,6 +42,30 @@ type Metric = {
   suffix?: string;
 };
 
+function MetricValue({
+  metric,
+  index,
+  entered,
+}: {
+  metric: Metric;
+  index: number;
+  entered: boolean;
+}) {
+  const count = useCountUp(metric.value, entered, 1200 + index * 150);
+
+  return (
+    <div className="flex flex-col items-start">
+      <div className="font-host-grotesk font-bold text-black text-5xl md:text-6xl tracking-tight leading-none">
+        {count}
+        {metric.suffix ?? ""}
+      </div>
+      <p className="mt-4 font-urbanist text-black/70 text-sm md:text-base leading-snug max-w-[18rem]">
+        {metric.label}
+      </p>
+    </div>
+  );
+}
+
 export default function NetworkMetricsSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [entered, setEntered] = useState(false);
@@ -96,19 +120,9 @@ export default function NetworkMetricsSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12">
           {metrics.map((m, i) => {
-            const count = useCountUp(m.value, entered, 1200 + i * 150);
-
             return (
               <ScrollReveal key={m.label} delay={i * 0.08}>
-                <div className="flex flex-col items-start">
-                  <div className="font-host-grotesk font-bold text-black text-5xl md:text-6xl tracking-tight leading-none">
-                    {count}
-                    {m.suffix ?? ""}
-                  </div>
-                  <p className="mt-4 font-urbanist text-black/70 text-sm md:text-base leading-snug max-w-[18rem]">
-                    {m.label}
-                  </p>
-                </div>
+                <MetricValue metric={m} index={i} entered={entered} />
               </ScrollReveal>
             );
           })}
