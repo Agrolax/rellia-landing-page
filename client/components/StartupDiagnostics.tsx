@@ -18,6 +18,7 @@ import {
   Layers,
   Heart,
 } from "lucide-react";
+import SectionHeading from "@/components/SectionHeading";
 
 type Category = {
   name: string;
@@ -65,14 +66,12 @@ export default function StartupDiagnostics() {
   return (
     <section className="w-full bg-white py-16 md:py-24 px-6 md:px-10">
       <div className="max-w-[1300px] mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
-          <h2 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
-            Startup Diagnostic
-          </h2>
-          <p className="font-urbanist font-medium text-black/70 text-base md:text-lg leading-relaxed mt-4">
-            A structured, deep-dive assessment of the areas most likely to unlock faster progress for your healthcare startup.
-          </p>
-        </div>
+        <SectionHeading
+          align="center"
+          title="Startup Diagnostic"
+          description="A structured, deep-dive assessment of the areas most likely to unlock faster progress for your healthcare startup."
+          className="max-w-2xl mx-auto mb-12 md:mb-16"
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-10 md:gap-14 items-start">
           {/* Left */}

@@ -1,5 +1,6 @@
 import { Quote, Info } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import SectionHeading from "@/components/SectionHeading";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   HoverCard,
@@ -45,9 +46,11 @@ export default function TestimonialsSection() {
               <Quote className="w-8 h-8 text-rellia-teal" />
             </div>
           </div>
-          <h2 className="font-host-grotesk font-semibold text-black text-3xl md:text-5xl lg:text-6xl leading-tight tracking-tight max-w-3xl mx-auto">
-            Trusted by the next generation of healthcare leaders.
-          </h2>
+          <SectionHeading
+            align="center"
+            title="Trusted by the next generation of healthcare leaders."
+            className="max-w-3xl mx-auto"
+          />
         </ScrollReveal>
 
         {/* Grid */}

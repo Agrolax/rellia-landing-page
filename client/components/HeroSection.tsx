@@ -1,3 +1,5 @@
+import RelliaButton from "@/components/RelliaButton";
+
 export default function HeroSection() {
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
@@ -48,15 +50,13 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row gap-4 items-center animate-fade-up"
           style={{ animationDelay: "0.4s" }}
         >
-          {/* Primary — dark fill, inverts on hover */}
-          <button className="group relative bg-rellia-teal text-white font-host-grotesk font-semibold text-base md:text-lg px-9 py-4 rounded-full border-2 border-rellia-teal whitespace-nowrap tracking-tight transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:bg-transparent hover:text-rellia-mint hover:border-rellia-mint">
+          <RelliaButton>
             Get Involved Now
-          </button>
+          </RelliaButton>
 
-          {/* Secondary — outlined, inverts on hover */}
-          <button className="bg-transparent text-rellia-mint font-host-grotesk font-semibold text-base md:text-lg px-9 py-4 rounded-full border-2 border-rellia-mint whitespace-nowrap tracking-tight transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:bg-rellia-mint hover:text-rellia-teal">
+          <RelliaButton variant="secondary">
             See our Programs
-          </button>
+          </RelliaButton>
         </div>
       </div>
     </section>
