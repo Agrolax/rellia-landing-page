@@ -1,4 +1,5 @@
 import ScrollReveal from "@/components/ScrollReveal";
+import SectionHeading from "@/components/SectionHeading";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 function useCountUp(target: number, enabled: boolean, durationMs = 1200) {
@@ -107,15 +108,11 @@ export default function NetworkMetricsSection() {
     >
       <div className="max-w-[1300px] mx-auto">
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-10 mb-10 md:mb-14">
-          <ScrollReveal className="max-w-2xl">
-            <h2 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
-              Real people. Real traction.
-            </h2>
-            <p className="font-urbanist text-black/70 text-base md:text-lg leading-relaxed mt-4">
-              A quick look at the community behind Rellia—built for founders who want to move
-              faster with the right network around them.
-            </p>
-          </ScrollReveal>
+          <SectionHeading
+            title="Real people. Real traction."
+            description="A quick look at the community behind Rellia—built for founders who want to move faster with the right network around them."
+            className="max-w-2xl"
+          />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12">

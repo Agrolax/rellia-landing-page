@@ -7,6 +7,7 @@ import {
   HandshakeIcon,
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import SectionHeading from "@/components/SectionHeading";
 
 const features = [
   {
@@ -52,11 +53,11 @@ export default function WhyRellia() {
     <section className="w-full bg-white py-16 md:py-24 px-6 md:px-10">
       <div className="max-w-[1300px] mx-auto">
         {/* Section heading */}
-        <ScrollReveal>
-          <h2 className="font-host-grotesk font-semibold text-black text-center text-3xl md:text-[40px] leading-tight tracking-tight mb-12 md:mb-16">
-            Why should you be a part of Rellia?
-          </h2>
-        </ScrollReveal>
+        <SectionHeading
+          align="center"
+          title="Why should you be a part of Rellia?"
+          className="mb-12 md:mb-16"
+        />
 
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -6,6 +6,7 @@ import {
   Briefcase,
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import SectionHeading from "@/components/SectionHeading";
 
 const steps = [
   {
@@ -60,14 +61,10 @@ export default function HowItWorks() {
         <div className="flex-1 flex flex-col gap-10">
           <ScrollReveal delay={0.1}>
             <div>
-              <h2 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight mb-4">
-                How does it work?
-              </h2>
-              <p className="font-urbanist font-medium text-black/90 text-base md:text-lg leading-relaxed tracking-tight max-w-[600px]">
-                We've studied effective leaders and high-impact companies to
-                develop a system specifically designed to help digital health
-                solutions find success.
-              </p>
+              <SectionHeading
+                title="How does it work?"
+                description="We've studied effective leaders and high-impact companies to develop a system specifically designed to help digital health solutions find success."
+              />
             </div>
           </ScrollReveal>
 
