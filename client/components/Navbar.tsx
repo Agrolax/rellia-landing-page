@@ -67,7 +67,7 @@ export default function Navbar() {
             ),
       )}
     >
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex items-center justify-between h-[72px] md:h-[86px]">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 h-[72px] md:h-[86px] grid grid-cols-[1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center gap-4">
         {/* Logo */}
         <Link to="/" className="flex items-center shrink-0">
           <img
@@ -81,7 +81,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav Links */}
-        <div className="hidden md:flex items-center gap-5 lg:gap-7">
+        <div className="hidden md:flex items-center justify-center gap-5 lg:gap-7">
           <Link
             to="/"
             className={`relative flex items-center gap-1.5 font-host-grotesk text-[15px] lg:text-[16px] font-medium transition-colors pb-1 ${textCls}`}
@@ -161,7 +161,7 @@ export default function Navbar() {
         </div>
 
         {/* CTA buttons */}
-        <div className="hidden md:flex items-center gap-3 shrink-0">
+        <div className="hidden md:flex items-center gap-3 shrink-0 justify-self-end">
           <Link
             to="/contact"
             className={cn(

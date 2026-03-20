@@ -54,12 +54,12 @@ function MetricValue({
   const count = useCountUp(metric.value, entered, 1200 + index * 150);
 
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-center text-center">
       <div className="font-host-grotesk font-bold text-black text-5xl md:text-6xl tracking-tight leading-none">
         {count}
         {metric.suffix ?? ""}
       </div>
-      <p className="mt-4 font-urbanist text-black/70 text-sm md:text-base leading-snug max-w-[18rem]">
+      <p className="mt-4 font-urbanist text-rellia-teal text-xs md:text-sm font-bold uppercase tracking-wide leading-snug max-w-[18rem]">
         {metric.label}
       </p>
     </div>
@@ -107,9 +107,6 @@ export default function NetworkMetricsSection() {
     >
       <div className="max-w-[1300px] mx-auto">
         <ScrollReveal className="mb-10 md:mb-14 flex flex-col items-center text-center">
-          <span className="inline-flex items-center rounded-full border border-black/10 bg-white/70 px-4 py-1 text-xs md:text-sm font-urbanist text-black/60 mb-6 backdrop-blur">
-            The network
-          </span>
           <h2 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight max-w-2xl">
             The right people make all the difference.
           </h2>
