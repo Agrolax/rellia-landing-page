@@ -10,9 +10,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
-import { CalendarDays, ArrowRight } from "lucide-react";
+import { CalendarDays, ArrowRight, User } from "lucide-react";
 
 type PastEvent = {
+  title: string;
   dateTime: string;
   person: string;
   imageSrc: string;
@@ -20,26 +21,31 @@ type PastEvent = {
 
 const pastEvents: PastEvent[] = [
   {
+    title: "Lorem Ipsum Event",
     dateTime: "Lorem 15, 2026 — 6:00 PM",
     person: "Lorem Ipsum",
     imageSrc: "/images/TabletMeeting.png",
   },
   {
+    title: "Lorem Ipsum Event",
     dateTime: "Lorem 10, 2026 — 7:00 PM",
     person: "Lorem Ipsum",
     imageSrc: "/images/TabletMeeting.png",
   },
   {
+    title: "Lorem Ipsum Event",
     dateTime: "Lorem 05, 2026 — 12:00 PM",
     person: "Lorem Ipsum",
     imageSrc: "/images/TabletMeeting.png",
   },
   {
+    title: "Lorem Ipsum Event",
     dateTime: "Lorem 20, 2025 — 1:00 PM",
     person: "Lorem Ipsum",
     imageSrc: "/images/TabletMeeting.png",
   },
   {
+    title: "Lorem Ipsum Event",
     dateTime: "Lorem 08, 2025 — 5:00 PM",
     person: "Lorem Ipsum",
     imageSrc: "/images/TabletMeeting.png",
@@ -189,6 +195,9 @@ export default function ProgramsEvents() {
                         className="pl-4 md:pl-6 basis-full sm:basis-1/2 lg:basis-1/3"
                       >
                         <div className="bg-white rounded-2xl border border-black/5 p-6 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
+                          <h4 className="font-host-grotesk font-bold text-black text-lg mb-4">
+                            {event.title}
+                          </h4>
                           <div className="rounded-xl overflow-hidden mb-5">
                             <img
                               src={event.imageSrc}
@@ -197,8 +206,14 @@ export default function ProgramsEvents() {
                             />
                           </div>
                           <div className="flex flex-col gap-2 text-sm font-urbanist text-black/60 mb-6">
-                            <p className="text-black/60">{event.dateTime}</p>
-                            <p className="text-black/60">{event.person}</p>
+                            <p className="text-black/60 flex items-center gap-2">
+                              <CalendarDays className="w-4 h-4 text-rellia-mint shrink-0" />
+                              {event.dateTime}
+                            </p>
+                            <p className="text-black/60 flex items-center gap-2">
+                              <User className="w-4 h-4 text-rellia-mint shrink-0" />
+                              {event.person}
+                            </p>
                           </div>
                           <div className="mt-auto">
                             <a
