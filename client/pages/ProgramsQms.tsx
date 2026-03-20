@@ -312,36 +312,55 @@ export default function ProgramsQms() {
           <div className="max-w-[700px] mx-auto px-6 md:px-10">
             <ScrollReveal>
               <div className="bg-white rounded-3xl border border-black/5 shadow-lg p-8 md:p-10 text-center">
-                <h3 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
-                  Monthly Subscription
-                </h3>
+                <span className="inline-flex items-center rounded-full border border-rellia-teal/20 bg-rellia-teal/5 px-4 py-1 text-xs md:text-sm font-urbanist text-rellia-teal mb-6">
+                  Monthly subscription
+                </span>
 
                 <div className="mt-6 mb-4">
-                  <span className="text-5xl md:text-6xl font-bold text-black tracking-tight">$2000.00</span>
+                  <div className="flex items-start justify-center">
+                    <span className="text-5xl md:text-6xl font-bold text-rellia-teal tracking-tight leading-none">
+                      $2000
+                    </span>
+                    <span className="text-3xl md:text-4xl font-bold text-rellia-teal tracking-tight leading-none">
+                      .00
+                    </span>
+                  </div>
                 </div>
 
                 <p className="font-urbanist text-black/60 text-base md:text-lg leading-relaxed max-w-md mx-auto mb-8">
                   Join the only program designed to help you implement an audit-ready Quality Management System without the headaches.
                 </p>
 
-                <ul className="mt-4 flex flex-col gap-3 list-none font-urbanist text-black/60 text-base md:text-lg leading-relaxed">
-                  <li className="flex items-start gap-3 justify-center">
+                <div className="h-px bg-black/10 w-full mb-6" />
+
+                <ul className="mt-4 flex flex-col gap-3 list-none font-urbanist text-black/60 text-base md:text-lg leading-relaxed text-left w-full items-start">
+                  <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
                     <span>Pause or cancel at any time.</span>
                   </li>
-                  <li className="flex items-start gap-3 justify-center">
+                  <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
                     <span>Weekly consultations</span>
                   </li>
-                  <li className="flex items-start gap-3 justify-center">
+                  <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
                     <span>Instructional content</span>
                   </li>
-                  <li className="flex items-start gap-3 justify-center">
+                  <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
                     <span>Frameworks &amp; templates</span>
                   </li>
                 </ul>
+
+                <a
+                  href={QMS_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-8 w-full inline-flex items-center justify-center rounded-full bg-rellia-mint text-rellia-teal font-host-grotesk font-semibold px-8 py-4 hover:bg-white transition-colors duration-200"
+                >
+                  Get Started
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
               </div>
             </ScrollReveal>
           </div>
@@ -360,13 +379,10 @@ export default function ProgramsQms() {
                 </p>
 
                 <a
-                  href={QMS_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/contact"
                   className="inline-flex items-center justify-center rounded-full bg-rellia-mint text-rellia-teal font-host-grotesk font-semibold px-8 py-4 hover:bg-white transition-colors duration-200"
                 >
-                  Sign Up
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  Contact
                 </a>
               </div>
             </ScrollReveal>
