@@ -165,7 +165,7 @@ export default function Navbar() {
           <Link
             to="/contact"
             className={cn(
-              "flex items-center gap-2 font-host-grotesk font-semibold text-[14px] lg:text-[15px] px-5 py-2.5 rounded-full border transition-all duration-200 whitespace-nowrap tracking-tight hover:-translate-y-0.5 hover:shadow-lg",
+              "flex items-center gap-2 font-host-grotesk font-semibold text-[14px] lg:text-[15px] px-6 py-3 rounded-full border transition-all duration-200 whitespace-nowrap tracking-tight hover:-translate-y-0.5 hover:shadow-lg",
               useLightNav
                 ? "border-white text-white hover:bg-white hover:text-rellia-teal"
                 : "border-rellia-teal text-rellia-teal hover:bg-rellia-teal hover:text-white",
