@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils";
 import RelliaButton from "@/components/RelliaButton";
 import { useNavigate } from "react-router-dom";
 
+const HERO_VIDEO_POSTER = "/images/heroPoster-home.png";
+
 export default function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -24,6 +26,7 @@ export default function HeroSection() {
       {/* Video background — ref lets us pause/play from the control button */}
       <video
         ref={videoRef}
+        poster={HERO_VIDEO_POSTER}
         autoPlay
         muted
         loop
@@ -89,7 +92,7 @@ export default function HeroSection() {
           style={{ animationDelay: "0.4s" }}
         >
           <RelliaButton
-            className="hover:bg-white hover:text-rellia-teal hover:border-rellia-teal"
+            className="bg-rellia-teal text-white border-rellia-teal hover:bg-rellia-teal hover:text-white hover:border-rellia-teal hover:shadow-xl"
             onClick={() => navigate("/network")}
           >
             Get Involved Now
