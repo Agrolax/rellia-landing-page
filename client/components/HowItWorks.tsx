@@ -1,103 +1,125 @@
 import {
-  Users,
-  CalendarDays,
-  GraduationCap,
-  MessageCircle,
-  Briefcase,
+  Palette,
+  ClipboardList,
+  ShieldCheck,
+  CircleDollarSign,
+  Megaphone,
+  Hospital,
+  LineChart,
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 import SectionHeading from "@/components/SectionHeading";
+import { IconFeatureCard } from "@/components/cards";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { cn } from "@/lib/utils";
+
+const arrowClass = cn(
+  "static translate-x-0 translate-y-0 relative",
+  "h-12 w-12 rounded-full border-2 border-rellia-teal bg-white text-rellia-teal shadow-md",
+  "hover:bg-rellia-teal hover:text-white",
+  "disabled:opacity-40 disabled:pointer-events-none",
+);
 
 const steps = [
   {
-    icon: Users,
-    title: "Mentorship",
+    icon: Palette,
+    title: "Product Design and Development",
     description:
-      "Personalized guidance from experts with years of experience scaling health tech businesses (consulting that would cost >$300/hr anywhere else).",
+      "Turn your concept into a viable health tech product. We help you work through prototype development, MVP development, architecture decisions, and interoperability requirements for a stronger technical foundation.",
   },
   {
-    icon: CalendarDays,
-    title: "Events",
+    icon: ClipboardList,
+    title: "User Feedback",
     description:
-      "Hands-on workshops and events where you'll learn from star speakers, grow your network, and get real-time feedback on your ideas.",
+      "Gather the validation evidence that clinicians, investors, and regulators need to see. We help you design and execute usability testing, human factors research, clinical pilots, and real-world evidence collection in a way that is both rigorous and compliant.",
   },
   {
-    icon: GraduationCap,
-    title: "Learning",
+    icon: ShieldCheck,
+    title: "Regulatory and Legal Compliance",
     description:
-      "Customized programs designed to specifically address the areas where your healthcare business needs guidance the most.",
+      "Understand your obligations before they become liabilities. We help you understand global privacy and security requirements, intellectual property protection, medical device classification, and governance frameworks specific to your target markets.",
   },
   {
-    icon: MessageCircle,
-    title: "Community",
+    icon: CircleDollarSign,
+    title: "Fundraising",
     description:
-      "Beta test your ideas, find an accountability buddy, cheer each other on, share your deepest worries. Connect with fellow founders who truly understand what it takes to break into this industry.",
+      "Whether you are exploring non-dilutive grants, angel investors, or venture capital we help you show up with a stronger investor narrative and a data room that holds up to scrutiny.",
   },
   {
-    icon: Briefcase,
-    title: "Resources",
+    icon: Megaphone,
+    title: "Marketing and Commercial Strategy",
     description:
-      "Practical tools and templates you can apply to your business right away.",
+      "Build a brand that resonates inside healthcare and a go-to-market strategy that moves prospects through to sales. Credibility and clarity both matter more in this industry.",
+  },
+  {
+    icon: Hospital,
+    title: "Navigating Healthcare Systems",
+    description:
+      "We help you understand hospital procurement processes, reimbursement pathways, and what it actually takes to drive adoption inside complex health systems.",
+  },
+  {
+    icon: LineChart,
+    title: "Operations and Scaling",
+    description:
+      "Getting to launch is one milestone. Building a sustainable company is another. We help put the right foundations in place for better financial modeling, growth metrics, customer success, and hiring so the momentum you built can continue on.",
   },
 ];
 
 export default function HowItWorks() {
   return (
     <section className="w-full bg-white py-16 md:py-24 px-6 md:px-10">
-      <div className="max-w-[1300px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
-        {/* Left image — reveal first */}
-        <ScrollReveal className="w-full lg:w-[380px] xl:w-[440px] shrink-0">
-          <div className="relative overflow-hidden rounded-[13px] group">
-            <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/a5115ab15962655773f54110fd436cffbdce194a?width=960"
-              alt="Woman working at desk in teal-lit office"
-              className="w-full h-[380px] sm:h-[480px] lg:h-[700px] object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-rellia-teal/10 pointer-events-none" />
-          </div>
+      <div className="max-w-[1300px] mx-auto">
+        <ScrollReveal delay={0.1}>
+          <SectionHeading
+            title="Where we focus"
+            description="Health tech commercialization is complex, and generic start-up advice won't help you. These are the areas where Rellia can help."
+            className="mb-12 md:mb-16"
+          />
         </ScrollReveal>
 
-        {/* Right content */}
-        <div className="flex-1 flex flex-col gap-10">
-          <ScrollReveal delay={0.1}>
-            <div>
-              <SectionHeading
-                title="How does it work?"
-                description="We've studied effective leaders and high-impact companies to develop a system specifically designed to help digital health solutions find success."
-              />
-            </div>
-          </ScrollReveal>
-
-          {/* Steps */}
-          <div className="flex flex-col gap-9">
-            {steps.map((step, i) => {
-              const Icon = step.icon;
-              return (
-                <ScrollReveal key={step.title} delay={0.15 + i * 0.08}>
-                  <div className="flex items-start gap-5 group cursor-default">
-                    {/* Icon box */}
-                    <div className="w-14 h-14 bg-rellia-mint/20 rounded-md flex items-center justify-center shrink-0 mt-0.5 transition-all duration-300 group-hover:bg-rellia-teal group-hover:scale-110">
-                      <Icon
-                        className="w-7 h-7 text-rellia-teal transition-colors duration-300 group-hover:text-rellia-mint"
-                        strokeWidth={1.75}
+        <ScrollReveal delay={0.2}>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: false,
+              dragFree: false,
+              containScroll: "trimSnaps",
+            }}
+            className="w-full"
+          >
+            <div className="flex flex-col gap-8">
+              <CarouselContent className="-ml-4 md:-ml-6">
+                {steps.map((step) => {
+                  const Icon = step.icon;
+                  return (
+                    <CarouselItem
+                      key={step.title}
+                      className="pl-4 md:pl-6 basis-full md:basis-1/2 xl:basis-1/3"
+                    >
+                      <IconFeatureCard
+                        variant="interactive"
+                        icon={Icon}
+                        title={step.title}
+                        description={step.description}
                       />
-                    </div>
+                    </CarouselItem>
+                  );
+                })}
+              </CarouselContent>
 
-                    {/* Text */}
-                    <div className="flex flex-col gap-1.5 flex-1">
-                      <h3 className="font-host-grotesk font-semibold text-black text-xl md:text-2xl leading-tight tracking-tight transition-colors duration-300 group-hover:text-rellia-teal">
-                        {step.title}
-                      </h3>
-                      <p className="font-urbanist font-medium text-black text-sm md:text-base leading-relaxed tracking-tight">
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              );
-            })}
-          </div>
-        </div>
+              <div className="flex items-center justify-center gap-4">
+                <CarouselPrevious className={arrowClass} />
+                <CarouselNext className={arrowClass} />
+              </div>
+            </div>
+          </Carousel>
+        </ScrollReveal>
       </div>
     </section>
   );

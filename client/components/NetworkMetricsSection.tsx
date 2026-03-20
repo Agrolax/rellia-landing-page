@@ -1,5 +1,4 @@
 import ScrollReveal from "@/components/ScrollReveal";
-import SectionHeading from "@/components/SectionHeading";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 function useCountUp(target: number, enabled: boolean, durationMs = 1200) {
@@ -73,9 +72,9 @@ export default function NetworkMetricsSection() {
 
   const metrics: Metric[] = useMemo(
     () => [
-      { label: "Members in the Rellia network", value: 217 },
-      { label: "Active founders on Slack", value: 51 },
-      { label: "Clinical focus areas", value: 11, suffix: "+" },
+      { label: "Members in the Rellia community", value: 291 },
+      { label: "Health tech startups", value: 81 },
+      { label: "Countries around the world", value: 11 },
     ],
     [],
   );
@@ -107,13 +106,18 @@ export default function NetworkMetricsSection() {
       className="w-full bg-rellia-cream/60 py-14 md:py-20 px-6 md:px-10 border-y border-black/5"
     >
       <div className="max-w-[1300px] mx-auto">
-        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-10 mb-10 md:mb-14">
-          <SectionHeading
-            title="Real people. Real traction."
-            description="A quick look at the community behind Rellia—built for founders who want to move faster with the right network around them."
-            className="max-w-2xl"
-          />
-        </div>
+        <ScrollReveal className="mb-10 md:mb-14 flex flex-col items-center text-center">
+          <span className="inline-flex items-center rounded-full border border-black/10 bg-white/70 px-4 py-1 text-xs md:text-sm font-urbanist text-black/60 mb-6 backdrop-blur">
+            The network
+          </span>
+          <h2 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight max-w-2xl">
+            The right people make all the difference.
+          </h2>
+          <p className="font-urbanist font-medium text-black/70 leading-relaxed tracking-tight mt-4 text-base md:text-lg max-w-[680px] mx-auto">
+            Here is a look at the Rellia network—where health tech founders are connected with people
+            who understand exactly what you&apos;re up against.
+          </p>
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12">
           {metrics.map((m, i) => {

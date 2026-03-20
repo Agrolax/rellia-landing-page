@@ -7,6 +7,8 @@ import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import FAQ from "./pages/FAQ";
+import ProgramsEvents from "./pages/ProgramsEvents";
+import ProgramsQms from "./pages/ProgramsQms";
 import NotFound from "./pages/NotFound";
 import PlaceholderPage from "./pages/PlaceholderPage";
 
@@ -25,20 +27,19 @@ const App = () => (
           {/* Main Pages */}
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<FAQ />} />
-          
-          {/* Programs Subroutes */}
+          <Route path="/programs" element={<ProgramsEvents />} />
+          <Route path="/programs/qms" element={<ProgramsQms />} />
+
+          {/* Network Subroutes */}
           <Route path="/programs/investment" element={<PlaceholderPage title="Investment Programs" />} />
-          <Route path="/programs/qms" element={<PlaceholderPage title="Quality Management System" />} />
           <Route path="/programs/industry-partners" element={<PlaceholderPage title="Industry Partners" />} />
-          <Route path="/programs/future" element={<PlaceholderPage title="Future Programs" />} />
-          <Route path="/programs/events" element={<PlaceholderPage title="Upcoming Events" />} />
-          
-          {/* Footer Subroutes */}
-          <Route path="/careers" element={<PlaceholderPage title="Careers" />} />
-          <Route path="/culture" element={<PlaceholderPage title="Our Culture" />} />
+          <Route path="/programs/future" element={<PlaceholderPage title="Founders Network" />} />
+          <Route path="/programs/advisors" element={<PlaceholderPage title="Advisors" />} />
+
+          {/* Misc */}
+          <Route path="/contact" element={<PlaceholderPage title="Contact Us" />} />
+          <Route path="/network" element={<PlaceholderPage title="Network" />} />
           <Route path="/blog" element={<PlaceholderPage title="Our Blog" />} />
-          <Route path="/terms" element={<PlaceholderPage title="Terms of Use" />} />
-          <Route path="/privacy" element={<PlaceholderPage title="Privacy Policy" />} />
 
           {/* CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

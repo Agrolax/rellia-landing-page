@@ -79,12 +79,20 @@ export default {
           "0%": { opacity: "0", transform: "translateY(40px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        /** Reveals text left→right as if filling with color (clip-path) */
+        "healthcare-fill": {
+          from: { clipPath: "inset(0 100% 0 0)" },
+          to: { clipPath: "inset(0 0% 0 0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         marquee: "marquee 28s linear infinite",
         "fade-up": "fade-up 0.75s ease-out both",
+        /** `both` = start state during delay (stays clipped), `forwards` = stay filled at end */
+        "healthcare-fill":
+          "healthcare-fill 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.65s both forwards",
       },
     },
   },

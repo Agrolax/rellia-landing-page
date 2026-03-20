@@ -1,6 +1,3 @@
-"use client";
-
-import { useMemo, useState } from "react";
 import {
   ClipboardCheck,
   Palette,
@@ -19,50 +16,102 @@ import {
   Heart,
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
+import { cn } from "@/lib/utils";
 
-type Category = {
+type DiagnosticItem = {
   name: string;
+  description: string;
   icon: React.ElementType;
-  group: "Product" | "Clinical" | "Strategy" | "Operations" | "Legal";
 };
 
-const categories: Category[] = [
-  { name: "Product design & UI/UX", icon: Palette, group: "Product" },
-  { name: "Technology and architecture", icon: Cpu, group: "Product" },
-  { name: "Regulatory compliance", icon: ShieldCheck, group: "Clinical" },
-  { name: "Clinical evidence", icon: Activity, group: "Clinical" },
-  { name: "Legal, privacy, cybersecurity", icon: Lock, group: "Legal" },
-  { name: "IP strategy", icon: Lightbulb, group: "Legal" },
-  { name: "Reimbursement strategy", icon: DollarSign, group: "Strategy" },
-  { name: "Fundraising & investment", icon: TrendingUp, group: "Strategy" },
-  { name: "Marketing and branding", icon: Megaphone, group: "Strategy" },
-  { name: "Go-to-market strategy", icon: MapPin, group: "Strategy" },
+const diagnosticItems: DiagnosticItem[] = [
+  {
+    name: "Product design & UI/UX",
+    description:
+      "Clarity, accessibility, and trust in the product experience—especially workflows clinicians and patients will actually use.",
+    icon: Palette,
+  },
+  {
+    name: "Technology and architecture",
+    description:
+      "Scalability, integrations, reliability, and security-minded engineering choices that hold up under healthcare workloads.",
+    icon: Cpu,
+  },
+  {
+    name: "Regulatory compliance",
+    description:
+      "Pathways and evidence expectations across the regulations that matter for your device, software, or service.",
+    icon: ShieldCheck,
+  },
+  {
+    name: "Clinical evidence",
+    description:
+      "Study plans, endpoints, and credibility signals that support adoption, partnerships, and payer conversations.",
+    icon: Activity,
+  },
+  {
+    name: "Legal, privacy, cybersecurity",
+    description:
+      "Contracts, data use, breach readiness, and cross-border considerations that reduce risk as you scale.",
+    icon: Lock,
+  },
+  {
+    name: "IP strategy",
+    description:
+      "What to protect, when to file, and how IP supports differentiation, fundraising, and partnership discussions.",
+    icon: Lightbulb,
+  },
+  {
+    name: "Reimbursement strategy",
+    description:
+      "Coding, coverage, and economic narratives that connect your solution to how customers actually get paid.",
+    icon: DollarSign,
+  },
+  {
+    name: "Fundraising & investment",
+    description:
+      "Narrative, milestones, diligence readiness, and investor alignment for health tech–specific expectations.",
+    icon: TrendingUp,
+  },
+  {
+    name: "Marketing and branding",
+    description:
+      "Positioning, claims discipline, and channel strategy that builds demand without creating regulatory headaches.",
+    icon: Megaphone,
+  },
+  {
+    name: "Go-to-market strategy",
+    description:
+      "Segments, pilots, pricing hypotheses, and a realistic path from first users to repeatable revenue.",
+    icon: MapPin,
+  },
   {
     name: "Navigating health system procurement and adoption",
+    description:
+      "Stakeholder mapping, pilot design, and the operational realities of selling into hospitals and health systems.",
     icon: Hospital,
-    group: "Operations",
   },
-  { name: "Customer success", icon: Users, group: "Operations" },
-  { name: "Operations and scaling", icon: Layers, group: "Operations" },
-  { name: "Leadership mindset and resilience", icon: Heart, group: "Operations" },
-];
-
-const groups: { key: Category["group"]; label: string }[] = [
-  { key: "Product", label: "Product" },
-  { key: "Clinical", label: "Clinical" },
-  { key: "Strategy", label: "Strategy" },
-  { key: "Operations", label: "Operations" },
-  { key: "Legal", label: "Legal" },
+  {
+    name: "Customer success",
+    description:
+      "Onboarding, retention, and expansion motions that keep clinical users successful and reduce churn.",
+    icon: Users,
+  },
+  {
+    name: "Operations and scaling",
+    description:
+      "Processes, hiring, and execution systems that keep quality high as the team and customer base grow.",
+    icon: Layers,
+  },
+  {
+    name: "Leadership mindset and resilience",
+    description:
+      "Decision-making under uncertainty, stakeholder management, and sustainability for founders in a long-cycle industry.",
+    icon: Heart,
+  },
 ];
 
 export default function StartupDiagnostics() {
-  const [activeGroup, setActiveGroup] = useState<Category["group"] | "All">("All");
-
-  const filtered = useMemo(() => {
-    if (activeGroup === "All") return categories;
-    return categories.filter((c) => c.group === activeGroup);
-  }, [activeGroup]);
-
   return (
     <section className="w-full bg-white py-16 md:py-24 px-6 md:px-10">
       <div className="max-w-[1300px] mx-auto">
@@ -73,100 +122,58 @@ export default function StartupDiagnostics() {
           className="max-w-2xl mx-auto mb-12 md:mb-16"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-10 md:gap-14 items-start">
-          {/* Left */}
-          <div className="rounded-[24px] border border-black/10 bg-rellia-cream/60 p-8 md:p-10">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-rellia-mint/25 flex items-center justify-center shrink-0">
-                <ClipboardCheck className="w-6 h-6 text-rellia-teal" strokeWidth={1.75} />
-              </div>
-              <h3 className="font-host-grotesk font-semibold text-black text-2xl md:text-3xl leading-tight tracking-tight">
-                What you get
-              </h3>
+        <div className="rounded-[24px] border border-black/10 bg-white p-6 md:p-8">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-12 h-12 rounded-xl bg-rellia-mint/25 flex items-center justify-center shrink-0">
+              <ClipboardCheck className="w-6 h-6 text-rellia-teal" strokeWidth={1.75} />
             </div>
-
-            <div className="space-y-4">
-              <div className="rounded-2xl border border-black/5 bg-white/70 px-5 py-4">
-                <p className="font-host-grotesk font-semibold text-black text-lg">Gap Analysis Report</p>
-                <p className="font-urbanist text-black/70 text-sm md:text-base leading-relaxed mt-1">
-                  A focused diagnostic to identify the top areas for improvement—so you know exactly what to do next.
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-black/5 bg-white/70 px-5 py-4">
-                <p className="font-host-grotesk font-semibold text-black text-lg">Advisor matching</p>
-                <p className="font-urbanist text-black/70 text-sm md:text-base leading-relaxed mt-1">
-                  Founders are matched with the most qualified advisors to tackle critical gaps directly.
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-black/5 bg-white/70 px-5 py-4">
-                <p className="font-host-grotesk font-semibold text-black text-lg">Actionable next steps</p>
-                <p className="font-urbanist text-black/70 text-sm md:text-base leading-relaxed mt-1">
-                  Clear priorities that help your team execute in the right order.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Right */}
-          <div className="rounded-[24px] border border-black/10 bg-white p-6 md:p-8">
-            <h4 className="font-host-grotesk font-semibold text-black text-xl md:text-2xl leading-tight tracking-tight mb-6">
+            <h4 className="font-host-grotesk font-semibold text-black text-xl md:text-2xl leading-tight tracking-tight">
               Categories we assess
             </h4>
+          </div>
 
-            <div className="flex flex-wrap gap-3 mb-6">
-              <button
-                type="button"
-                onClick={() => setActiveGroup("All")}
-                className={`px-4 py-2 rounded-full border transition-colors font-host-grotesk text-sm md:text-base ${
-                  activeGroup === "All"
-                    ? "bg-rellia-teal text-white border-rellia-teal"
-                    : "bg-white text-rellia-teal border-black/10 hover:border-black/20"
-                }`}
-              >
-                All
-              </button>
-              {groups.map((g) => (
-                <button
-                  key={g.key}
-                  type="button"
-                  onClick={() => setActiveGroup(g.key)}
-                  className={`px-4 py-2 rounded-full border transition-colors font-host-grotesk text-sm md:text-base ${
-                    activeGroup === g.key
-                      ? "bg-rellia-teal text-white border-rellia-teal"
-                      : "bg-white text-rellia-teal border-black/10 hover:border-black/20"
-                  }`}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {diagnosticItems.map((cat) => {
+              const Icon = cat.icon;
+              return (
+                <div
+                  key={cat.name}
+                  tabIndex={0}
+                  className={cn(
+                    "group rounded-2xl border border-black/5 bg-rellia-cream/40 px-4 py-4",
+                    "transition-all duration-200 focus-visible:outline-none",
+                    "hover:bg-rellia-teal hover:border-rellia-teal hover:shadow-md",
+                    "focus-within:bg-rellia-teal focus-within:border-rellia-teal focus-within:shadow-md",
+                  )}
                 >
-                  {g.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {filtered.map((cat) => {
-                const Icon = cat.icon;
-                return (
-                  <div
-                    key={cat.name}
-                    className="group rounded-2xl border border-black/5 bg-rellia-cream/40 px-4 py-4 hover:bg-white transition-colors"
-                  >
-                    <div className="flex items-start gap-3">
-                      <span className="w-9 h-9 rounded-xl bg-rellia-mint/25 flex items-center justify-center shrink-0">
-                        <Icon className="w-5 h-5 text-rellia-teal" strokeWidth={1.75} />
-                      </span>
-                      <p className="font-urbanist font-semibold text-black/80 text-sm md:text-base leading-snug">
+                  <div className="flex items-start gap-3">
+                    <span className="w-9 h-9 rounded-xl bg-rellia-mint/25 group-hover:bg-white/15 group-focus-within:bg-white/15 flex items-center justify-center shrink-0 transition-colors duration-200">
+                      <Icon className="w-5 h-5 text-rellia-teal group-hover:text-rellia-mint group-focus-within:text-rellia-mint transition-colors duration-200" strokeWidth={1.75} />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="font-urbanist font-semibold text-black/80 group-hover:text-white group-focus-within:text-white text-sm md:text-base leading-snug transition-colors duration-200">
                         {cat.name}
+                      </p>
+                      <p
+                        className={cn(
+                          "font-urbanist text-sm leading-relaxed overflow-hidden transition-all duration-200",
+                          "text-black/65 group-hover:text-white/85 group-focus-within:text-white/85",
+                          "mt-2 max-lg:max-h-48 max-lg:opacity-100",
+                          "lg:mt-0 lg:max-h-0 lg:opacity-0",
+                          "lg:group-hover:mt-2 lg:group-hover:max-h-48 lg:group-hover:opacity-100",
+                          "lg:group-focus-within:mt-2 lg:group-focus-within:max-h-48 lg:group-focus-within:opacity-100",
+                        )}
+                      >
+                        {cat.description}
                       </p>
                     </div>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
     </section>
   );
 }
-
