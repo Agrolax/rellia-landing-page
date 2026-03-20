@@ -1,64 +1,87 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
-import { Heart, Target, Users, Lightbulb, ChevronRight } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Heart, Stethoscope, Globe, Zap } from "lucide-react";
+import { IconFeatureCard, TeamMemberCard, AboutCtaBanner } from "@/components/cards";
+import { cn } from "@/lib/utils";
+
+const teamCarouselArrowClass = cn(
+  "static translate-x-0 translate-y-0 relative",
+  "h-12 w-12 rounded-full border-2 border-rellia-teal bg-white text-rellia-teal shadow-md",
+  "hover:bg-rellia-teal hover:text-white",
+  "disabled:opacity-40 disabled:pointer-events-none",
+);
 
 const values = [
   {
     icon: Heart,
-    title: "Patient-Centered",
-    description: "Every decision we make is guided by its ultimate impact on patient outcomes and quality of care."
+    title: "Generous",
+    description:
+      "Building in health tech is hard enough. Everyone here genuinely wants to see you succeed, and that makes all the difference.",
   },
   {
-    icon: Target,
-    title: "Clinician-Driven",
-    description: "We bridge the gap between technology and practice by putting healthcare providers at the center of development."
+    icon: Stethoscope,
+    title: "Healthcare-Specific",
+    description:
+      "Generic startup guidance does not work in healthcare. Everything we offer is built around the specific realities of health tech commercialization.",
   },
   {
-    icon: Users,
-    title: "Founder-First",
-    description: "We are built by founders, for founders. We provide the support and empathy we wish we had."
+    icon: Globe,
+    title: "Globally Connected",
+    description:
+      "Great ideas and great mentors are not concentrated in one city. Rellia is a virtual community, and that breadth makes it stronger.",
   },
   {
-    icon: Lightbulb,
-    title: "Evidence-Based",
-    description: "We value rigorous validation and scientific integrity in every solution we support."
-  }
+    icon: Zap,
+    title: "Radically Practical",
+    description:
+      "You don't need more learning, you need more things accomplished. We focus on helping you achieve the outcomes that actually move your business forward.",
+  },
 ];
 
-const team = [
+const team: {
+  name: string;
+  role?: string;
+  bio?: string;
+  imageSrc?: string;
+}[] = [
   {
-    name: "Dr. Elena Vance",
-    role: "Founding Partner & Chief Medical Officer",
-    image: "https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&q=80&w=400",
-    bio: "Former Head of Digital Health at a major health system with 15+ years of clinical experience."
+    name: "Megan Kane",
+    role: "Executive Director, Co-Founder",
+    bio: "Regulatory and Quality Management executive specializing in global market entry strategy and FDA/Health Canada submissions for SaMD and digital health companies.",
+    imageSrc: "/images/megankane-team.jpeg",
   },
   {
-    name: "Marcus Thorne",
-    role: "Managing Director",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400",
-    bio: "Serial entrepreneur who scaled and exited two digital health platforms in the RPM space."
+    name: "Deena Al-Sammak",
+    role: "Program Manager",
+    imageSrc: "/images/deenasammak-team.jpeg",
   },
-  {
-    name: "Sarah Jenkins",
-    role: "Head of Community & Programs",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400",
-    bio: "Expert in ecosystem building with a background in healthtech accelerator management."
-  }
+  { name: "Priyanka", imageSrc: "/images/nopicture-female.jpg" },
+  { name: "Khali", imageSrc: "/images/nopicture-male.jpg" },
+  { name: "Kelly", imageSrc: "/images/nopicture-female.jpg" },
 ];
+
+const FOUNDER_APPLY_MAIL = "/network";
 
 export default function About() {
   return (
     <div className="min-h-screen bg-white font-host-grotesk overflow-x-hidden">
       <Navbar />
-      
+
       <main>
-        {/* Hero Section */}
+        {/* Hero */}
         <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 bg-rellia-teal overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-rellia-mint via-transparent to-transparent blur-3xl"></div>
+          <div className="absolute inset-0 opacity-10 pointer-events-none">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-rellia-mint via-transparent to-transparent blur-3xl" />
           </div>
-          
+
           <div className="relative z-10 max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal>
               <h1 className="text-white text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight mb-8">
@@ -66,69 +89,72 @@ export default function About() {
                 <span className="text-rellia-mint">next generation</span> <br />
                 of health tech.
               </h1>
-              <p className="text-white/80 text-lg md:text-2xl max-w-2xl font-urbanist leading-relaxed">
-                Rellia Health is a venture studio and accelerator dedicated to accelerating the commercialization of digital health solutions that matter.
+              <p className="text-white/80 text-lg md:text-2xl max-w-3xl font-urbanist leading-relaxed">
+                Rellia Health is a virtual incubator dedicated to accelerating the commercialization of
+                digital health solutions that matter.
               </p>
             </ScrollReveal>
           </div>
         </section>
 
-        {/* Mission Section */}
+        {/* Mission + image — single ScrollReveal so copy + image reveal together */}
         <section className="py-20 md:py-32 bg-white">
-          <div className="max-w-[1300px] mx-auto px-6 md:px-10 flex flex-col lg:flex-row items-center gap-16 md:gap-24">
-            <ScrollReveal className="flex-1">
-              <div className="relative">
-                <div className="absolute -top-4 -left-4 w-24 h-24 bg-rellia-mint/20 rounded-full blur-2xl"></div>
-                <h2 className="text-black text-4xl md:text-5xl font-bold tracking-tight mb-8">
-                  Our Mission
-                </h2>
-                <div className="space-y-6 text-black/70 text-lg md:text-xl font-urbanist leading-relaxed">
-                  <p>
-                    The healthcare industry is notoriously difficult to navigate. Brilliant founders often struggle not because their ideas lack merit, but because they lack the clinical pathways and regulatory frameworks needed to succeed.
-                  </p>
-                  <p>
-                    At Rellia, our mission is to bridge the gap between innovation and implementation. we provide founders with the expertise, clinician access, and step-by-step roadmap required to build solutions that health systems actually want to buy.
-                  </p>
+          <div className="max-w-[1300px] mx-auto px-6 md:px-10">
+            <ScrollReveal>
+              <div className="flex flex-col lg:flex-row lg:items-start gap-16 md:gap-24">
+                <div className="relative min-h-0 flex-1 w-full">
+                  <div className="absolute -top-4 -left-4 h-24 w-24 rounded-full bg-rellia-mint/20 blur-2xl pointer-events-none" />
+                  <h2 className="relative text-black text-4xl md:text-5xl font-bold tracking-tight mb-8">
+                    Our Mission
+                  </h2>
+                  <div className="relative space-y-6 text-black/70 text-lg md:text-xl font-urbanist leading-relaxed">
+                    <p>
+                      The healthcare industry is notoriously difficult to navigate. Brilliant founders often
+                      struggle not because their ideas lack merit, but because they are trying to figure it
+                      out without the right people around them.
+                    </p>
+                    <p>
+                      At Rellia, we meet health tech founders where they are, surrounding them with deep
+                      industry expertise and individualized support so that the complexities of healthcare
+                      innovation feel less overwhelming. Because when founders have the right people in
+                      their corner, meaningful innovation actually reaches the patients who need it.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="relative aspect-[4/3] w-full flex-1 overflow-hidden rounded-3xl shadow-2xl lg:max-w-[min(100%,520px)] lg:shrink-0">
+                  <img
+                    src="/images/TabletMeeting.png"
+                    alt="Team collaborating over a tablet in a meeting"
+                    className="h-full w-full object-cover"
+                  />
                 </div>
               </div>
             </ScrollReveal>
-            
-            <ScrollReveal className="flex-1 w-full" delay={0.2}>
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
-                <img 
-                  src="https://images.unsplash.com/photo-1576091160550-2173dad99a01?auto=format&fit=crop&q=80&w=1200" 
-                  alt="Clinicians collaborating" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </ScrollReveal>
           </div>
         </section>
 
-        {/* Values Section */}
+        {/* Values — reference layout: 4-across on large screens, light icon tiles */}
         <section className="py-20 md:py-32 bg-rellia-cream/50">
           <div className="max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal className="text-center mb-16">
-              <h2 className="text-black text-4xl md:text-5xl font-bold tracking-tight mb-6">
-                Our Values
-              </h2>
-              <p className="text-black/60 text-lg md:text-xl font-urbanist max-w-2xl mx-auto">
-                These principles guide every partnership, program, and investment we make.
+              <h2 className="text-black text-4xl md:text-5xl font-bold tracking-tight mb-6">Values</h2>
+              <p className="text-black/60 text-lg md:text-xl font-urbanist max-w-2xl mx-auto leading-relaxed">
+                These principles guide every partnership, program, and decision we make.
               </p>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
               {values.map((v, i) => {
                 const Icon = v.icon;
                 return (
                   <ScrollReveal key={v.title} delay={i * 0.1}>
-                    <div className="bg-white p-8 rounded-3xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 h-full">
-                      <div className="w-14 h-14 bg-rellia-teal/5 rounded-2xl flex items-center justify-center mb-6">
-                        <Icon className="w-8 h-8 text-rellia-teal" />
-                      </div>
-                      <h3 className="text-black text-2xl font-bold mb-4">{v.title}</h3>
-                      <p className="text-black/60 font-urbanist leading-relaxed">{v.description}</p>
-                    </div>
+                    <IconFeatureCard
+                      variant="static"
+                      icon={Icon}
+                      title={v.title}
+                      description={v.description}
+                    />
                   </ScrollReveal>
                 );
               })}
@@ -136,58 +162,47 @@ export default function About() {
           </div>
         </section>
 
-        {/* Team Section */}
+        {/* Meet the team */}
         <section className="py-20 md:py-32 bg-white">
           <div className="max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal className="text-center mb-16">
               <h2 className="text-black text-4xl md:text-5xl font-bold tracking-tight mb-6">
-                The Team
+                Meet The Team
               </h2>
-              <p className="text-black/60 text-lg md:text-xl font-urbanist max-w-2xl mx-auto">
-                A collective of founders, clinicians, and operators who have been in your shoes.
+              <p className="text-black/60 text-lg md:text-xl font-urbanist max-w-2xl mx-auto leading-relaxed">
+                Health tech insiders who saw a better way, so they built it. Just like you did.
               </p>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16">
-              {team.map((t, i) => (
-                <ScrollReveal key={t.name} delay={i * 0.1}>
-                  <div className="group cursor-default">
-                    <div className="relative aspect-square rounded-3xl overflow-hidden mb-6 shadow-md grayscale group-hover:grayscale-0 transition-all duration-500">
-                      <img src={t.image} alt={t.name} className="w-full h-full object-cover transform scale-110 group-hover:scale-100 transition-transform duration-700" />
-                      <div className="absolute inset-0 bg-rellia-teal/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                    <h3 className="text-black text-2xl font-bold mb-1">{t.name}</h3>
-                    <p className="text-rellia-teal font-semibold text-sm uppercase tracking-wider mb-4">{t.role}</p>
-                    <p className="text-black/60 font-urbanist text-lg leading-relaxed">{t.bio}</p>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
+            <Carousel
+              opts={{ align: "center", loop: false, dragFree: false, containScroll: "trimSnaps" }}
+              className="mx-auto w-full max-w-5xl"
+            >
+              <div className="flex flex-col gap-8">
+                <CarouselContent className="-ml-4 md:-ml-6">
+                  {team.map((t) => (
+                    <CarouselItem
+                      key={t.name}
+                      className="basis-full pl-4 md:basis-1/2 md:pl-6 lg:basis-1/3"
+                    >
+                      <TeamMemberCard name={t.name} role={t.role} bio={t.bio} imageSrc={t.imageSrc} />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <div className="flex items-center justify-center gap-4">
+                  <CarouselPrevious className={teamCarouselArrowClass} />
+                  <CarouselNext className={teamCarouselArrowClass} />
+                </div>
+              </div>
+            </Carousel>
           </div>
         </section>
 
-        {/* Final CTA */}
+        {/* CTA */}
         <section className="py-20 md:py-32 px-6">
           <div className="max-w-[1300px] mx-auto">
             <ScrollReveal>
-              <div className="bg-rellia-teal rounded-[40px] p-12 md:p-24 flex flex-col items-center text-center text-white overflow-hidden relative">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-rellia-mint/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
-                
-                <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8 max-w-3xl relative z-10">
-                  Ready to transform the healthcare landscape?
-                </h2>
-                <p className="text-white/70 text-lg md:text-xl font-urbanist mb-12 max-w-xl relative z-10 leading-relaxed">
-                  Join our upcoming cohort or partner with us to bring your innovation to clinical reality.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 relative z-10">
-                  <button className="bg-rellia-mint text-rellia-teal font-bold px-10 py-5 rounded-full hover:bg-white hover:-translate-y-1 transition-all flex items-center gap-2">
-                    Apply to Join Now <ChevronRight className="w-5 h-5" />
-                  </button>
-                  <button className="border-2 border-white/20 text-white font-bold px-10 py-5 rounded-full hover:bg-white/10 hover:-translate-y-1 transition-all">
-                    Contact Us
-                  </button>
-                </div>
-              </div>
+              <AboutCtaBanner founderApplyHref={FOUNDER_APPLY_MAIL} teamCareersPath="/contact" />
             </ScrollReveal>
           </div>
         </section>

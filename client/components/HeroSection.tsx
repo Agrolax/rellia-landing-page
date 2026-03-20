@@ -1,25 +1,58 @@
+import { useCallback, useRef, useState } from "react";
+import { Pause, Play } from "lucide-react";
+import { cn } from "@/lib/utils";
 import RelliaButton from "@/components/RelliaButton";
+import { useNavigate } from "react-router-dom";
 
 export default function HeroSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const navigate = useNavigate();
+
+  const togglePlayback = useCallback(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    if (el.paused) {
+      void el.play();
+    } else {
+      el.pause();
+    }
+  }, []);
+
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video background */}
+      {/* Video background — ref lets us pause/play from the control button */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
-        poster="https://api.builder.io/api/v1/image/assets/TEMP/6e815b45b696371ea621dc4b28461eadab94e966?width=2880"
+        onPlay={() => setIsPaused(false)}
+        onPause={() => setIsPaused(true)}
       >
-        <source
-          src="https://videos.pexels.com/video-files/3209828/3209828-hd_1920_1080_24fps.mp4"
-          type="video/mp4"
-        />
+        <source src="/videos/homehero.mp4" type="video/mp4" />
       </video>
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-rellia-teal/65" />
+
+      {/* Pause / play — sits above overlay so it stays visible & clickable */}
+      <div className="absolute bottom-6 right-6 z-20 md:bottom-10 md:right-10">
+        <button
+          type="button"
+          onClick={togglePlayback}
+          className={cn(
+            "flex h-12 w-12 items-center justify-center rounded-full",
+            "border border-white/40 bg-white/15 text-white backdrop-blur-sm",
+            "transition hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white",
+          )}
+          aria-label={isPaused ? "Play background video" : "Pause background video"}
+        >
+          {isPaused ? <Play className="h-5 w-5" fill="currentColor" /> : <Pause className="h-5 w-5" />}
+        </button>
+      </div>
 
       {/* Content — padded for fixed navbar */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 pt-24 pb-16 md:pt-28 md:pb-24 max-w-5xl mx-auto w-full">
@@ -30,10 +63,15 @@ export default function HeroSection() {
           style={{ animationDelay: "0s" }}
         >
           You are the future of{" "}
-          <span className="relative inline">
-            healthcare.
-            {/* Underline ONLY under "healthcare." */}
-            <span className="absolute left-0 -bottom-1 md:-bottom-2 w-full h-[10px] md:h-[14px] bg-rellia-mint rounded-sm opacity-90 pointer-events-none" />
+          {/* Base word (white) + clipped overlay (blue) animates left→right = “fill” effect */}
+          <span className="relative inline-block align-bottom">
+            <span className="text-white font-extrabold">healthcare.</span>
+            <span
+              className="absolute left-0 top-0 whitespace-nowrap font-extrabold text-rellia-mint motion-safe:animate-healthcare-fill motion-reduce:clip-path-none"
+              aria-hidden
+            >
+              healthcare.
+            </span>
           </span>
         </h1>
 
@@ -50,11 +88,17 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row gap-4 items-center animate-fade-up"
           style={{ animationDelay: "0.4s" }}
         >
-          <RelliaButton>
+          <RelliaButton
+            className="hover:bg-white hover:text-rellia-teal hover:border-rellia-teal"
+            onClick={() => navigate("/network")}
+          >
             Get Involved Now
           </RelliaButton>
 
-          <RelliaButton variant="secondary">
+          <RelliaButton
+            variant="secondary"
+            onClick={() => navigate("/programs")}
+          >
             See our Programs
           </RelliaButton>
         </div>

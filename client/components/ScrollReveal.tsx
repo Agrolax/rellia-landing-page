@@ -17,18 +17,39 @@ export default function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
+    let revealed = false;
+    const reveal = () => {
+      if (revealed) return;
+      revealed = true;
+      el.style.animationDelay = `${delay}s`;
+      el.classList.add("animate-fade-up");
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.style.animationDelay = `${delay}s`;
-          el.classList.add("animate-fade-up");
+          reveal();
           observer.unobserve(el);
         }
       },
-      { threshold: 0.1 }
+      // Any overlap counts; avoids columns staying invisible if only part of the row intersects
+      { threshold: 0, rootMargin: "0px 0px 12% 0px" },
     );
 
     observer.observe(el);
+
+    // If already in view after layout (e.g. short hero, or observer edge cases), reveal — avoids stuck opacity-0
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const rect = el.getBoundingClientRect();
+        const vh = window.innerHeight;
+        if (rect.top < vh && rect.bottom > 0) {
+          reveal();
+          observer.unobserve(el);
+        }
+      });
+    });
+
     return () => observer.disconnect();
   }, [delay]);
 

@@ -2,43 +2,74 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Link } from "react-router-dom";
 
 const faqs = [
   {
-    id: "founders-eligible",
-    question: "Lorem ipsum dolor sit amet?",
+    id: "products",
+    question: "What kind of products does Rellia work with?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "We specialize in healthcare-focused innovations with a software component - digital health, health tech, medtech, whatever you call it. Whether it’s a connected medical device, a diagnostic platform, a digital therapeutic, or a general wellness app, our programs are built to help you succeed specifically in the complex healthcare technology market.",
   },
   {
-    id: "program-structure",
-    question: "Consectetur adipiscing elit sed do?",
+    id: "funding",
+    question: "Does my company need funding or revenue to join?",
     answer:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "We work with companies at every stage of development, from pre-seed to Series A, with customized programs to meet you where you are. As long as you have a clear idea of the problem you’re solving and a vision for the solution, we can help.",
   },
   {
-    id: "stage-required",
-    question: "Quis nostrud exercitation ullamco?",
+    id: "cost",
+    question: "What is the cost to join?",
     answer:
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    id: "time-commitment",
-    question: "Duis aute irure dolor in reprehenderit?",
-    answer:
-      "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "Rellia operates on a monthly membership model that gives you full access to our advisors, community, and a core set of included programs. Some specialized programs carry an additional cost, and we are always transparent about what is included before you commit to anything.",
   },
   {
     id: "equity",
-    question: "Excepteur sint occaecat cupidatat non?",
+    question: "Do founders need to give up equity to join?",
     answer:
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+      "No. We believe founders should keep control of their companies. Once you’re a member, you’ll have access to the expertise and resources you need without giving up a stake in your business.",
   },
   {
-    id: "remote",
-    question: "Sed ut perspiciatis unde omnis iste?",
+    id: "country",
+    question: "Do I need to be based in a specific country to join?",
     answer:
-      "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.",
+      "No, Relia Health is a global network with members across the world. We work with the best of the best, regardless of where they happen to live.",
+  },
+  {
+    id: "after-join",
+    question: "What happens once I join?",
+    answer:
+      "Once your application is approved, you will receive an invitation to join our community. From there, you can reach out to our team directly and we will connect you with the specific advisors, programs, clinicians, or fellow founders that match what you are working on. There is no generic onboarding path. We start by understanding where you are and what you need most.",
+  },
+  {
+    id: "programs-without-membership",
+    question: "Can I join a program without becoming a member?",
+    answer:
+      "Yes, most Rellia programs are available to non-members as well. If you decide to become a member, you will get discounted access to programs alongside everything else membership includes: the experts, the community, and the additional resources that come with it. Starting with a program first can be a good way to get a feel for what Rellia is about before committing.",
+  },
+  {
+    id: "advisor-time",
+    question: "How much time do advisors commit to?",
+    answer:
+      "We know your time is valuable. Advisors typically volunteer a few hours a month to high-impact conversations with founders who are building in areas they’re passionate about. We handle all the logistics - you simply show up, share your thoughts, and help guide the next generation of healthcare companies.",
+  },
+  {
+    id: "investors",
+    question: "What does Rellia Health offer to investors?",
+    answer:
+      "Investors get curated access to high-potential startups, due diligence support, and the opportunity to invest alongside a network of experienced partners in healthcare and technology.",
+  },
+  {
+    id: "industry-partner",
+    question: "I’m an industry partner - how can I collaborate with Rellia Health?",
+    answer:
+      "Industry partners can engage with our founder community through sponsored programs or events, mentorship, and founder referrals. Rellia is a trusted resource for early-stage health tech startups, and a recommendation from us is meaningfully different from a cold channel.",
+  },
+  {
+    id: "apply",
+    question: "How do I apply or express interest in joining?",
+    answer:
+      "You can apply through our website by completing the short interest form. Our team will follow up with next steps.",
   },
 ];
 
@@ -61,40 +92,15 @@ export default function FAQ() {
                 Frequently Asked Questions
               </span>
               <h1 className="text-black text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-5">
-                Everything you need to{" "}
-                <span className="text-rellia-teal">know about Rellia.</span>
+                We’ve collected the most common questions our members ask before joining.
               </h1>
-              <p className="text-black/70 text-base md:text-xl font-urbanist max-w-2xl leading-relaxed">
-                From eligibility and program structure to time commitment and support, we’ve
-                pulled the most common questions founders and clinicians ask before joining.
-              </p>
             </ScrollReveal>
           </div>
         </section>
 
         {/* FAQ Content */}
         <section className="py-16 md:py-24 bg-white">
-          <div className="max-w-[1100px] mx-auto px-6 md:px-10 grid grid-cols-1 lg:grid-cols-[minmax(0,0.6fr)_minmax(0,1fr)] gap-12 md:gap-20 items-start">
-            {/* Left column summary */}
-            <ScrollReveal className="space-y-6">
-              <h2 className="text-black text-2xl md:text-3xl font-bold tracking-tight">
-                Clear answers for busy founders.
-              </h2>
-              <p className="text-black/70 font-urbanist text-base md:text-lg leading-relaxed">
-                We built Rellia to remove guesswork from building in healthcare. If you
-                don’t see your question here, reach out and we’ll help you understand if
-                this is the right fit for your company and stage.
-              </p>
-              <div className="rounded-2xl border border-black/5 bg-rellia-cream/70 px-5 py-4 text-sm md:text-base text-black/80 font-urbanist">
-                Still unsure?{" "}
-                <span className="font-semibold text-rellia-teal">
-                  Share a few details about your company
-                </span>{" "}
-                and we’ll send a short, honest recommendation within 48 hours.
-              </div>
-            </ScrollReveal>
-
-            {/* Right column accordion */}
+          <div className="max-w-[1100px] mx-auto px-6 md:px-10">
             <ScrollReveal delay={0.1}>
               <div className="rounded-3xl border border-black/5 bg-white/80 shadow-sm">
                 <Accordion type="single" collapsible defaultValue={faqs[0].id}>
@@ -128,21 +134,19 @@ export default function FAQ() {
                 </div>
                 <div className="relative z-10 flex-1 space-y-3 md:space-y-4">
                   <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
-                    Ready to get specific about your company?
+                    Every startup is different
                   </h3>
                   <p className="text-white/80 font-urbanist text-sm md:text-base leading-relaxed max-w-xl">
-                    Share where you are today and where you want to be in the next 12–18 months.
-                    We’ll map how Rellia can help accelerate that path—or recommend a better fit
-                    if we’re not it.
+                    Tell us more about where you are today and where you want to be in the next 12–18 months. We’ll share how Rellia can help accelerate that path, or recommend a better fit if we’re not it.
                   </p>
                 </div>
                 <div className="relative z-10">
-                  <a
-                    href="#contact"
+                  <Link
+                    to="/contact"
                     className="inline-flex items-center justify-center rounded-full bg-white text-rellia-teal font-semibold text-sm md:text-base px-7 py-3 md:px-8 md:py-3.5 shadow-sm hover:bg-rellia-mint transition-colors"
                   >
-                    Talk to the team
-                  </a>
+                    Get in Touch
+                  </Link>
                 </div>
               </div>
             </ScrollReveal>

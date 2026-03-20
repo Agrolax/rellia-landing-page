@@ -1,6 +1,6 @@
 import SectionHeading from "@/components/SectionHeading";
-import RelliaButton from "@/components/RelliaButton";
 import ScrollReveal from "./ScrollReveal";
+import { Link } from "react-router-dom";
 
 export default function CTASection() {
   return (
@@ -20,9 +20,12 @@ export default function CTASection() {
               </div>
 
               {/* Inverting button hover */}
-              <RelliaButton variant="secondary" size="lg" className="border-[3px]">
+              <Link
+                to="/network"
+                className="font-host-grotesk font-semibold rounded-full whitespace-nowrap tracking-tight transition-all duration-200 hover:-translate-y-1 hover:shadow-xl border-2 bg-transparent text-rellia-mint border-rellia-mint hover:bg-rellia-mint hover:text-rellia-teal text-base md:text-lg px-10 py-5 border-[3px]"
+              >
                 Apply to Join Now
-              </RelliaButton>
+              </Link>
             </div>
 
             {/* Right/Bottom Image */}
