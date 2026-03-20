@@ -73,8 +73,14 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="w-full bg-rellia-teal py-16 md:py-24 px-6 md:px-10">
-      <div className="max-w-[1300px] mx-auto">
+    <section className="relative w-full bg-rellia-teal py-16 md:py-24 px-6 md:px-10 overflow-hidden">
+      <img
+        src="/images/hologram-logo.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-20 top-8 w-[360px] max-w-[55vw] opacity-[0.08] md:right-0 md:top-0 md:w-[460px]"
+      />
+      <div className="relative z-10 max-w-[1300px] mx-auto">
         <ScrollReveal delay={0.1}>
           <SectionHeading
             title="Where we focus"
