@@ -10,21 +10,40 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
-import { CalendarDays, MapPin, Clock, ArrowRight } from "lucide-react";
+import { CalendarDays, ArrowRight } from "lucide-react";
 
 type PastEvent = {
-  name: string;
-  date: string;
-  time: string;
-  location: string;
+  dateTime: string;
+  person: string;
+  imageSrc: string;
 };
 
 const pastEvents: PastEvent[] = [
-  { name: "Lorem Ipsum Event", date: "Lorem 15, 2026", time: "Lorem ipsum", location: "Lorem (Virtual)" },
-  { name: "Lorem Ipsum Event", date: "Lorem 10, 2026", time: "Lorem ipsum", location: "Lorem (Virtual)" },
-  { name: "Lorem Ipsum Event", date: "Lorem 05, 2026", time: "Lorem ipsum", location: "Lorem (Virtual)" },
-  { name: "Lorem Ipsum Event", date: "Lorem 20, 2025", time: "Lorem ipsum", location: "Lorem (Virtual)" },
-  { name: "Lorem Ipsum Event", date: "Lorem 08, 2025", time: "Lorem ipsum", location: "Lorem (On-site)" },
+  {
+    dateTime: "Lorem 15, 2026 — 6:00 PM",
+    person: "Lorem Ipsum",
+    imageSrc: "/images/TabletMeeting.png",
+  },
+  {
+    dateTime: "Lorem 10, 2026 — 7:00 PM",
+    person: "Lorem Ipsum",
+    imageSrc: "/images/TabletMeeting.png",
+  },
+  {
+    dateTime: "Lorem 05, 2026 — 12:00 PM",
+    person: "Lorem Ipsum",
+    imageSrc: "/images/TabletMeeting.png",
+  },
+  {
+    dateTime: "Lorem 20, 2025 — 1:00 PM",
+    person: "Lorem Ipsum",
+    imageSrc: "/images/TabletMeeting.png",
+  },
+  {
+    dateTime: "Lorem 08, 2025 — 5:00 PM",
+    person: "Lorem Ipsum",
+    imageSrc: "/images/TabletMeeting.png",
+  },
 ];
 
 const carouselArrowClass = cn(
@@ -44,13 +63,12 @@ export default function ProgramsEvents() {
 
   const programs = [
     {
-      tag: "Our Programs",
-      title: "Build Your QMS",
+      title: "Build Your Quality Management System",
       description:
-        "Build a lean, scalable QMS to comply with ISO 13485, MDSAP, FDA, and MDR requirements, with personalized guidance from quality experts every step of the way.",
+        "Build a lean, scalable QMS to comply with ISO 13485, MDSAP, FDA, and MDR requirements, with personalized guidance from quality experts every step of the way",
       imageSrc: "/images/QMS-programs.webp",
       href: "/programs/qms",
-      buttonText: "View Program",
+      buttonText: "Get Started",
     },
   ];
 
@@ -67,12 +85,8 @@ export default function ProgramsEvents() {
           <div className="relative z-10 max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal>
               <h1 className="text-white text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight mb-6">
-                Programming that fits{" "}
-                <span className="text-rellia-mint">your startup</span>
+                Programming and Events
               </h1>
-              <p className="text-white/80 text-lg md:text-2xl max-w-3xl font-urbanist leading-relaxed">
-                Targeted programs and live events built specifically for health tech founders at every stage of commercialization.
-              </p>
             </ScrollReveal>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
@@ -109,11 +123,8 @@ export default function ProgramsEvents() {
           <div className="max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal className="mb-12 text-center">
               <h2 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
-                Our Programs
+                Programming that fits your startup
               </h2>
-              <p className="font-urbanist text-black/60 text-base md:text-lg mt-4 max-w-2xl mx-auto leading-relaxed">
-                Start with our flagship QMS program built for health tech teams that need an audit-ready foundation.
-              </p>
             </ScrollReveal>
 
             <ScrollReveal>
@@ -132,9 +143,6 @@ export default function ProgramsEvents() {
         <section id="view-events" className="py-20 md:py-32 bg-rellia-cream/50">
           <div className="max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal className="mb-12 flex flex-col items-center text-center">
-              <span className="inline-flex items-center rounded-full border border-black/10 bg-white/70 px-4 py-1 text-xs md:text-sm font-urbanist text-black/60 mb-6 backdrop-blur">
-                Events
-              </span>
               <h2 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
                 Upcoming Events
               </h2>
@@ -177,31 +185,22 @@ export default function ProgramsEvents() {
                   <CarouselContent className="-ml-4 md:-ml-6">
                     {pastEvents.map((event) => (
                       <CarouselItem
-                        key={event.name + event.date}
+                        key={event.dateTime + event.person}
                         className="pl-4 md:pl-6 basis-full sm:basis-1/2 lg:basis-1/3"
                       >
                         <div className="bg-white rounded-2xl border border-black/5 p-6 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
-                          <h4 className="font-host-grotesk font-bold text-black text-lg mb-4">
-                            {event.name}
-                          </h4>
-                          <div className="flex flex-col gap-2 text-sm font-urbanist text-black/60 mb-6">
-                            <span className="flex items-center gap-2">
-                              <CalendarDays className="w-4 h-4 text-rellia-mint shrink-0" />
-                              {event.date}
-                            </span>
-                            <span className="flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-rellia-mint shrink-0" />
-                              {event.time}
-                            </span>
-                            <span className="flex items-center gap-2">
-                              <MapPin className="w-4 h-4 text-rellia-mint shrink-0" />
-                              {event.location}
-                            </span>
+                          <div className="rounded-xl overflow-hidden mb-5">
+                            <img
+                              src={event.imageSrc}
+                              alt={event.person}
+                              className="h-40 w-full object-cover"
+                            />
                           </div>
-                          <div className="mt-auto flex items-center justify-between gap-3">
-                            <span className="inline-flex items-center rounded-full bg-black/5 px-3 py-1 text-xs font-urbanist text-black/50">
-                              Completed
-                            </span>
+                          <div className="flex flex-col gap-2 text-sm font-urbanist text-black/60 mb-6">
+                            <p className="text-black/60">{event.dateTime}</p>
+                            <p className="text-black/60">{event.person}</p>
+                          </div>
+                          <div className="mt-auto">
                             <a
                               href="mailto:hello@relliahealth.com?subject=Event%20Inquiry"
                               className="inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-5 py-2 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all duration-200 text-sm"
