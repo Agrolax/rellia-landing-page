@@ -192,45 +192,47 @@ export default function ProgramsEvents() {
                 {upcomingEvents.map((event) => (
                   <div
                     key={event.title}
-                    className="bg-white rounded-2xl border border-black/5 p-6 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col"
+                    className="bg-white rounded-2xl border border-black/5 p-6 shadow-sm hover:shadow-md transition-shadow h-full flex flex-row gap-5 items-start"
                   >
-                    <h4 className="font-host-grotesk font-bold text-black text-lg mb-4">{event.title}</h4>
-                    <div className="rounded-xl overflow-hidden mb-5">
+                    <div className="flex-1 flex flex-col min-w-0">
+                      <h4 className="font-host-grotesk font-bold text-black text-lg mb-3">{event.title}</h4>
+                      <div className="flex flex-col gap-2 text-sm font-urbanist text-black/60 mb-5">
+                        <p className="text-black/60 flex items-center gap-2">
+                          <CalendarDays className="w-4 h-4 text-rellia-mint shrink-0" />
+                          {event.dateTime}
+                        </p>
+                        <p className="text-black/60 flex items-center gap-2">
+                          <User className="w-4 h-4 text-rellia-mint shrink-0" />
+                          {event.person}
+                        </p>
+                      </div>
+                      <div className="mt-auto">
+                        {event.comingSoon ? (
+                          <button
+                            type="button"
+                            disabled
+                            className="inline-flex items-center justify-center rounded-full bg-black/10 text-black/40 font-host-grotesk font-semibold px-5 py-2 border-2 border-black/10 cursor-not-allowed text-sm"
+                          >
+                            Coming Soon
+                          </button>
+                        ) : (
+                          <a
+                            href={event.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-5 py-2 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all duration-200 text-sm"
+                          >
+                            View
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    <div className="w-28 h-28 shrink-0 rounded-xl overflow-hidden">
                       <img
                         src={event.imageSrc}
                         alt={event.title}
-                        className="aspect-square w-full object-cover"
+                        className="w-full h-full object-cover"
                       />
-                    </div>
-                    <div className="flex flex-col gap-2 text-sm font-urbanist text-black/60 mb-6">
-                      <p className="text-black/60 flex items-center gap-2">
-                        <CalendarDays className="w-4 h-4 text-rellia-mint shrink-0" />
-                        {event.dateTime}
-                      </p>
-                      <p className="text-black/60 flex items-center gap-2">
-                        <User className="w-4 h-4 text-rellia-mint shrink-0" />
-                        {event.person}
-                      </p>
-                    </div>
-                    <div className="mt-auto">
-                      {event.comingSoon ? (
-                        <button
-                          type="button"
-                          disabled
-                          className="inline-flex items-center justify-center rounded-full bg-black/10 text-black/40 font-host-grotesk font-semibold px-5 py-2 border-2 border-black/10 cursor-not-allowed text-sm"
-                        >
-                          Coming Soon
-                        </button>
-                      ) : (
-                        <a
-                          href={event.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-5 py-2 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all duration-200 text-sm"
-                        >
-                          View
-                        </a>
-                      )}
                     </div>
                   </div>
                 ))}
