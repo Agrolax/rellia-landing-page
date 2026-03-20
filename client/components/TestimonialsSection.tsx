@@ -174,7 +174,7 @@ export default function TestimonialsSection() {
           <Carousel
             opts={{
               align: "start",
-              loop: true,
+              loop: false,
               containScroll: "trimSnaps",
             }}
             className="w-full max-w-full min-w-0"
