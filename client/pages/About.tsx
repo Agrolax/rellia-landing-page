@@ -67,6 +67,13 @@ export default function About() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-rellia-mint via-transparent to-transparent blur-3xl" />
           </div>
 
+          <img
+            src="/images/hologram-logo.png"
+            alt=""
+            aria-hidden
+            className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 h-[70%] md:h-[90%] w-auto object-contain opacity-[0.07] select-none"
+          />
+
           <div className="relative z-10 max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal>
               <h1 className="text-white text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight mb-8">
