@@ -177,11 +177,7 @@ export default function ProgramsQms() {
               <ScrollReveal>
                 <div className="max-w-3xl mx-auto flex flex-col items-center gap-6">
                   <p className="font-urbanist text-black/60 text-base md:text-lg leading-relaxed text-center">
-                    By the end of this program, you will have a complete quality management system.
-                  </p>
-
-                  <p className="font-urbanist text-black/60 text-base md:text-lg leading-relaxed text-center">
-                    A well-designed QMS enables your company to:
+                    By the end of this program, you will have a complete quality management system. A well-designed QMS enables your company to:
                   </p>
 
                   <ul className="max-w-2xl w-full mx-auto flex flex-col gap-4">
@@ -329,23 +325,23 @@ export default function ProgramsQms() {
                   Join the only program designed to help you implement an audit-ready Quality Management System without the headaches.
                 </p>
 
-                <a
-                  href={QMS_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-8 py-4 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all duration-200"
-                >
-                  Sign Up
-                </a>
-
-                <p className="font-urbanist text-black/60 text-base md:text-lg leading-relaxed mt-8">
-                  Pause or cancel at any time.
-                </p>
-
-                <ul className="mt-4 flex flex-col gap-2 list-none font-urbanist text-black/60 text-base md:text-lg leading-relaxed">
-                  <li>Weekly consultations</li>
-                  <li>Instructional content</li>
-                  <li>Frameworks &amp; templates</li>
+                <ul className="mt-4 flex flex-col gap-3 list-none font-urbanist text-black/60 text-base md:text-lg leading-relaxed">
+                  <li className="flex items-start gap-3 justify-center">
+                    <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
+                    <span>Pause or cancel at any time.</span>
+                  </li>
+                  <li className="flex items-start gap-3 justify-center">
+                    <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
+                    <span>Weekly consultations</span>
+                  </li>
+                  <li className="flex items-start gap-3 justify-center">
+                    <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
+                    <span>Instructional content</span>
+                  </li>
+                  <li className="flex items-start gap-3 justify-center">
+                    <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
+                    <span>Frameworks &amp; templates</span>
+                  </li>
                 </ul>
               </div>
             </ScrollReveal>
@@ -363,12 +359,25 @@ export default function ProgramsQms() {
                 <p className="font-urbanist text-white/80 text-lg md:text-xl max-w-xl mx-auto mb-8">
                   Still have questions or want to learn more about the program? Reach out at any time to speak with us directly.
                 </p>
+
+                <a
+                  href={QMS_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full bg-rellia-mint text-rellia-teal font-host-grotesk font-semibold px-8 py-4 hover:bg-white transition-colors duration-200"
+                >
+                  Sign Up
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
+
+                <div className="mt-6">
                 <Link
                   to="/contact"
                   className="inline-flex items-center justify-center rounded-full bg-rellia-mint text-rellia-teal font-host-grotesk font-semibold px-8 py-4 hover:bg-white transition-colors duration-200"
                 >
                   Contact US
                 </Link>
+                </div>
               </div>
             </ScrollReveal>
           </div>
