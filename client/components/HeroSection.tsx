@@ -92,7 +92,7 @@ export default function HeroSection() {
           style={{ animationDelay: "0.4s" }}
         >
           <RelliaButton
-            className="bg-rellia-teal text-white border-rellia-teal hover:bg-rellia-teal hover:text-white hover:border-rellia-teal hover:shadow-xl"
+            className="bg-rellia-mint text-rellia-teal border-rellia-mint hover:bg-white hover:text-rellia-teal hover:border-white hover:shadow-xl"
             onClick={() => navigate("/network")}
           >
             Get Involved Now
