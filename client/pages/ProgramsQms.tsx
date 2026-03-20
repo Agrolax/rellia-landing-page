@@ -341,7 +341,7 @@ export default function ProgramsQms() {
         <section className="py-16 md:py-24 bg-rellia-cream/50">
           <div className="max-w-[700px] mx-auto px-6 md:px-10">
             <ScrollReveal>
-              <div className="bg-white rounded-3xl border border-black/5 shadow-lg p-10 md:p-14 text-center">
+              <div className="bg-white rounded-3xl border border-black/5 shadow-lg p-8 md:p-10 text-center">
                 <span className="inline-flex items-center rounded-full border border-rellia-teal/20 bg-rellia-teal/5 px-4 py-1 text-xs md:text-sm font-urbanist text-rellia-teal mb-6">
                   Pricing
                 </span>
@@ -354,15 +354,6 @@ export default function ProgramsQms() {
                 <p className="font-urbanist text-black/60 text-base md:text-lg leading-relaxed max-w-md mx-auto mb-8">
                   Subscription-based. Includes 1-on-1 mentorship, all templates and SOPs, weekly check-ins, and peer cohort access.
                 </p>
-                <a
-                  href={QMS_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-rellia-teal text-white font-host-grotesk font-semibold px-8 py-4 rounded-full border-2 border-rellia-teal hover:bg-transparent hover:text-rellia-teal transition-all duration-200"
-                >
-                  Get Started
-                  <ArrowRight className="w-4 h-4" />
-                </a>
               </div>
             </ScrollReveal>
           </div>
@@ -379,13 +370,15 @@ export default function ProgramsQms() {
                 <p className="font-urbanist text-white/80 text-lg md:text-xl max-w-xl mx-auto mb-8">
                   Reach out and we&apos;ll help you figure out if the program is the right fit for where you are today.
                 </p>
-                <Link
-                  to="/contact"
+                <a
+                  href={QMS_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-rellia-mint text-rellia-teal font-host-grotesk font-semibold px-8 py-4 rounded-full hover:bg-white transition-colors duration-200 inline-flex"
                 >
-                  Contact Us
+                  Get Started
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </a>
               </div>
             </ScrollReveal>
           </div>
