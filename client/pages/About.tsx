@@ -166,14 +166,12 @@ export default function About() {
               </p>
             </ScrollReveal>
 
-            <div className="overflow-x-auto pb-2">
-              <div className="flex gap-6 min-w-max">
-                {team.map((t) => (
-                  <div key={t.name} className="w-[280px] sm:w-[300px]">
-                    <TeamMemberCard name={t.name} role={t.role} bio={t.bio} imageSrc={t.imageSrc} />
-                  </div>
-                ))}
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {team.map((t) => (
+                <div key={t.name}>
+                  <TeamMemberCard name={t.name} role={t.role} bio={t.bio} imageSrc={t.imageSrc} />
+                </div>
+              ))}
             </div>
           </div>
         </section>

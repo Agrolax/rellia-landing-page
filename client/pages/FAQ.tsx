@@ -9,13 +9,13 @@ const faqs = [
     id: "products",
     question: "What kind of products does Rellia work with?",
     answer:
-      "We specialize in healthcare-focused innovations with a software component - digital health, health tech, medtech, whatever you call it. Whether it’s a connected medical device, a diagnostic platform, a digital therapeutic, or a general wellness app, our programs are built to help you succeed specifically in the complex healthcare technology market.",
+      "We specialize in healthcare-focused innovations with a software component - digital health, health tech, medtech, whatever you call it. Whether it's a connected medical device, a diagnostic platform, a digital therapeutic, or a general wellness app, our programs are built to help you succeed specifically in the complex healthcare technology market.",
   },
   {
     id: "funding",
     question: "Does my company need funding or revenue to join?",
     answer:
-      "We work with companies at every stage of development, from pre-seed to Series A, with customized programs to meet you where you are. As long as you have a clear idea of the problem you’re solving and a vision for the solution, we can help.",
+      "We work with companies at every stage of development, from pre-seed to Series A, with customized programs to meet you where you are. As long as you have a clear idea of the problem you're solving and a vision for the solution, we can help.",
   },
   {
     id: "cost",
@@ -27,7 +27,7 @@ const faqs = [
     id: "equity",
     question: "Do founders need to give up equity to join?",
     answer:
-      "No. We believe founders should keep control of their companies. Once you’re a member, you’ll have access to the expertise and resources you need without giving up a stake in your business.",
+      "No. We believe founders should keep control of their companies. Once you're a member, you'll have access to the expertise and resources you need without giving up a stake in your business.",
   },
   {
     id: "country",
@@ -51,7 +51,7 @@ const faqs = [
     id: "advisor-time",
     question: "How much time do advisors commit to?",
     answer:
-      "We know your time is valuable. Advisors typically volunteer a few hours a month to high-impact conversations with founders who are building in areas they’re passionate about. We handle all the logistics - you simply show up, share your thoughts, and help guide the next generation of healthcare companies.",
+      "We know your time is valuable. Advisors typically volunteer a few hours a month to high-impact conversations with founders who are building in areas they're passionate about. We handle all the logistics - you simply show up, share your thoughts, and help guide the next generation of healthcare companies.",
   },
   {
     id: "investors",
@@ -61,7 +61,7 @@ const faqs = [
   },
   {
     id: "industry-partner",
-    question: "I’m an industry partner - how can I collaborate with Rellia Health?",
+    question: "I'm an industry partner - how can I collaborate with Rellia Health?",
     answer:
       "Industry partners can engage with our founder community through sponsored programs or events, mentorship, and founder referrals. Rellia is a trusted resource for early-stage health tech startups, and a recommendation from us is meaningfully different from a cold channel.",
   },
@@ -92,35 +92,63 @@ export default function FAQ() {
                 Frequently Asked Questions
               </span>
               <h1 className="text-black text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-5">
-                We’ve collected the most common questions our members ask before joining.
+                Everything you need to know about Rellia
               </h1>
+              <p className="font-urbanist text-black/60 text-base md:text-lg leading-relaxed max-w-2xl">
+                We&apos;ve collected the most common questions our members ask before joining.
+              </p>
             </ScrollReveal>
           </div>
         </section>
 
-        {/* FAQ Content */}
+        {/* FAQ Content — 2 column layout */}
         <section className="py-16 md:py-24 bg-white">
-          <div className="max-w-[1100px] mx-auto px-6 md:px-10">
-            <ScrollReveal delay={0.1}>
-              <div className="rounded-3xl border border-black/5 bg-white/80 shadow-sm">
-                <Accordion type="single" collapsible defaultValue={faqs[0].id}>
-                  {faqs.map((item, index) => (
-                    <AccordionItem
-                      key={item.id}
-                      value={item.id}
-                      className={index === faqs.length - 1 ? "border-b-0" : undefined}
+          <div className="max-w-[1300px] mx-auto px-6 md:px-10">
+            <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+              {/* Left column — info panel */}
+              <div className="lg:w-[340px] lg:shrink-0">
+                <ScrollReveal>
+                  <div className="lg:sticky lg:top-28">
+                    <h3 className="font-host-grotesk font-bold text-black text-2xl md:text-3xl tracking-tight mb-4">
+                      Still have questions?
+                    </h3>
+                    <p className="font-urbanist text-black/60 text-base leading-relaxed mb-6">
+                      Learn more about how Rellia works and explore the different pathways available for founders, advisors, investors, and industry partners.
+                    </p>
+                    <Link
+                      to="/network"
+                      className="inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-7 py-3 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all duration-200 text-sm"
                     >
-                      <AccordionTrigger className="text-left text-base md:text-lg font-medium text-black py-5 px-5 md:px-6">
-                        {item.question}
-                      </AccordionTrigger>
-                      <AccordionContent className="px-5 md:px-6 pb-5 text-black/70 font-urbanist text-sm md:text-base leading-relaxed">
-                        {item.answer}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
+                      Explore the Network
+                    </Link>
+                  </div>
+                </ScrollReveal>
               </div>
-            </ScrollReveal>
+
+              {/* Right column — accordion */}
+              <div className="flex-1 min-w-0">
+                <ScrollReveal delay={0.1}>
+                  <div className="rounded-3xl border border-black/5 bg-white/80 shadow-sm">
+                    <Accordion type="single" collapsible defaultValue={faqs[0].id}>
+                      {faqs.map((item, index) => (
+                        <AccordionItem
+                          key={item.id}
+                          value={item.id}
+                          className={index === faqs.length - 1 ? "border-b-0" : undefined}
+                        >
+                          <AccordionTrigger className="text-left text-base md:text-lg font-medium text-black py-5 px-5 md:px-6">
+                            {item.question}
+                          </AccordionTrigger>
+                          <AccordionContent className="px-5 md:px-6 pb-5 text-black/70 font-urbanist text-sm md:text-base leading-relaxed">
+                            {item.answer}
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </div>
+                </ScrollReveal>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -137,7 +165,7 @@ export default function FAQ() {
                     Every startup is different
                   </h3>
                   <p className="text-white/80 font-urbanist text-sm md:text-base leading-relaxed max-w-xl">
-                    Tell us more about where you are today and where you want to be in the next 12–18 months. We’ll share how Rellia can help accelerate that path, or recommend a better fit if we’re not it.
+                    Tell us more about where you are today and where you want to be in the next 12–18 months. We'll share how Rellia can help accelerate that path, or recommend a better fit if we're not it.
                   </p>
                 </div>
                 <div className="relative z-10">
@@ -158,4 +186,3 @@ export default function FAQ() {
     </div>
   );
 }
-
