@@ -3,7 +3,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
-import { Link } from "react-router-dom";
 import {
   CheckCircle2,
   FileText,
@@ -369,15 +368,6 @@ export default function ProgramsQms() {
                   Sign Up
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </a>
-
-                <div className="mt-6">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center rounded-full bg-rellia-mint text-rellia-teal font-host-grotesk font-semibold px-8 py-4 hover:bg-white transition-colors duration-200"
-                >
-                  Contact US
-                </Link>
-                </div>
               </div>
             </ScrollReveal>
           </div>
