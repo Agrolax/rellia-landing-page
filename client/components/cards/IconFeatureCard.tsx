@@ -25,7 +25,7 @@ export function IconFeatureCard({
       <div
         className={cn(
           "group relative flex h-full min-w-0 cursor-default flex-col gap-6 rounded-[20px] border border-black/10 bg-white p-8 shadow-sm transition-all duration-300 md:p-10",
-          "hover:-translate-y-2 hover:scale-[1.05] hover:bg-rellia-teal hover:shadow-2xl",
+          "hover:-translate-y-2 hover:bg-rellia-teal hover:shadow-2xl",
           className,
         )}
       >

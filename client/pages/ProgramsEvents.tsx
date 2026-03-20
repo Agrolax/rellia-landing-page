@@ -19,6 +19,15 @@ type PastEvent = {
   imageSrc: string;
 };
 
+type UpcomingEvent = {
+  title: string;
+  dateTime: string;
+  person: string;
+  imageSrc: string;
+  href?: string;
+  comingSoon?: boolean;
+};
+
 const pastEvents: PastEvent[] = [
   {
     title: "Lorem Ipsum Event",
@@ -49,6 +58,23 @@ const pastEvents: PastEvent[] = [
     dateTime: "Lorem 08, 2025 — 5:00 PM",
     person: "Lorem Ipsum",
     imageSrc: "/images/TabletMeeting.png",
+  },
+];
+
+const upcomingEvents: UpcomingEvent[] = [
+  {
+    title: "Health System Adoption for Startups",
+    dateTime: "April 9th at 2PM",
+    person: "Rellia Health",
+    imageSrc: "/images/healthsystem-events.avif",
+    href: "https://luma.com/ao1g8a7h",
+  },
+  {
+    title: "Leadership Mindset for Health tech founders",
+    dateTime: "6 may at 12pm",
+    person: "Rellia Health",
+    imageSrc: "/images/leadershipMindset-events.webp",
+    comingSoon: true,
   },
 ];
 
@@ -155,14 +181,52 @@ export default function ProgramsEvents() {
             </ScrollReveal>
 
             <ScrollReveal>
-              <div className="bg-white rounded-3xl border-2 border-dashed border-black/10 p-12 md:p-20 text-center">
-                <CalendarDays className="w-12 h-12 text-black/20 mx-auto mb-4" />
-                <h4 className="font-host-grotesk font-semibold text-black/40 text-xl mb-2">
-                  Stay tuned
-                </h4>
-                <p className="font-urbanist text-black/40 text-base max-w-md mx-auto">
-                  New events are being planned. Check back soon or subscribe to our newsletter to get notified.
-                </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {upcomingEvents.map((event) => (
+                  <div
+                    key={event.title}
+                    className="bg-white rounded-2xl border border-black/5 p-6 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col"
+                  >
+                    <h4 className="font-host-grotesk font-bold text-black text-lg mb-4">{event.title}</h4>
+                    <div className="rounded-xl overflow-hidden mb-5">
+                      <img
+                        src={event.imageSrc}
+                        alt={event.title}
+                        className="h-44 w-full object-cover"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2 text-sm font-urbanist text-black/60 mb-6">
+                      <p className="text-black/60 flex items-center gap-2">
+                        <CalendarDays className="w-4 h-4 text-rellia-mint shrink-0" />
+                        {event.dateTime}
+                      </p>
+                      <p className="text-black/60 flex items-center gap-2">
+                        <User className="w-4 h-4 text-rellia-mint shrink-0" />
+                        {event.person}
+                      </p>
+                    </div>
+                    <div className="mt-auto">
+                      {event.comingSoon ? (
+                        <button
+                          type="button"
+                          disabled
+                          className="inline-flex items-center justify-center rounded-full bg-black/10 text-black/40 font-host-grotesk font-semibold px-5 py-2 border-2 border-black/10 cursor-not-allowed text-sm"
+                        >
+                          Coming Soon
+                        </button>
+                      ) : (
+                        <a
+                          href={event.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-5 py-2 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all duration-200 text-sm"
+                        >
+                          View
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             </ScrollReveal>
           </div>

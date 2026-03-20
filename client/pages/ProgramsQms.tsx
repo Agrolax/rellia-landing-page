@@ -309,7 +309,7 @@ export default function ProgramsQms() {
 
         {/* Pricing */}
         <section className="py-16 md:py-24 bg-rellia-cream/50">
-          <div className="max-w-[700px] mx-auto px-6 md:px-10">
+          <div className="max-w-[620px] mx-auto px-6 md:px-10">
             <ScrollReveal>
               <div className="bg-white rounded-3xl border border-black/5 shadow-lg p-8 md:p-10 text-center">
                 <span className="inline-flex items-center rounded-full border border-rellia-teal/20 bg-rellia-teal/5 px-4 py-1 text-xs md:text-sm font-urbanist text-rellia-teal mb-6">
@@ -328,7 +328,9 @@ export default function ProgramsQms() {
                 </div>
 
                 <p className="font-urbanist text-black/60 text-base md:text-lg leading-relaxed max-w-md mx-auto mb-8">
-                  Join the only program designed to help you implement an audit-ready Quality Management System without the headaches.
+                  Join the only program designed to help you implement an
+                  <br />
+                  audit-ready Quality Management System without the headaches.
                 </p>
 
                 <div className="h-px bg-black/10 w-full mb-6" />
@@ -356,7 +358,7 @@ export default function ProgramsQms() {
                   href={QMS_FORM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-8 w-full inline-flex items-center justify-center rounded-full bg-rellia-mint text-rellia-teal font-host-grotesk font-semibold px-8 py-4 hover:bg-white transition-colors duration-200"
+                  className="mt-8 w-full inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-8 py-4 border-2 border-rellia-teal transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:text-rellia-teal hover:shadow-lg"
                 >
                   Get Started
                   <ArrowRight className="w-4 h-4 ml-2" />

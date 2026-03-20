@@ -1,23 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { Heart, Stethoscope, Globe, Zap } from "lucide-react";
 import { IconFeatureCard, TeamMemberCard, AboutCtaBanner } from "@/components/cards";
-import { cn } from "@/lib/utils";
-
-const teamCarouselArrowClass = cn(
-  "static translate-x-0 translate-y-0 relative",
-  "h-12 w-12 rounded-full border-2 border-rellia-teal bg-white text-rellia-teal shadow-md",
-  "hover:bg-rellia-teal hover:text-white",
-  "disabled:opacity-40 disabled:pointer-events-none",
-);
 
 const values = [
   {
@@ -174,27 +159,15 @@ export default function About() {
               </p>
             </ScrollReveal>
 
-            <Carousel
-              opts={{ align: "center", loop: false, dragFree: false, containScroll: "trimSnaps" }}
-              className="mx-auto w-full max-w-5xl"
-            >
-              <div className="flex flex-col gap-8">
-                <CarouselContent className="-ml-4 md:-ml-6">
-                  {team.map((t) => (
-                    <CarouselItem
-                      key={t.name}
-                      className="basis-full pl-4 md:basis-1/2 md:pl-6 lg:basis-1/3"
-                    >
-                      <TeamMemberCard name={t.name} role={t.role} bio={t.bio} imageSrc={t.imageSrc} />
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <div className="flex items-center justify-center gap-4">
-                  <CarouselPrevious className={teamCarouselArrowClass} />
-                  <CarouselNext className={teamCarouselArrowClass} />
-                </div>
+            <div className="overflow-x-auto pb-2">
+              <div className="flex gap-6 min-w-max">
+                {team.map((t) => (
+                  <div key={t.name} className="w-[280px] sm:w-[300px]">
+                    <TeamMemberCard name={t.name} role={t.role} bio={t.bio} imageSrc={t.imageSrc} />
+                  </div>
+                ))}
               </div>
-            </Carousel>
+            </div>
           </div>
         </section>
 

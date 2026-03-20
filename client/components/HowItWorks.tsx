@@ -73,12 +73,13 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="w-full bg-white py-16 md:py-24 px-6 md:px-10">
+    <section className="w-full bg-rellia-teal py-16 md:py-24 px-6 md:px-10">
       <div className="max-w-[1300px] mx-auto">
         <ScrollReveal delay={0.1}>
           <SectionHeading
             title="Where we focus"
             description="Health tech commercialization is complex, and generic start-up advice won't help you. These are the areas where Rellia can help."
+            tone="light"
             className="mb-12 md:mb-16"
           />
         </ScrollReveal>
