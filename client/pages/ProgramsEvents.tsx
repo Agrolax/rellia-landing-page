@@ -117,15 +117,19 @@ export default function ProgramsEvents() {
           <div className="relative z-10 max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal>
               <h1 className="text-white text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight mb-6">
-                Programming and Events
+                Less theory.{" "}
+                <span className="text-rellia-mint">More progress.</span>
               </h1>
+              <p className="text-white/80 text-lg md:text-2xl max-w-3xl font-urbanist leading-relaxed">
+                Targeted programs and live events designed to help you accomplish your next milestone, not just learn about it.
+              </p>
             </ScrollReveal>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
               <ScrollReveal delay={0.1}>
                 <a
                   href="#view-programs"
-                  className="inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-8 py-4 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all duration-200"
+                  className="inline-flex items-center justify-center rounded-full bg-white text-rellia-teal font-host-grotesk font-semibold px-8 py-4 border-2 border-white hover:bg-rellia-mint hover:border-rellia-mint transition-all duration-200"
                   onClick={(e) => {
                     e.preventDefault();
                     scrollToId("view-programs");
@@ -157,6 +161,9 @@ export default function ProgramsEvents() {
               <h2 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
                 Programming that fits your startup
               </h2>
+              <p className="font-urbanist text-black/60 text-base md:text-lg mt-4 max-w-2xl mx-auto leading-relaxed">
+                Every program is built around a single, focused outcome. Spend your time on exactly what you need right now, and leave the rest for later.
+              </p>
             </ScrollReveal>
 
             <ScrollReveal>
@@ -192,7 +199,7 @@ export default function ProgramsEvents() {
                       <img
                         src={event.imageSrc}
                         alt={event.title}
-                        className="h-44 w-full object-cover"
+                        className="aspect-square w-full object-cover"
                       />
                     </div>
                     <div className="flex flex-col gap-2 text-sm font-urbanist text-black/60 mb-6">

@@ -63,8 +63,8 @@ export function IconFeatureCard({
   return (
     <div
       className={cn(
-        "flex h-full flex-col gap-5 rounded-3xl border border-black/[0.08] bg-white p-8 shadow-sm transition-shadow duration-300 md:gap-6 md:p-9",
-        "hover:shadow-md",
+        "flex h-full flex-col gap-5 rounded-3xl border border-black/[0.08] bg-white p-8 shadow-md transition-all duration-300 md:gap-6 md:p-9",
+        "hover:shadow-xl hover:-translate-y-1",
         className,
       )}
     >

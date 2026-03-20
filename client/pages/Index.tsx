@@ -14,11 +14,11 @@ export default function Index() {
       <Navbar />
       <main>
         <HeroSection />
-        <LogoMarquee />
         <NetworkMetricsSection />
         <WhyRellia />
         <HowItWorks />
         <TestimonialsSection />
+        <LogoMarquee />
         <CTASection />
       </main>
       <Footer />

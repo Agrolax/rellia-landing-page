@@ -15,12 +15,10 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-/* ------------------------------------------------------------------ */
-/*  QMS data                                                           */
-/* ------------------------------------------------------------------ */
+const QMS_PAYMENT_URL = "https://forms.fillout.com/t/1GPWpbBbWcus";
 
 const outcomes = [
-  "Obtain regulatory approvals to enter new markets",
+  "A compliant Quality Management System tailored to your product classification",
   "Pass regulator audits and inspections",
   "Demonstrate a critical early milestone to investors",
   "Execute business operations more efficiently",
@@ -32,19 +30,19 @@ const howItWorksCards = [
     icon: FileText,
     title: "Starting Frameworks",
     description:
-      "You’ll receive pre-built templates, frameworks, and guidances to give you a solid starting point.",
+      "Receive customized SOPs and templates that serve as your foundation - designed to be flexible enough for early-stage startups.",
   },
   {
     icon: Wrench,
     title: "Implementation Support",
     description:
-      "You’ll also receive an instructional video to walk you through how to complete the templates and apply them to your own QMS.",
+      "Work through building your QMS with support and accountability at every step so nothing falls through the cracks",
   },
   {
     icon: UserCheck,
     title: "1-on-1 Mentorship",
     description:
-      "You’ll have dedicated time with a QMS mentor who will help troubleshoot challenges, refine your SOPs, and ensure you stay compliant.",
+      "Get personalized guidance from quality and regulatory experts who have built processes for medical device companies and who understand your constraints",
   },
 ];
 
@@ -59,19 +57,19 @@ const pillars = [
     icon: Layers,
     title: "Own Your Own Processes",
     description:
-      "You know your company better than anyone. You’ll have our templates to get you started, but then you’ll have total control in how your systems are designed.",
+      "No two companies operate the same way. We build your QMS around how your team actually works, not with one-size-fits-all templates.",
   },
   {
     icon: GraduationCap,
-    title: "Founder-Centered Mentorship",
+    title: "Expert Guidance",
     description:
-      "You’ll receive personalized, one-on-one mentorship from a regulatory and quality expert. You’ll never have to guess if something is compliant or not.",
+      "Your mentor knows quality inside and out. Together you get it done without adding quality management to your already long list of things to master.",
   },
   {
     icon: Timer,
     title: "Take It At Your Own Pace",
     description:
-      "The program is designed to help keep you on track, but we understand that things change fast for startups. Timelines can be made flexible according to your schedule.",
+      "Every startup moves differently. The program flexes to your timeline, capacity, and priorities because we know that your QMS is just one of the hundred things you are juggling right now.",
   },
 ];
 
@@ -79,45 +77,36 @@ type TimelineMonth = { month: string; weeks: string[] };
 
 const timeline: TimelineMonth[] = [
   {
-    month: "Month 1",
+    month: "Month 1 — Core Processes",
     weeks: [
-      "Week 1: Document and Record Control, Training and Qualification",
-      "Week 2: Work Environment, Information Security",
-      "Week 3: Product Development",
-      "Week 4: Risk Management",
+      "Week 1–2: QMS gap assessment and regulatory landscape, Document control system setup, Employee training and hiring practices, Work environment and security controls",
+      "Week 3–4: Design controls, Product development lifecycle (IEC 62304), Risk management framework (ISO 14971)",
     ],
   },
   {
-    month: "Month 2",
+    month: "Month 2 — Vendors and Manufacturing Partners",
     weeks: [
-      "Week 5: Supplier Management",
-      "Week 6: Purchasing, Incoming Quality Control, Process Software Validation",
-      "Week 7: Production, Operations",
-      "Week 8: Validation, Change Management",
+      "Week 5–6: Validation of third-party tools and production processes, Configuration and change management, Supplier evaluation",
+      "Week 7–8: Purchasing processes, Inspection of purchased products and services, Production and operations controls",
     ],
   },
   {
-    month: "Month 3",
+    month: "Month 3 — Market Launch",
     weeks: [
-      "Week 9: Marketing, Sales, Installation, and Support",
-      "Week 10: Shipping, Labeling",
-      "Week 11: Complaint Management",
-      "Week 12: Nonconformities and CAPAs",
+      "Week 9–10: Labeling and distribution, Marketing and sales, Installation and customer support",
+      "Week 11–12: Post-market monitoring and customer complaint handling, Regulatory and legal compliance, Adverse events and recall management",
     ],
   },
   {
-    month: "Month 4",
+    month: "Month 4 — Continuous Improvements",
     weeks: [
-      "Week 13: Audits",
-      "Week 14: Regulatory, Legal, Adverse Events, and Recalls",
-      "Week 15: Analysis, Improvements, and Management Responsibility",
-      "Week 16: Quality Manual",
+      "Week 13–14: Handling defects, Preventing future issues from occurring, Internal and external audit preparation",
+      "Week 15–16: Data analysis and improvements, Management responsibilities, Quality system summary and future objectives",
     ],
   },
 ];
 
 export default function ProgramsQms() {
-  const QMS_FORM_URL = "https://forms.fillout.com/t/1GPWpbBbWcus";
   const [timelineOpen, setTimelineOpen] = useState<string | undefined>(undefined);
 
   return (
@@ -140,16 +129,15 @@ export default function ProgramsQms() {
 
                 <div className="flex-1 order-2 lg:order-2">
                   <h2 className="font-host-grotesk font-bold text-black text-4xl md:text-5xl tracking-tight mb-6">
-                    <span className="block">Build Your</span>
-                    <span className="block">Quality Management System</span>
+                    Build Your QMS
                   </h2>
                   <p className="font-urbanist text-black/70 text-lg md:text-xl leading-relaxed max-w-xl">
-                    Build a lean, scalable QMS to comply with ISO 13485, MDSAP, FDA, and MDR requirements, with personalized guidance from quality experts every step of the way
+                    A simplified, mentor-led program that helps medical device founders build an audit-ready Quality Management System - without needing a background in regulatory affairs
                   </p>
 
                   <div className="mt-8">
                     <a
-                      href={QMS_FORM_URL}
+                      href={QMS_PAYMENT_URL}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-8 py-4 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all duration-200"
@@ -165,7 +153,7 @@ export default function ProgramsQms() {
         </section>
 
         {/* Program Outcomes */}
-        <section className="py-16 md:py-24 bg-rellia-cream/50">
+        <section className="py-16 md:py-24 bg-rellia-teal/5">
           <div className="max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal className="mb-12 text-center">
               <h3 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
@@ -213,7 +201,7 @@ export default function ProgramsQms() {
                 const Icon = card.icon;
                 return (
                   <ScrollReveal key={card.title} delay={i * 0.1}>
-                    <div className="bg-white rounded-3xl border border-black/5 p-8 shadow-sm hover:shadow-lg transition-shadow h-full">
+                    <div className="bg-white rounded-3xl border border-black/5 p-8 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
                       <div className="w-12 h-12 rounded-2xl bg-rellia-mint/20 flex items-center justify-center mb-5">
                         <Icon className="w-6 h-6 text-rellia-teal" />
                       </div>
@@ -232,7 +220,7 @@ export default function ProgramsQms() {
         </section>
 
         {/* Program Pillars */}
-        <section className="py-16 md:py-24 bg-rellia-cream/50">
+        <section className="py-16 md:py-24 bg-rellia-teal/5">
           <div className="max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal className="mb-12 text-center">
               <h3 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
@@ -244,7 +232,7 @@ export default function ProgramsQms() {
                 const Icon = pillar.icon;
                 return (
                   <ScrollReveal key={pillar.title} delay={i * 0.1}>
-                    <div className="bg-white rounded-3xl border border-black/5 p-8 shadow-sm hover:shadow-md transition-shadow h-full">
+                    <div className="bg-white rounded-3xl border border-black/5 p-8 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
                       <div className="w-12 h-12 rounded-2xl bg-rellia-mint/20 flex items-center justify-center mb-5">
                         <Icon className="w-6 h-6 text-rellia-teal" />
                       </div>
@@ -267,8 +255,11 @@ export default function ProgramsQms() {
           <div className="max-w-[900px] mx-auto px-6 md:px-10">
             <ScrollReveal className="mb-12 text-center">
               <h3 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
-                Program Timeline & Details
+                Program Timeline &amp; Details
               </h3>
+              <p className="font-urbanist text-black/60 text-base md:text-lg mt-4 max-w-xl mx-auto">
+                A structured journey through the key requirements for a successful QMS
+              </p>
             </ScrollReveal>
 
             <ScrollReveal>
@@ -283,7 +274,7 @@ export default function ProgramsQms() {
                   <AccordionItem
                     key={month.month}
                     value={month.month}
-                    className="border border-black/8 rounded-2xl overflow-hidden bg-rellia-cream/30 px-6"
+                    className="border border-black/8 rounded-2xl overflow-hidden bg-rellia-teal/5 px-6"
                   >
                     <AccordionTrigger className="font-host-grotesk font-semibold text-black text-lg md:text-xl py-5 hover:no-underline">
                       {month.month}
@@ -308,7 +299,7 @@ export default function ProgramsQms() {
         </section>
 
         {/* Pricing */}
-        <section className="py-16 md:py-24 bg-rellia-cream/50">
+        <section className="py-16 md:py-24 bg-rellia-teal/5">
           <div className="max-w-[620px] mx-auto px-6 md:px-10">
             <ScrollReveal>
               <div className="bg-white rounded-3xl border border-black/5 shadow-lg p-8 md:p-10 text-center">
@@ -355,7 +346,7 @@ export default function ProgramsQms() {
                 </ul>
 
                 <a
-                  href={QMS_FORM_URL}
+                  href={QMS_PAYMENT_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-8 w-full inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-8 py-4 border-2 border-rellia-teal transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:text-rellia-teal hover:shadow-lg"
@@ -374,7 +365,7 @@ export default function ProgramsQms() {
             <ScrollReveal>
               <div className="bg-rellia-teal rounded-3xl px-8 py-14 md:px-16 md:py-20 text-center">
                 <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tight mb-4">
-                  Let’s Build Your QMS
+                  Let&apos;s Build Your QMS
                 </h3>
                 <p className="font-urbanist text-white/80 text-lg md:text-xl max-w-xl mx-auto mb-8">
                   Still have questions or want to learn more about the program? Reach out at any time to speak with us directly.
@@ -396,4 +387,3 @@ export default function ProgramsQms() {
     </div>
   );
 }
-
