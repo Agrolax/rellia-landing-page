@@ -20,7 +20,7 @@ export default function RelliaButton({
   const variants =
     variant === "primary"
       ? "bg-rellia-teal text-white border-rellia-teal hover:bg-transparent hover:text-rellia-mint hover:border-rellia-mint"
-      : "bg-transparent text-rellia-mint border-rellia-mint hover:bg-rellia-mint hover:text-rellia-teal";
+      : "bg-transparent text-rellia-mint border-rellia-mint hover:bg-white hover:text-rellia-teal hover:border-white";
 
   return <button className={cn(base, sizeCls, variants, className)} {...props} />;
 }
