@@ -11,11 +11,13 @@ import ProgramsEvents from "./pages/ProgramsEvents";
 import ProgramsQms from "./pages/ProgramsQms";
 import NotFound from "./pages/NotFound";
 import PlaceholderPage from "./pages/PlaceholderPage";
+import { Analytics } from '@vercel/analytics/react';
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <Analytics />
     <TooltipProvider>
       <Toaster />
       <Sonner />
