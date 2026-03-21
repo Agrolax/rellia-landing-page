@@ -12,12 +12,14 @@ import ProgramsQms from "./pages/ProgramsQms";
 import NotFound from "./pages/NotFound";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <Analytics />
+    <SpeedInsights />
     <TooltipProvider>
       <Toaster />
       <Sonner />
