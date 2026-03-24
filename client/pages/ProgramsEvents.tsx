@@ -36,7 +36,7 @@ const pastEvents: PastEvent[] = [
     person: "Brenton Hill | Coalition for Health AI",
     imageSrc: "/images/banner-whitelogo.png",
     href: "https://luma.com/1vx5stu2",
-    buttonText: "Watch Replay",
+    buttonText: "View Event",
   },
   {
     title: "Ask a QMS Expert",
@@ -44,7 +44,7 @@ const pastEvents: PastEvent[] = [
     person: "Rellia Health",
     imageSrc: "/images/banner-whitelogo.png",
     href: "https://luma.com/w61qj0g5",
-    buttonText: "Watch Replay",
+    buttonText: "View Event",
   },
   {
     title: "Set Your Stage",
@@ -52,7 +52,7 @@ const pastEvents: PastEvent[] = [
     person: "Alexis Orchard | Rellia Health",
     imageSrc: "/images/banner-darklogo.png",
     href: "https://luma.com/5s736thc",
-    buttonText: "Watch Replay",
+    buttonText: "View Event",
   },
   {
     title: "Clinician Connect: Women's Health",
@@ -60,7 +60,7 @@ const pastEvents: PastEvent[] = [
     person: "Rellia Health",
     imageSrc: "/images/banner-darklogo.png",
     href: "https://luma.com/k6fbogr8",
-    buttonText: "Watch Replay",
+    buttonText: "View Event",
   },
 ];
 
