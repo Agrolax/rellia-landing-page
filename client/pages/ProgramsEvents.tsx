@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
-import { ProgramCard } from "@/components/cards";
 import {
   Carousel,
   CarouselContent,
@@ -17,6 +16,8 @@ type PastEvent = {
   dateTime: string;
   person: string;
   imageSrc: string;
+  href: string;
+  buttonText: string;
 };
 
 type UpcomingEvent = {
@@ -30,34 +31,36 @@ type UpcomingEvent = {
 
 const pastEvents: PastEvent[] = [
   {
-    title: "Lorem Ipsum Event",
-    dateTime: "Lorem 15, 2026 — 6:00 PM",
-    person: "Lorem Ipsum",
-    imageSrc: "/images/TabletMeeting.png",
+    title: "Why Healthcare Keeps Saying No to Your AI (And How to Fix It)",
+    dateTime: "Thursday, March 12 — 1:00 PM EDT",
+    person: "Brenton Hill | Coalition for Health AI",
+    imageSrc: "/images/banner-whitelogo.png",
+    href: "https://luma.com/1vx5stu2",
+    buttonText: "Watch Replay",
   },
   {
-    title: "Lorem Ipsum Event",
-    dateTime: "Lorem 10, 2026 — 7:00 PM",
-    person: "Lorem Ipsum",
-    imageSrc: "/images/TabletMeeting.png",
+    title: "Ask a QMS Expert",
+    dateTime: "Thursday, February 19 — 12:00 PM EST",
+    person: "Rellia Health",
+    imageSrc: "/images/banner-whitelogo.png",
+    href: "https://luma.com/w61qj0g5",
+    buttonText: "Watch Replay",
   },
   {
-    title: "Lorem Ipsum Event",
-    dateTime: "Lorem 05, 2026 — 12:00 PM",
-    person: "Lorem Ipsum",
-    imageSrc: "/images/TabletMeeting.png",
+    title: "Set Your Stage",
+    dateTime: "Thursday, December 4, 2025 — 12:00 PM EST",
+    person: "Alexis Orchard | Rellia Health",
+    imageSrc: "/images/banner-darklogo.png",
+    href: "https://luma.com/5s736thc",
+    buttonText: "Watch Replay",
   },
   {
-    title: "Lorem Ipsum Event",
-    dateTime: "Lorem 20, 2025 — 1:00 PM",
-    person: "Lorem Ipsum",
-    imageSrc: "/images/TabletMeeting.png",
-  },
-  {
-    title: "Lorem Ipsum Event",
-    dateTime: "Lorem 08, 2025 — 5:00 PM",
-    person: "Lorem Ipsum",
-    imageSrc: "/images/TabletMeeting.png",
+    title: "Clinician Connect: Women's Health",
+    dateTime: "Thursday, November 20, 2025 — 12:00 PM EST",
+    person: "Rellia Health",
+    imageSrc: "/images/banner-darklogo.png",
+    href: "https://luma.com/k6fbogr8",
+    buttonText: "Watch Replay",
   },
 ];
 
@@ -66,8 +69,15 @@ const upcomingEvents: UpcomingEvent[] = [
     title: "Health System Adoption for Startups",
     dateTime: "April 9th at 2PM",
     person: "Rellia Health",
-    imageSrc: "/images/healthsystem-events.avif",
+    imageSrc: "/images/banner-whitelogo.png",
     href: "https://luma.com/ao1g8a7h",
+  },
+  {
+    title: "Leadership Mindset for Health tech founders",
+    dateTime: "6 may at 12pm",
+    person: "Rellia Health",
+    imageSrc: "/images/leadershipMindset-events.webp",
+    comingSoon: true,
   },
   {
     title: "Leadership Mindset for Health tech founders",
@@ -169,8 +179,35 @@ export default function ProgramsEvents() {
             <ScrollReveal>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {programs.map((p) => (
-                  <div key={p.href} className="h-full">
-                    <ProgramCard {...p} />
+                  <div
+                    key={p.href}
+                    className="bg-white rounded-2xl border border-black/5 p-6 shadow-sm hover:shadow-md transition-all flex flex-col h-full"
+                  >
+                    <div className="rounded-xl overflow-hidden mb-5 aspect-video bg-rellia-teal/5">
+                      <img
+                        src={p.imageSrc}
+                        alt={p.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    <div className="flex flex-col flex-1 text-left">
+                      <h3 className="font-host-grotesk font-bold text-black text-lg mb-3 leading-tight">
+                        {p.title}
+                      </h3>
+                      <p className="font-urbanist text-black/60 text-sm leading-relaxed mb-6">
+                        {p.description}
+                      </p>
+
+                      <div className="mt-auto">
+                        <a
+                          href={p.href}
+                          className="w-full inline-flex items-center justify-center rounded-full bg-rellia-teal text-white text-sm font-semibold py-2.5 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all"
+                        >
+                          {p.buttonText}
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -179,67 +216,68 @@ export default function ProgramsEvents() {
         </section>
 
         {/* Upcoming Events */}
-        <section id="view-events" className="py-20 md:py-32 bg-rellia-cream/50">
-          <div className="max-w-[1300px] mx-auto px-6 md:px-10">
-            <ScrollReveal className="mb-12 flex flex-col items-center text-center">
-              <h2 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
-                Upcoming Events
-              </h2>
-            </ScrollReveal>
+       <section id="view-events" className="py-20 md:py-32 bg-rellia-cream/50">
+  <div className="max-w-[1300px] mx-auto px-6 md:px-10">
+    <ScrollReveal className="mb-12 flex flex-col items-center text-center">
+      <h2 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
+        Upcoming Events
+      </h2>
+    </ScrollReveal>
 
-            <ScrollReveal>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {upcomingEvents.map((event) => (
-                  <div
-                    key={event.title}
-                    className="bg-white rounded-2xl border border-black/5 p-6 shadow-sm hover:shadow-md transition-shadow h-full flex flex-row gap-5 items-start"
-                  >
-                    <div className="flex-1 flex flex-col min-w-0">
-                      <h4 className="font-host-grotesk font-bold text-black text-lg mb-3">{event.title}</h4>
-                      <div className="flex flex-col gap-2 text-sm font-urbanist text-black/60 mb-5">
-                        <p className="text-black/60 flex items-center gap-2">
-                          <CalendarDays className="w-4 h-4 text-rellia-mint shrink-0" />
-                          {event.dateTime}
-                        </p>
-                        <p className="text-black/60 flex items-center gap-2">
-                          <User className="w-4 h-4 text-rellia-mint shrink-0" />
-                          {event.person}
-                        </p>
-                      </div>
-                      <div className="mt-auto">
-                        {event.comingSoon ? (
-                          <button
-                            type="button"
-                            disabled
-                            className="inline-flex items-center justify-center rounded-full bg-black/10 text-black/40 font-host-grotesk font-semibold px-5 py-2 border-2 border-black/10 cursor-not-allowed text-sm"
-                          >
-                            Coming Soon
-                          </button>
-                        ) : (
-                          <a
-                            href={event.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-5 py-2 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all duration-200 text-sm"
-                          >
-                            View
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                    <div className="w-28 h-28 shrink-0 rounded-xl overflow-hidden">
-                      <img
-                        src={event.imageSrc}
-                        alt={event.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                ))}
+    <ScrollReveal>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {upcomingEvents.map((event) => (
+          <div
+            key={event.title}
+            className="bg-white rounded-2xl border border-black/5 p-6 shadow-sm hover:shadow-md transition-all flex flex-col h-full"
+          >
+            <div className="rounded-xl overflow-hidden mb-5 aspect-video bg-rellia-teal/5">
+              <img
+                src={event.imageSrc}
+                alt={event.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            <div className="flex flex-col flex-1 text-left">
+              <h4 className="font-host-grotesk font-bold text-black text-lg mb-3 leading-tight">
+                {event.title}
+              </h4>
+              
+              <div className="flex flex-col gap-2 text-sm font-urbanist text-black/60 mb-6">
+                <p className="flex items-center gap-2">
+                  <CalendarDays className="w-4 h-4 text-rellia-mint shrink-0" />
+                  {event.dateTime}
+                </p>
+                <p className="flex items-center gap-2">
+                  <User className="w-4 h-4 text-rellia-mint shrink-0" />
+                  {event.person}
+                </p>
               </div>
-            </ScrollReveal>
+
+              <div className="mt-auto">
+                {event.comingSoon ? (
+                  <div className="w-full text-center py-2.5 bg-black/5 text-black/30 rounded-full text-sm font-semibold">
+                    Coming Soon
+                  </div>
+                ) : (
+                  <a
+                    href={event.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center rounded-full bg-rellia-teal text-white text-sm font-semibold py-2.5 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all"
+                  >
+                    Register Now
+                  </a>
+                )}
+              </div>
+            </div>
           </div>
-        </section>
+        ))}
+      </div>
+    </ScrollReveal>
+  </div>
+</section>
 
         {/* Past Events */}
         <section className="py-16 md:py-24 bg-white overflow-x-hidden">
@@ -267,17 +305,19 @@ export default function ProgramsEvents() {
                         key={event.dateTime + event.person}
                         className="pl-4 md:pl-6 basis-full sm:basis-1/2 lg:basis-1/3"
                       >
+                        
                         <div className="bg-white rounded-2xl border border-black/5 p-6 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
-                          <h4 className="font-host-grotesk font-bold text-black text-lg mb-4">
-                            {event.title}
-                          </h4>
-                          <div className="rounded-xl overflow-hidden mb-5">
+                        <div className="rounded-xl overflow-hidden mb-5">
                             <img
                               src={event.imageSrc}
                               alt={event.person}
                               className="h-40 w-full object-cover"
                             />
                           </div>
+                          <h4 className="font-host-grotesk font-bold text-black text-lg mb-4">
+                            {event.title}
+                          </h4>
+                        
                           <div className="flex flex-col gap-2 text-sm font-urbanist text-black/60 mb-6">
                             <p className="text-black/60 flex items-center gap-2">
                               <CalendarDays className="w-4 h-4 text-rellia-mint shrink-0" />
@@ -290,10 +330,12 @@ export default function ProgramsEvents() {
                           </div>
                           <div className="mt-auto">
                             <a
-                              href="mailto:hello@relliahealth.com?subject=Event%20Inquiry"
-                              className="inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-5 py-2 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all duration-200 text-sm"
+                              href={event.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-full inline-flex items-center justify-center rounded-full bg-rellia-teal text-white text-sm font-semibold py-2.5 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all"
                             >
-                              View
+                              {event.buttonText}
                             </a>
                           </div>
                         </div>
