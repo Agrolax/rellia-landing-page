@@ -79,13 +79,6 @@ const upcomingEvents: UpcomingEvent[] = [
     imageSrc: "/images/leadershipMindset-events.webp",
     comingSoon: true,
   },
-  {
-    title: "Leadership Mindset for Health tech founders",
-    dateTime: "6 may at 12pm",
-    person: "Rellia Health",
-    imageSrc: "/images/leadershipMindset-events.webp",
-    comingSoon: true,
-  },
 ];
 
 const carouselArrowClass = cn(
