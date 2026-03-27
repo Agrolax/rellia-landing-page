@@ -13,6 +13,8 @@ import ProgramsEvents from "./pages/ProgramsEvents";
 import ProgramsQms from "./pages/ProgramsQms";
 import NotFound from "./pages/NotFound";
 import PlaceholderPage from "./pages/PlaceholderPage";
+import DiagnosticLanding from "./pages/DiagnosticLanding";
+import DiagnosticSurvey from "./pages/DiagnosticSurvey";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +60,9 @@ const App = () => (
           <Route path="/contact" element={<PlaceholderPage title="Contact Us" />} />
           <Route path="/network" element={<PlaceholderPage title="Network" />} />
           <Route path="/blog" element={<PlaceholderPage title="Our Blog" />} />
+    {/* Diagnostic */}
+          <Route path="/diagnostic" element={<DiagnosticLanding />} />
+          <Route path="/diagnostic/survey" element={<DiagnosticSurvey />} />
 
           {/* CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
