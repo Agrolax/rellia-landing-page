@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type KeyboardEvent } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -98,10 +98,26 @@ const timeline: TimelineMonth[] = [
   },
 ];
 
+const QMS_OUTCOMES_SECTION_ID = "qms-program-outcomes"
+
 export default function ProgramsQms() {
   const [timelineOpen, setTimelineOpen] = useState<string | undefined>(undefined);
   const { data } = useQmsProgramPage();
   const q = data ?? DEFAULT_QMS_PROGRAM;
+
+  const handleLearnMoreClick = () => {
+    document.getElementById(QMS_OUTCOMES_SECTION_ID)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  const handleLearnMoreKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleLearnMoreClick();
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white font-host-grotesk overflow-x-hidden">
@@ -129,7 +145,7 @@ export default function ProgramsQms() {
                     {q.heroDescription}
                   </p>
 
-                  <div className="mt-8">
+                  <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-4 items-stretch sm:items-center">
                     <a
                       href={q.paymentUrl}
                       target="_blank"
@@ -139,6 +155,15 @@ export default function ProgramsQms() {
                       {q.heroCtaLabel}
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </a>
+                    <button
+                      type="button"
+                      onClick={handleLearnMoreClick}
+                      onKeyDown={handleLearnMoreKeyDown}
+                      className="inline-flex items-center justify-center rounded-full bg-white text-rellia-teal font-host-grotesk font-semibold px-8 py-4 border-2 border-rellia-teal hover:bg-rellia-teal/5 transition-all duration-200"
+                      aria-label="Learn more about the program — scroll to Program Outcomes"
+                    >
+                      Learn More
+                    </button>
                   </div>
                 </div>
               </div>
@@ -147,7 +172,10 @@ export default function ProgramsQms() {
         </section>
 
         {/* Program Outcomes */}
-        <section className="py-16 md:py-24 bg-rellia-teal/5">
+        <section
+          id={QMS_OUTCOMES_SECTION_ID}
+          className="scroll-mt-24 md:scroll-mt-[5.5rem] py-16 md:py-24 bg-rellia-teal/5"
+        >
           <div className="max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal className="mb-12 text-center">
               <h3 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">

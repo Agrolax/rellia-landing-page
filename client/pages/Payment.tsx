@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react"
-import { useSearchParams } from "react-router-dom"
 import { loadStripe } from "@stripe/stripe-js"
 import type { StripeEmbeddedCheckout } from "@stripe/stripe-js"
 import Navbar from "@/components/Navbar"
@@ -9,17 +8,11 @@ const STRIPE_PAYMENT_FALLBACK_URL = "https://buy.stripe.com/14A4gs2jF6Lla0HgCC6w
 
 const publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY as string | undefined
 
-type GateState = "loading" | "denied" | "allowed"
-
-type DenyReason = "invalid_key" | "gate_unconfigured" | null
-
 export default function Payment() {
-  const [searchParams] = useSearchParams()
-  const [gate, setGate] = useState<GateState>("loading")
-  const [denyReason, setDenyReason] = useState<DenyReason>(null)
   const [paymentComplete, setPaymentComplete] = useState(false)
   const [useFallbackLink, setUseFallbackLink] = useState(false)
-  const [embedLoading, setEmbedLoading] = useState(false)
+  const [embedLoading, setEmbedLoading] = useState(true)
+  const [checkoutError, setCheckoutError] = useState(false)
   const checkoutRef = useRef<StripeEmbeddedCheckout | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -34,56 +27,9 @@ export default function Payment() {
   }, [])
 
   useEffect(() => {
-    const key = searchParams.get("key")?.trim() ?? ""
-    if (!key) {
-      setDenyReason("invalid_key")
-      setGate("denied")
-      return
-    }
-
-    let cancelled = false
-    const run = async () => {
-      try {
-        const res = await fetch(`/api/payment-access?key=${encodeURIComponent(key)}`)
-        const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string }
-        if (cancelled) {
-          return
-        }
-        if (res.ok) {
-          setDenyReason(null)
-          setGate("allowed")
-          return
-        }
-        const unconfigured =
-          res.status === 503 ||
-          (typeof data.error === "string" && data.error.toLowerCase().includes("not configured"))
-        setDenyReason(unconfigured ? "gate_unconfigured" : "invalid_key")
-        setGate("denied")
-      } catch {
-        if (!cancelled) {
-          setDenyReason("invalid_key")
-          setGate("denied")
-        }
-      }
-    }
-    void run()
-    return () => {
-      cancelled = true
-    }
-  }, [searchParams])
-
-  useEffect(() => {
-    if (gate !== "allowed") {
-      return
-    }
-
-    const key = searchParams.get("key")?.trim() ?? ""
-    if (!key) {
-      return
-    }
-
     if (!publishableKey) {
       setUseFallbackLink(true)
+      setEmbedLoading(false)
       return
     }
 
@@ -92,6 +38,7 @@ export default function Payment() {
     const run = async () => {
       setEmbedLoading(true)
       setUseFallbackLink(false)
+      setCheckoutError(false)
 
       const stripe = await loadStripe(publishableKey)
       if (!stripe || cancelled) {
@@ -104,7 +51,7 @@ export default function Payment() {
         const res = await fetch("/api/create-embedded-checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ key }),
+          body: JSON.stringify({}),
         })
         const data = (await res.json()) as { clientSecret?: string }
         if (!res.ok || !data.clientSecret) {
@@ -146,6 +93,7 @@ export default function Payment() {
         setEmbedLoading(false)
       } catch {
         if (!cancelled) {
+          setCheckoutError(true)
           setUseFallbackLink(true)
           setEmbedLoading(false)
         }
@@ -159,7 +107,7 @@ export default function Payment() {
       checkoutRef.current?.destroy()
       checkoutRef.current = null
     }
-  }, [gate, searchParams])
+  }, [])
 
   return (
     <div className="min-h-screen bg-white font-host-grotesk overflow-x-hidden">
@@ -173,87 +121,57 @@ export default function Payment() {
           </div>
 
           <div className="relative z-10 mx-auto max-w-[720px] px-6 md:px-10">
-            {gate === "loading" ? (
-              <p className="font-urbanist text-lg text-black/60">Checking your link…</p>
-            ) : null}
-
-            {gate === "denied" ? (
-              <div className="rounded-2xl border border-black/10 bg-white/95 p-8 shadow-lg md:p-10">
-                <h1 className="mb-3 text-2xl font-bold text-black md:text-3xl">
-                  {denyReason === "gate_unconfigured" ? "Payment link not active" : "Link not valid"}
-                </h1>
-                {denyReason === "gate_unconfigured" ? (
-                  <p className="font-urbanist text-base leading-relaxed text-black/60">
-                    The payment gate is not configured on this deployment. Add{" "}
-                    <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm text-rellia-teal">
-                      PAYMENT_PAGE_SECRET
-                    </code>{" "}
-                    in your host environment (e.g. Vercel project settings) to the same value as the{" "}
-                    <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">key</code> in the URL, then
-                    redeploy. Stripe checkout also needs{" "}
-                    <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">STRIPE_SECRET_KEY</code> and{" "}
-                    <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">STRIPE_PRICE_ID</code>.
+            <div className="rounded-2xl border border-black/10 bg-white/95 p-8 shadow-lg md:p-10">
+              <p className="mb-2 font-urbanist text-xs font-semibold uppercase tracking-[0.2em] text-black/45">
+                Rellia Health
+              </p>
+              {paymentComplete ? (
+                <>
+                  <h1 className="mb-4 text-3xl font-bold leading-tight tracking-tight text-black md:text-4xl">
+                    Payment received
+                  </h1>
+                  <p className="font-urbanist text-base leading-relaxed text-black/60 md:text-lg">
+                    Thank you — your enrollment payment went through. We&apos;ll be in touch with next steps.
                   </p>
-                ) : (
-                  <p className="font-urbanist text-base leading-relaxed text-black/60">
-                    This page requires a valid access key that matches the server secret. If you believe this is a
-                    mistake, contact Rellia Health.
+                </>
+              ) : (
+                <>
+                  <h1 className="mb-4 text-3xl font-bold leading-tight tracking-tight text-black md:text-4xl">
+                    You&apos;re approved for the Rellia program!
+                  </h1>
+                  <p className="mb-6 font-urbanist text-base leading-relaxed text-black/60 md:text-lg">
+                    {useFallbackLink
+                      ? checkoutError
+                        ? "We couldn&apos;t load embedded checkout. Use the secure Stripe payment page below (opens in a new tab)."
+                        : "Complete your enrollment with the secure Stripe payment page (opens in a new tab)."
+                      : "Complete your enrollment with the secure checkout below."}
                   </p>
-                )}
-              </div>
-            ) : null}
 
-            {gate === "allowed" ? (
-              <div className="rounded-2xl border border-black/10 bg-white/95 p-8 shadow-lg md:p-10">
-                <p className="mb-2 font-urbanist text-xs font-semibold uppercase tracking-[0.2em] text-black/45">
-                  Rellia Health
-                </p>
-                {paymentComplete ? (
-                  <>
-                    <h1 className="mb-4 text-3xl font-bold leading-tight tracking-tight text-black md:text-4xl">
-                      Payment received
-                    </h1>
-                    <p className="font-urbanist text-base leading-relaxed text-black/60 md:text-lg">
-                      Thank you — your enrollment payment went through. We&apos;ll be in touch with next steps.
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <h1 className="mb-4 text-3xl font-bold leading-tight tracking-tight text-black md:text-4xl">
-                      You&apos;re approved for the Rellia program!
-                    </h1>
-                    <p className="mb-6 font-urbanist text-base leading-relaxed text-black/60 md:text-lg">
-                      {useFallbackLink
-                        ? "Complete your enrollment with the secure Stripe payment page (opens in a new tab)."
-                        : "Complete your enrollment with the secure checkout below."}
-                    </p>
+                  {embedLoading && !useFallbackLink ? (
+                    <p className="font-urbanist text-base text-black/50">Loading checkout…</p>
+                  ) : null}
 
-                    {embedLoading ? (
-                      <p className="font-urbanist text-base text-black/50">Loading checkout…</p>
-                    ) : null}
+                  {!useFallbackLink ? (
+                    <div
+                      ref={containerRef}
+                      className="min-h-[480px] w-full [&_iframe]:min-h-[480px]"
+                      aria-live="polite"
+                    />
+                  ) : null}
 
-                    {!useFallbackLink ? (
-                      <div
-                        ref={containerRef}
-                        className="min-h-[480px] w-full [&_iframe]:min-h-[480px]"
-                        aria-live="polite"
-                      />
-                    ) : null}
-
-                    {useFallbackLink ? (
-                      <a
-                        href={STRIPE_PAYMENT_FALLBACK_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex w-full items-center justify-center rounded-xl border-2 border-rellia-teal bg-rellia-teal px-6 py-4 font-host-grotesk text-base font-semibold text-white transition-all duration-200 hover:bg-white hover:text-rellia-teal md:w-auto md:min-w-[240px]"
-                      >
-                        Pay now with Stripe
-                      </a>
-                    ) : null}
-                  </>
-                )}
-              </div>
-            ) : null}
+                  {useFallbackLink ? (
+                    <a
+                      href={STRIPE_PAYMENT_FALLBACK_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex w-full items-center justify-center rounded-xl border-2 border-rellia-teal bg-rellia-teal px-6 py-4 font-host-grotesk text-base font-semibold text-white transition-all duration-200 hover:bg-white hover:text-rellia-teal md:w-auto md:min-w-[240px]"
+                    >
+                      Pay now with Stripe
+                    </a>
+                  ) : null}
+                </>
+              )}
+            </div>
           </div>
         </section>
       </main>
