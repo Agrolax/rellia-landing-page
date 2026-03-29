@@ -1,14 +1,9 @@
-import path from "node:path"
-import { fileURLToPath } from "node:url"
-import dotenv from "dotenv"
+import "./loadEnv"
 import cors from "cors"
 import express from "express"
 import { handleDemo } from "./routes/demo"
 import { handlePaymentAccess } from "./routes/payment-access"
 import { handleCreateEmbeddedCheckout } from "./routes/stripe-embedded-checkout"
-
-const serverDir = path.dirname(fileURLToPath(import.meta.url))
-dotenv.config({ path: path.resolve(serverDir, "..", ".env") })
 
 export function createServer() {
   const app = express()
