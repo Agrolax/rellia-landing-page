@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -17,20 +17,13 @@ import Payment from "./pages/Payment";
 
 const queryClient = new QueryClient();
 
-/**
- * Web Analytics + Speed Insights under React Router.
- * Analytics needs both `route` and `path` when `route` is set (see @vercel/analytics/react).
- */
-function VercelObservability() {
-  const { pathname, search } = useLocation();
-  const path = `${pathname}${search}`;
-  return (
-    <>
-      <Analytics route={pathname} path={path} />
-      <SpeedInsights route={pathname} />
-    </>
-  );
-}
+/** Auto-tracked SPA views; avoid manual route/path props (can mis-track or error on some paths). */
+const VercelObservability = () => (
+  <>
+    <Analytics />
+    <SpeedInsights />
+  </>
+)
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
