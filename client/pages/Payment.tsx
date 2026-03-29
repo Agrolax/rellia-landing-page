@@ -44,7 +44,13 @@ export default function Payment() {
         if (cancelled) {
           return
         }
-        setGate(res.ok ? "allowed" : "denied")
+        const contentType = res.headers.get("content-type") ?? ""
+        if (!contentType.includes("application/json")) {
+          setGate("denied")
+          return
+        }
+        const data = (await res.json()) as { ok?: boolean }
+        setGate(res.ok && data.ok === true ? "allowed" : "denied")
       } catch {
         if (!cancelled) {
           setGate("denied")
