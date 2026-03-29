@@ -1,6 +1,7 @@
 import type {
   AboutPageContent,
   ContactPageContent,
+  ContactSubjectOption,
   FaqPageContent,
   GlobalSettingsContent,
   HomePageContent,
@@ -9,6 +10,21 @@ import type {
   ProgramsLandingContent,
   QmsProgramContent,
 } from "./types"
+
+/** Drop nullish values so `{ ...defaults, ...partial }` cannot wipe strings with CMS nulls */
+const omitNullish = <T extends Record<string, unknown>>(obj: T): Partial<T> =>
+  Object.fromEntries(Object.entries(obj).filter(([, v]) => v != null)) as Partial<T>
+
+const compactList = <T>(arr: T[] | null | undefined): NonNullable<T>[] =>
+  (arr ?? []).filter((x): x is NonNullable<T> => x != null)
+
+const isSubjectOption = (o: unknown): o is ContactSubjectOption =>
+  typeof o === "object" &&
+  o != null &&
+  "value" in o &&
+  "label" in o &&
+  typeof (o as ContactSubjectOption).value === "string" &&
+  typeof (o as ContactSubjectOption).label === "string"
 
 export const DEFAULT_GLOBAL_SETTINGS: GlobalSettingsContent = {
   footerTagline:
@@ -511,72 +527,80 @@ export const DEFAULT_MARKETING_PLACEHOLDER: MarketingPageContent = {
 export function mergeGlobalSettings(
   partial: Partial<GlobalSettingsContent> | null | undefined,
 ): GlobalSettingsContent {
-  const p = partial ?? {}
+  const p = omitNullish((partial ?? {}) as Record<string, unknown>) as Partial<GlobalSettingsContent>
   return { ...DEFAULT_GLOBAL_SETTINGS, ...p }
 }
 
 export function mergeHomePage(partial: Partial<HomePageContent> | null | undefined): HomePageContent {
-  const p = partial ?? {}
+  const p = omitNullish((partial ?? {}) as Record<string, unknown>) as Partial<HomePageContent>
   const base = { ...DEFAULT_HOME_PAGE, ...p }
-  base.metrics =
-    p.metrics && p.metrics.length > 0 ? p.metrics : DEFAULT_HOME_PAGE.metrics
-  base.whyFeatures =
-    p.whyFeatures && p.whyFeatures.length > 0 ? p.whyFeatures : DEFAULT_HOME_PAGE.whyFeatures
-  base.testimonials =
-    p.testimonials && p.testimonials.length > 0 ? p.testimonials : DEFAULT_HOME_PAGE.testimonials
+  const metrics = compactList(p.metrics)
+  base.metrics = metrics.length > 0 ? metrics : DEFAULT_HOME_PAGE.metrics
+  const whyFeatures = compactList(p.whyFeatures)
+  base.whyFeatures = whyFeatures.length > 0 ? whyFeatures : DEFAULT_HOME_PAGE.whyFeatures
+  const testimonials = compactList(p.testimonials)
+  base.testimonials = testimonials.length > 0 ? testimonials : DEFAULT_HOME_PAGE.testimonials
   return base
 }
 
 export function mergeAboutPage(partial: Partial<AboutPageContent> | null | undefined): AboutPageContent {
-  const p = partial ?? {}
+  const p = omitNullish((partial ?? {}) as Record<string, unknown>) as Partial<AboutPageContent>
   const base = { ...DEFAULT_ABOUT_PAGE, ...p }
+  const missionParagraphs = compactList(p.missionParagraphs)
   base.missionParagraphs =
-    p.missionParagraphs && p.missionParagraphs.length > 0
-      ? p.missionParagraphs
-      : DEFAULT_ABOUT_PAGE.missionParagraphs
-  base.values = p.values && p.values.length > 0 ? p.values : DEFAULT_ABOUT_PAGE.values
-  base.team = p.team && p.team.length > 0 ? p.team : DEFAULT_ABOUT_PAGE.team
+    missionParagraphs.length > 0 ? missionParagraphs : DEFAULT_ABOUT_PAGE.missionParagraphs
+  const values = compactList(p.values)
+  base.values = values.length > 0 ? values : DEFAULT_ABOUT_PAGE.values
+  const team = compactList(p.team)
+  base.team = team.length > 0 ? team : DEFAULT_ABOUT_PAGE.team
   return base
 }
 
 export function mergeFaqPage(partial: Partial<FaqPageContent> | null | undefined): FaqPageContent {
-  const p = partial ?? {}
+  const p = omitNullish((partial ?? {}) as Record<string, unknown>) as Partial<FaqPageContent>
   const base = { ...DEFAULT_FAQ_PAGE, ...p }
-  base.items = p.items && p.items.length > 0 ? p.items : DEFAULT_FAQ_PAGE.items
+  const items = compactList(p.items)
+  base.items = items.length > 0 ? items : DEFAULT_FAQ_PAGE.items
   return base
 }
 
 export function mergeProgramsLanding(
   partial: Partial<ProgramsLandingContent> | null | undefined,
 ): ProgramsLandingContent {
-  const p = partial ?? {}
+  const p = omitNullish((partial ?? {}) as Record<string, unknown>) as Partial<ProgramsLandingContent>
   const base = { ...DEFAULT_PROGRAMS_LANDING, ...p }
-  base.programs = p.programs && p.programs.length > 0 ? p.programs : DEFAULT_PROGRAMS_LANDING.programs
+  const programs = compactList(p.programs)
+  base.programs = programs.length > 0 ? programs : DEFAULT_PROGRAMS_LANDING.programs
+  const upcomingEvents = compactList(p.upcomingEvents)
   base.upcomingEvents =
-    p.upcomingEvents && p.upcomingEvents.length > 0
-      ? p.upcomingEvents
-      : DEFAULT_PROGRAMS_LANDING.upcomingEvents
-  base.pastEvents =
-    p.pastEvents && p.pastEvents.length > 0 ? p.pastEvents : DEFAULT_PROGRAMS_LANDING.pastEvents
+    upcomingEvents.length > 0 ? upcomingEvents : DEFAULT_PROGRAMS_LANDING.upcomingEvents
+  const pastEvents = compactList(p.pastEvents)
+  base.pastEvents = pastEvents.length > 0 ? pastEvents : DEFAULT_PROGRAMS_LANDING.pastEvents
   return base
 }
 
 export function mergeContactPage(
   partial: Partial<ContactPageContent> | null | undefined,
 ): ContactPageContent {
-  const p = partial ?? {}
+  const p = omitNullish((partial ?? {}) as Record<string, unknown>) as Partial<ContactPageContent>
+  const labelOverrides = omitNullish((p.labels ?? {}) as Record<string, unknown>) as Partial<
+    ContactPageContent["labels"]
+  >
+  const placeholderOverrides = omitNullish((p.placeholders ?? {}) as Record<string, unknown>) as Partial<
+    ContactPageContent["placeholders"]
+  >
   const base: ContactPageContent = {
     ...DEFAULT_CONTACT_PAGE,
     ...p,
-    labels: { ...DEFAULT_CONTACT_PAGE.labels, ...p.labels },
-    placeholders: { ...DEFAULT_CONTACT_PAGE.placeholders, ...p.placeholders },
+    labels: { ...DEFAULT_CONTACT_PAGE.labels, ...labelOverrides },
+    placeholders: { ...DEFAULT_CONTACT_PAGE.placeholders, ...placeholderOverrides },
   }
+  const subjectOptions = compactList(p.subjectOptions).filter(isSubjectOption)
   base.subjectOptions =
-    p.subjectOptions && p.subjectOptions.length > 0 ? p.subjectOptions : DEFAULT_CONTACT_PAGE.subjectOptions
+    subjectOptions.length > 0 ? subjectOptions : DEFAULT_CONTACT_PAGE.subjectOptions
+  const companySizeOptions = compactList(p.companySizeOptions).filter(isSubjectOption)
   base.companySizeOptions =
-    p.companySizeOptions && p.companySizeOptions.length > 0
-      ? p.companySizeOptions
-      : DEFAULT_CONTACT_PAGE.companySizeOptions
+    companySizeOptions.length > 0 ? companySizeOptions : DEFAULT_CONTACT_PAGE.companySizeOptions
   if (!base.quoteText?.trim()) {
     base.quoteText = DEFAULT_CONTACT_PAGE.quoteText
   }
@@ -604,23 +628,26 @@ export function mergeContactPage(
 export function mergeQmsProgram(
   partial: Partial<QmsProgramContent> | null | undefined,
 ): QmsProgramContent {
-  const p = partial ?? {}
+  const p = omitNullish((partial ?? {}) as Record<string, unknown>) as Partial<QmsProgramContent>
   const base = { ...DEFAULT_QMS_PROGRAM, ...p }
-  base.outcomes = p.outcomes && p.outcomes.length > 0 ? p.outcomes : DEFAULT_QMS_PROGRAM.outcomes
+  const outcomes = compactList(p.outcomes)
+  base.outcomes = outcomes.length > 0 ? outcomes : DEFAULT_QMS_PROGRAM.outcomes
+  const pricingBullets = compactList(p.pricingBullets)
   base.pricingBullets =
-    p.pricingBullets && p.pricingBullets.length > 0 ? p.pricingBullets : DEFAULT_QMS_PROGRAM.pricingBullets
+    pricingBullets.length > 0 ? pricingBullets : DEFAULT_QMS_PROGRAM.pricingBullets
   return base
 }
 
 export function mergeNotFound(partial: Partial<NotFoundContent> | null | undefined): NotFoundContent {
-  return { ...DEFAULT_NOT_FOUND, ...partial }
+  const p = omitNullish((partial ?? {}) as Record<string, unknown>) as Partial<NotFoundContent>
+  return { ...DEFAULT_NOT_FOUND, ...p }
 }
 
 export function mergeMarketingPage(
   partial: Partial<MarketingPageContent> | null | undefined,
   fallback?: Partial<Pick<MarketingPageContent, "title" | "subtitle">>,
 ): MarketingPageContent {
-  const p = partial ?? {}
+  const p = omitNullish((partial ?? {}) as Record<string, unknown>) as Partial<MarketingPageContent>
   const hasCmsTitle = Boolean(partial?.title && String(partial.title).trim() !== "")
   const hasCmsSubtitle = Boolean(partial?.subtitle && String(partial.subtitle).trim() !== "")
   const base = { ...DEFAULT_MARKETING_PLACEHOLDER, ...p }

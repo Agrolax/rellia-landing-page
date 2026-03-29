@@ -22,7 +22,18 @@ const networkItems = [
   { label: "Founders", icon: Users, href: "/programs/future" },
   { label: "Industry Partners", icon: Building2, href: "/programs/industry-partners" },
   { label: "Advisors", icon: GraduationCap, href: "/programs/advisors" },
-];
+]
+
+/** Cream pages that use PlaceholderPage — match solid navbar like scrolled state */
+const SOLID_NAVBAR_PATHS = new Set<string>([
+  "/contact",
+  "/network",
+  "/blog",
+  "/programs/investment",
+  "/programs/industry-partners",
+  "/programs/future",
+  "/programs/advisors",
+])
 
 const LOGO_FILLED =
   "https://cdn.builder.io/api/v1/image/assets%2Fc82f69c03d1a4d3a8a3c2651cae51f04%2Faf0e0a18ee0243cb98fca22f296d3c0c?format=webp&width=400";
@@ -48,7 +59,8 @@ export default function Navbar({ ctaRadiusClassName = "rounded-full" }: NavbarPr
   const isActive = (path: string) => location.pathname === path;
   const isNetworkActive = networkItems.some((item) => location.pathname === item.href);
 
-  const navFilled = scrolled || mobileOpen;
+  const solidNavFromRoute = SOLID_NAVBAR_PATHS.has(location.pathname)
+  const navFilled = scrolled || mobileOpen || solidNavFromRoute
   const useLightNav =
     !navFilled &&
     (location.pathname === "/" ||
