@@ -27,7 +27,12 @@ const networkItems = [
 const LOGO_FILLED =
   "https://cdn.builder.io/api/v1/image/assets%2Fc82f69c03d1a4d3a8a3c2651cae51f04%2Faf0e0a18ee0243cb98fca22f296d3c0c?format=webp&width=400";
 
-export default function Navbar() {
+export type NavbarProps = {
+  /** Navbar CTA link shape; default pill. Use e.g. rounded-[14px] to match Figma contact header. */
+  ctaRadiusClassName?: string
+}
+
+export default function Navbar({ ctaRadiusClassName = "rounded-full" }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [networkOpen, setNetworkOpen] = useState(false);
@@ -165,7 +170,8 @@ export default function Navbar() {
           <Link
             to="/contact"
             className={cn(
-              "flex items-center gap-2 font-host-grotesk font-semibold text-[14px] lg:text-[15px] px-6 py-3 rounded-full border transition-all duration-200 whitespace-nowrap tracking-tight hover:-translate-y-0.5 hover:shadow-lg",
+              "flex items-center gap-2 font-host-grotesk font-semibold text-[14px] lg:text-[15px] px-6 py-3 border transition-all duration-200 whitespace-nowrap tracking-tight hover:-translate-y-0.5 hover:shadow-lg",
+              ctaRadiusClassName,
               useLightNav
                 ? "border-white text-white hover:bg-white hover:text-rellia-teal"
                 : "border-rellia-teal text-rellia-teal hover:bg-rellia-teal hover:text-white",
@@ -177,7 +183,8 @@ export default function Navbar() {
           <Link
             to="/network"
             className={cn(
-              "flex items-center gap-2 font-host-grotesk font-semibold text-[14px] lg:text-[15px] px-6 py-3 rounded-full border-2 transition-all duration-200 whitespace-nowrap tracking-tight hover:-translate-y-0.5 hover:shadow-lg",
+              "flex items-center gap-2 font-host-grotesk font-semibold text-[14px] lg:text-[15px] px-6 py-3 border-2 transition-all duration-200 whitespace-nowrap tracking-tight hover:-translate-y-0.5 hover:shadow-lg",
+              ctaRadiusClassName,
               useLightNav
                 ? "border-transparent text-rellia-teal bg-rellia-mint hover:bg-white hover:border-transparent hover:text-rellia-teal"
                 : "bg-rellia-teal text-white border-rellia-teal hover:bg-transparent hover:text-rellia-teal",
@@ -276,7 +283,10 @@ export default function Navbar() {
           <div className="mt-5 flex flex-col gap-3">
             <Link
               to="/contact"
-              className="flex items-center justify-center gap-2 border border-rellia-teal text-rellia-teal font-host-grotesk font-semibold text-base px-7 py-3.5 rounded-full hover:bg-rellia-teal hover:text-white transition-all duration-200 w-full"
+              className={cn(
+                "flex items-center justify-center gap-2 border border-rellia-teal text-rellia-teal font-host-grotesk font-semibold text-base px-7 py-3.5 hover:bg-rellia-teal hover:text-white transition-all duration-200 w-full",
+                ctaRadiusClassName,
+              )}
               onClick={() => setMobileOpen(false)}
             >
               <Mail className="w-5 h-5" />
@@ -284,7 +294,10 @@ export default function Navbar() {
             </Link>
             <Link
               to="/network"
-              className="flex items-center justify-center gap-2 bg-rellia-teal text-white font-host-grotesk font-semibold text-base px-7 py-3.5 rounded-full border-2 border-rellia-teal hover:bg-transparent hover:text-rellia-teal transition-all duration-200 w-full"
+              className={cn(
+                "flex items-center justify-center gap-2 bg-rellia-teal text-white font-host-grotesk font-semibold text-base px-7 py-3.5 border-2 border-rellia-teal hover:bg-transparent hover:text-rellia-teal transition-all duration-200 w-full",
+                ctaRadiusClassName,
+              )}
             >
               <UserPlus className="w-5 h-5" />
               Get Involved

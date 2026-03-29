@@ -5,65 +5,38 @@ import {
   Users,
   CircleDollarSign,
   Stethoscope,
+  type LucideIcon,
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 import SectionHeading from "@/components/SectionHeading";
 import { IconFeatureCard } from "@/components/cards";
+import type { HomeWhyFeature } from "@shared/cms/types";
 
-const features = [
-  {
-    icon: Target,
-    title: "The Outcomes",
-    description:
-      "Avoid mistakes on your path to market and easily achieve your milestones through our customized programs",
-  },
-  {
-    icon: UserRound,
-    title: "The Advisors",
-    description:
-      "Access 1:1 guidance from experts with years of experience scaling health tech businesses (consulting that would cost >$300/hr anywhere else).",
-  },
-  {
-    icon: BookOpen,
-    title: "The Resources",
-    description:
-      "Apply tangible tools, hands-on workshops, and proven templates to move your business forward right now",
-  },
-  {
-    icon: Users,
-    title: "The Community",
-    description:
-      "Beta test your ideas, find an accountability buddy, cheer each other on, share your deepest worries. Connect with fellow health tech founders who have been through it before.",
-  },
-  {
-    icon: CircleDollarSign,
-    title: "The Investors",
-    description:
-      "Strengthen your pitch and access health tech investors through a network that vouches for you.",
-  },
-  {
-    icon: Stethoscope,
-    title: "The Clinicians",
-    description:
-      "Design the right product from the start by developing alongside healthcare practitioners",
-  },
-];
+const ICON_MAP: Record<string, LucideIcon> = {
+  target: Target,
+  userRound: UserRound,
+  bookOpen: BookOpen,
+  users: Users,
+  circleDollarSign: CircleDollarSign,
+  stethoscope: Stethoscope,
+};
 
-export default function WhyRellia() {
+const resolveIcon = (key: string): LucideIcon => ICON_MAP[key] ?? Target;
+
+type WhyRelliaProps = {
+  sectionTitle: string;
+  features: HomeWhyFeature[];
+};
+
+export default function WhyRellia({ sectionTitle, features }: WhyRelliaProps) {
   return (
     <section className="w-full bg-white py-16 md:py-24 px-6 md:px-10">
       <div className="max-w-[1300px] mx-auto">
-        {/* Section heading */}
-        <SectionHeading
-          align="center"
-          title="How does it work?"
-          className="mb-12 md:mb-16"
-        />
+        <SectionHeading align="center" title={sectionTitle} className="mb-12 md:mb-16" />
 
-        {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, i) => {
-            const Icon = feature.icon;
+            const Icon = resolveIcon(feature.iconKey);
             return (
               <ScrollReveal key={feature.title} delay={0.08 * i}>
                 <IconFeatureCard

@@ -27,3 +27,6 @@ dist-ssr
 .config/
 !.env
 .vercel
+
+# Local contact form storage (append-only pretty JSON per submission). Folder stays visible; only the file is ignored.
+data/contact-submissions.jsonl

@@ -14,16 +14,8 @@ import {
   Timer,
   ArrowRight,
 } from "lucide-react";
-
-const QMS_PAYMENT_URL = "https://forms.fillout.com/t/1GPWpbBbWcus";
-
-const outcomes = [
-  "A compliant Quality Management System tailored to your product classification",
-  "Pass regulator audits and inspections",
-  "Demonstrate a critical early milestone to investors",
-  "Execute business operations more efficiently",
-  "Gain customer trust and competitive advantage",
-];
+import { useQmsProgramPage } from "@/hooks/useCmsDocuments";
+import { DEFAULT_QMS_PROGRAM } from "@shared/cms/defaults";
 
 const howItWorksCards = [
   {
@@ -108,6 +100,8 @@ const timeline: TimelineMonth[] = [
 
 export default function ProgramsQms() {
   const [timelineOpen, setTimelineOpen] = useState<string | undefined>(undefined);
+  const { data } = useQmsProgramPage();
+  const q = data ?? DEFAULT_QMS_PROGRAM;
 
   return (
     <div className="min-h-screen bg-white font-host-grotesk overflow-x-hidden">
@@ -129,20 +123,20 @@ export default function ProgramsQms() {
 
                 <div className="flex-1 order-2 lg:order-2">
                   <h2 className="font-host-grotesk font-bold text-black text-4xl md:text-5xl tracking-tight mb-6">
-                    Build Your QMS
+                    {q.heroTitle}
                   </h2>
                   <p className="font-urbanist text-black/70 text-lg md:text-xl leading-relaxed max-w-xl">
-                    A simplified, mentor-led program that helps medical device founders build an audit-ready Quality Management System - without needing a background in regulatory affairs
+                    {q.heroDescription}
                   </p>
 
                   <div className="mt-8">
                     <a
-                      href={QMS_PAYMENT_URL}
+                      href={q.paymentUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-8 py-4 border-2 border-rellia-teal hover:bg-white hover:text-rellia-teal transition-all duration-200"
                     >
-                      Get Started
+                      {q.heroCtaLabel}
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </a>
                   </div>
@@ -157,18 +151,18 @@ export default function ProgramsQms() {
           <div className="max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal className="mb-12 text-center">
               <h3 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
-                Program Outcomes
+                {q.outcomesTitle}
               </h3>
             </ScrollReveal>
             <div className="py-2">
               <ScrollReveal>
                 <div className="max-w-3xl mx-auto flex flex-col items-center gap-6">
                   <p className="font-urbanist text-black/60 text-base md:text-lg leading-relaxed text-center">
-                    By the end of this program, you will have a complete quality management system. A well-designed QMS enables your company to:
+                    {q.outcomesIntro}
                   </p>
 
                   <ul className="max-w-2xl w-full mx-auto flex flex-col gap-4">
-                    {outcomes.map((item) => (
+                    {q.outcomes.map((item) => (
                       <li key={item} className="flex items-start gap-3">
                         <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
                         <span className="font-urbanist text-black/75 text-base md:text-lg leading-relaxed">
@@ -188,12 +182,12 @@ export default function ProgramsQms() {
           <div className="max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal className="mb-12 text-center">
               <h3 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
-                How It Works
+                {q.howItWorksTitle}
               </h3>
             </ScrollReveal>
             <div className="mb-8">
               <p className="font-urbanist text-black/60 text-base md:text-lg leading-relaxed text-center max-w-3xl mx-auto">
-                Each week, you will receive the following guidance to ensure your success throughout the program.
+                {q.howItWorksIntro}
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -224,7 +218,7 @@ export default function ProgramsQms() {
           <div className="max-w-[1300px] mx-auto px-6 md:px-10">
             <ScrollReveal className="mb-12 text-center">
               <h3 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
-                Program Pillars
+                {q.pillarsTitle}
               </h3>
             </ScrollReveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -255,10 +249,10 @@ export default function ProgramsQms() {
           <div className="max-w-[900px] mx-auto px-6 md:px-10">
             <ScrollReveal className="mb-12 text-center">
               <h3 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight">
-                Program Timeline &amp; Details
+                {q.timelineTitle}
               </h3>
               <p className="font-urbanist text-black/60 text-base md:text-lg mt-4 max-w-xl mx-auto">
-                A structured journey through the key requirements for a successful QMS
+                {q.timelineSubtitle}
               </p>
             </ScrollReveal>
 
@@ -304,54 +298,42 @@ export default function ProgramsQms() {
             <ScrollReveal>
               <div className="bg-white rounded-3xl border border-black/5 shadow-lg p-8 md:p-10 text-center">
                 <span className="inline-flex items-center rounded-full border border-rellia-teal/20 bg-rellia-teal/5 px-4 py-1 text-xs md:text-sm font-urbanist text-rellia-teal mb-6">
-                  Monthly subscription
+                  {q.pricingBadge}
                 </span>
 
                 <div className="mt-6 mb-4">
                   <div className="flex items-start justify-center">
                     <span className="text-5xl md:text-6xl font-bold text-rellia-teal tracking-tight leading-none">
-                      $2000
+                      {q.pricingAmount}
                     </span>
                     <span className="text-3xl md:text-4xl font-bold text-rellia-teal tracking-tight leading-none">
-                      .00
+                      {q.pricingSubAmount}
                     </span>
                   </div>
                 </div>
 
                 <p className="font-urbanist text-black/60 text-base md:text-lg leading-relaxed max-w-md mx-auto mb-8">
-                  Join the only program designed to help you implement an
-                  <br />
-                  audit-ready Quality Management System without the headaches.
+                  {q.pricingDescription}
                 </p>
 
                 <div className="h-px bg-black/10 w-full mb-6" />
 
                 <ul className="mt-4 flex flex-col gap-3 list-none font-urbanist text-black/60 text-base md:text-lg leading-relaxed text-left w-full items-start">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
-                    <span>Pause or cancel at any time.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
-                    <span>Weekly consultations</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
-                    <span>Instructional content</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
-                    <span>Frameworks &amp; templates</span>
-                  </li>
+                  {q.pricingBullets.map((line) => (
+                    <li key={line} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-rellia-teal shrink-0 mt-0.5" />
+                      <span>{line}</span>
+                    </li>
+                  ))}
                 </ul>
 
                 <a
-                  href={QMS_PAYMENT_URL}
+                  href={q.paymentUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-8 w-full inline-flex items-center justify-center rounded-full bg-rellia-teal text-white font-host-grotesk font-semibold px-8 py-4 border-2 border-rellia-teal transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:text-rellia-teal hover:shadow-lg"
                 >
-                  Get Started
+                  {q.heroCtaLabel}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </a>
               </div>
@@ -365,17 +347,17 @@ export default function ProgramsQms() {
             <ScrollReveal>
               <div className="bg-rellia-teal rounded-3xl px-8 py-14 md:px-16 md:py-20 text-center">
                 <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tight mb-4">
-                  Let&apos;s Build Your QMS
+                  {q.bottomCtaTitle}
                 </h3>
                 <p className="font-urbanist text-white/80 text-lg md:text-xl max-w-xl mx-auto mb-8">
-                  Still have questions or want to learn more about the program? Reach out at any time to speak with us directly.
+                  {q.bottomCtaBody}
                 </p>
 
                 <a
-                  href="/contact"
+                  href={q.bottomContactHref}
                   className="inline-flex items-center justify-center rounded-full bg-rellia-mint text-rellia-teal font-host-grotesk font-semibold px-8 py-4 hover:bg-white transition-colors duration-200"
                 >
-                  Contact
+                  {q.bottomCtaButtonLabel}
                 </a>
               </div>
             </ScrollReveal>

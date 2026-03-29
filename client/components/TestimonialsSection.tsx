@@ -10,6 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
+import type { HomeTestimonial } from "@shared/cms/types";
 
 const carouselArrowClass = cn(
   "static translate-x-0 translate-y-0 relative",
@@ -18,106 +19,7 @@ const carouselArrowClass = cn(
   "disabled:opacity-40 disabled:pointer-events-none",
 );
 
-type Testimonial = {
-  name: string;
-  role: string;
-  company: string;
-  quote: string;
-  companyInfo: string;
-  imageSrc: string;
-};
-
-const testimonials: Testimonial[] = [
-  {
-    name: "Dr. Sahil Khan",
-    role: "Founder",
-    company: "NovusTex Corp",
-    quote:
-      "Rellia has been nothing short of exceptional—a truly dynamic incubator where early ventures are not only given space to grow, but are actively empowered to connect, refine, pitch, and evolve. The ecosystem is deeply professional, energizing, and genuinely supportive of innovation. Rellia is not just an incubator—it's a launchpad for ambitious founders.",
-    companyInfo:
-      "A rehabilitation-focused company bringing novel performance textiles and assistive solutions to support mobility, reduce injury risk, and enhance comfort during recovery for patients with musculoskeletal and neurological conditions.",
-    imageSrc: "/images/sahilkhan-testimonials.jpeg",
-  },
-  {
-    name: "Dhandre Weekes",
-    role: "CEO",
-    company: "CareLog",
-    quote:
-      "Rellia is full of driven founders and healthcare innovators, which is actually where I connected with my advisory council members. I'm really grateful for the experience and look forward to what's ahead.",
-    companyInfo:
-      "An elder care platform to help assisted living, memory care, and specialized residential homes manage daily care, reporting, and family communication.",
-    imageSrc: "/images/dhandreW-testimonials.jpeg",
-  },
-  {
-    name: "Melissa Williams",
-    role: "Founder & Chief Orchestrator",
-    company: "HorminaCare",
-    quote:
-      "Being part of this group has been a great experience. Rellia has created a supportive space for health tech founders, with valuable resources and opportunities to connect. I especially appreciate how available and supportive they are—their feedback on my website around marketing and compliance was incredibly helpful. They genuinely care about supporting founders in this space.",
-    companyInfo:
-      "HorminaCare provides virtual access to expert medical professionals for science-backed treatment for hormone-related conditions such as PCOS, adult acne, PMDD, and beyond.",
-    imageSrc: "/images/melissaW-testimonials.jpeg",
-  },
-  {
-    name: "Irene Saliandra",
-    role: "CEO",
-    company: "Digital Flow",
-    quote:
-      "I've thoroughly enjoyed being part of the Rellia community—not only has it opened doors to expand my network, but also given me opportunities to test my ideas with like minded folks who want to see innovation in health and wellness accelerate!",
-    companyInfo:
-      "Digital Flow empowers entrepreneurs and small business owners through their digital transformation journey. Leveraging extensive expertise in business development, entrepreneurship, and technology integration, Digital Flow provides end-to-end strategy services designed to guide clients through every stage of their digital evolution.",
-    imageSrc: "/images/ireneS-testimonials.jpeg",
-  },
-  {
-    name: "Michelle Risinger",
-    role: "CEO",
-    company: "Restore Enterprises Corporation",
-    quote:
-      "I've found the Rellia community full of smart, inclusive and generous members eager to provide support, connections and ideas.",
-    companyInfo:
-      "Restore is an API that optimizes daily performance using chronobiology. We help platforms like productivity tools, wellness apps, calendars, and employee experience systems unlock personalized peak hours, low-energy slumps, and break recommendations—all grounded in our patent-pending, science-backed algorithm.",
-    imageSrc: "/images/michelleR-testimonials.png",
-  },
-  {
-    name: "Rafael Rodeiro",
-    role: "CEO",
-    company: "Roster",
-    quote:
-      "In a matter of days, Rellia was able to connect me with exactly the right people. Specific, high-quality introductions that would have taken me weeks to find on my own. I'm excited to keep building within this community and can already tell there are great things ahead.",
-    companyInfo:
-      "Roster is the first AI-native employee giving platform built specifically for health systems. We help hospital foundations grow employee participation by replacing manual, fragmented workflows with a modern, automated giving experience.",
-    imageSrc: "/images/rafaelR-testimonials.jpeg",
-  },
-  {
-    name: "Nick Sabamehr",
-    role: "CEO",
-    company: "MA EdTech Solutions",
-    quote:
-      "For a founder of a HealthTech startup, it is really important to connect with people who understand the healthcare setting, challenges, and resources. Rellia has been a big support in our journey from the first conversation, and we have built our strongest relationships through Rellia's support. Huge shoutout to everyone at Rellia for making this possible.",
-    companyInfo:
-      "MA Edtech Solutions is a dedicated team of Education and People-Centered Design experts, helping immigrant children and their parents to experience a better life in their country of residence. Their solutions are technology-driven, aiming to tailor skills for the future.",
-    imageSrc: "/images/nickS-testimonials.jpeg",
-  },
-  {
-    name: "Rooaa Shanshal",
-    role: "Co-Founder",
-    company: "Power of Play",
-    quote:
-      "Being part of Rellia has been so incredibly valuable. Since joining, we’ve made real progress on building our QMS which is something that previously felt overwhelming due to its complexity. Having a dedicated Rellia mentor to guide us through the process has made such a huge difference",
-    companyInfo: "Power of Play takes a play-based approach to pediatric rehabilitation",
-    imageSrc: "/images/rooaaS-testimonials.jpeg",
-  },
-  {
-    name: "Rebecca Lyons",
-    role: "CEO",
-    company: "HerSay",
-    quote:
-      "Rellia has been a great resource for our team as we have navigated early stage validation and finding market fit.",
-    companyInfo:
-      "HerSay is an AI-powered doctor visit companion designed to help women feel seen, heard and prepared while navigating the healthcare system.",
-    imageSrc: "/images/rebeccaL-testimonials.jpeg",
-  },
-];
+type Testimonial = HomeTestimonial;
 
 function CompanyInfoPopover({ t }: { t: Testimonial }) {
   return (
@@ -194,15 +96,20 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   );
 }
 
-export default function TestimonialsSection() {
+type TestimonialsSectionProps = {
+  titleLead: string;
+  titleAccent: string;
+  testimonials: HomeTestimonial[];
+};
+
+export default function TestimonialsSection({ titleLead, titleAccent, testimonials }: TestimonialsSectionProps) {
   return (
     <section className="w-full bg-rellia-cream/30 py-20 md:py-32 px-6 md:px-10 overflow-x-hidden">
       <div className="max-w-[1300px] mx-auto w-full min-w-0">
-        {/* Title: centered, same scale as SectionHeading on other homepage sections */}
         <ScrollReveal className="mb-16 md:mb-24 flex flex-col items-center text-center">
           <h2 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight max-w-3xl">
-            Trusted by the next generation of{" "}
-            <span className="text-rellia-teal">healthcare leaders</span>
+            {titleLead}{" "}
+            <span className="text-rellia-teal">{titleAccent}</span>
           </h2>
         </ScrollReveal>
 

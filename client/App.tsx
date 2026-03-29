@@ -13,6 +13,7 @@ import ProgramsEvents from "./pages/ProgramsEvents";
 import ProgramsQms from "./pages/ProgramsQms";
 import NotFound from "./pages/NotFound";
 import PlaceholderPage from "./pages/PlaceholderPage";
+import Payment from "./pages/Payment";
 
 const queryClient = new QueryClient();
 
@@ -55,7 +56,8 @@ const App = () => (
           <Route path="/programs/advisors" element={<PlaceholderPage title="Advisors" />} />
 
           {/* Misc */}
-          <Route path="/contact" element={<PlaceholderPage title="Contact Us" />} />
+          <Route path="/contact" element={<PlaceholderPage title="Contact" />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/network" element={<PlaceholderPage title="Network" />} />
           <Route path="/blog" element={<PlaceholderPage title="Our Blog" />} />
 
