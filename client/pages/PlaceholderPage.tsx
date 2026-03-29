@@ -14,7 +14,7 @@ export default function PlaceholderPage({
     <div className="min-h-screen bg-rellia-cream flex flex-col font-host-grotesk">
       <Navbar />
 
-      <main className="flex-1 flex items-center justify-center p-6 pt-[88px] md:pt-[102px] text-center">
+      <main className="flex-1 flex items-center justify-center p-6 pt-[72px] md:pt-[86px] text-center">
         <div className="max-w-2xl bg-white/50 backdrop-blur-sm p-12 md:p-20 rounded-3xl border border-black/5 shadow-xl w-full">
           <h1 className="text-4xl md:text-6xl font-bold text-rellia-teal mb-6">{title}</h1>
           <p className="text-lg md:text-xl text-black/70 mb-8 leading-relaxed">
