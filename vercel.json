@@ -7,7 +7,7 @@
       "destination": "/api"
     },
     {
-      "source": "/((?!api/)(?!_vercel/).*)",
+      "source": "/((?!api/)(?!_vercel/)(?!assets/)(?!images/)(?!videos/)(?!favicon\\.ico$)(?!robots\\.txt$)(?!placeholder\\.svg$).*)",
       "destination": "/index.html"
     }
   ]
