@@ -15,6 +15,8 @@ import NotFound from "./pages/NotFound";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import DiagnosticLanding from "./pages/DiagnosticLanding";
 import DiagnosticSurvey from "./pages/DiagnosticSurvey";
+import Contact from "./pages/Contact";
+import Payment from "./pages/Payment";
 
 const queryClient = new QueryClient();
 
@@ -57,10 +59,12 @@ const App = () => (
           <Route path="/programs/advisors" element={<PlaceholderPage title="Advisors" />} />
 
           {/* Misc */}
-          <Route path="/contact" element={<PlaceholderPage title="Contact Us" />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/network" element={<PlaceholderPage title="Network" />} />
           <Route path="/blog" element={<PlaceholderPage title="Our Blog" />} />
-    {/* Diagnostic */}
+
+          {/* Diagnostic — Additions branch only (not on main) */}
           <Route path="/diagnostic" element={<DiagnosticLanding />} />
           <Route path="/diagnostic/survey" element={<DiagnosticSurvey />} />
 

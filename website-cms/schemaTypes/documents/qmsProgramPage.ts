@@ -1,0 +1,30 @@
+import {defineField, defineType} from 'sanity'
+
+export const qmsProgramPage = defineType({
+  name: 'qmsProgramPage',
+  title: 'QMS program page',
+  type: 'document',
+  fields: [
+    defineField({name: 'paymentUrl', type: 'url'}),
+    defineField({name: 'heroTitle', type: 'string'}),
+    defineField({name: 'heroDescription', type: 'text', rows: 4}),
+    defineField({name: 'heroCtaLabel', type: 'string'}),
+    defineField({name: 'outcomesTitle', type: 'string'}),
+    defineField({name: 'outcomesIntro', type: 'text', rows: 3}),
+    defineField({name: 'outcomes', type: 'array', of: [{type: 'string'}]}),
+    defineField({name: 'howItWorksTitle', type: 'string'}),
+    defineField({name: 'howItWorksIntro', type: 'text', rows: 3}),
+    defineField({name: 'pillarsTitle', type: 'string'}),
+    defineField({name: 'timelineTitle', type: 'string'}),
+    defineField({name: 'timelineSubtitle', type: 'text', rows: 2}),
+    defineField({name: 'pricingBadge', type: 'string'}),
+    defineField({name: 'pricingAmount', type: 'string'}),
+    defineField({name: 'pricingSubAmount', type: 'string'}),
+    defineField({name: 'pricingDescription', type: 'text', rows: 3}),
+    defineField({name: 'pricingBullets', type: 'array', of: [{type: 'string'}]}),
+    defineField({name: 'bottomCtaTitle', type: 'string'}),
+    defineField({name: 'bottomCtaBody', type: 'text', rows: 3}),
+    defineField({name: 'bottomCtaButtonLabel', type: 'string'}),
+    defineField({name: 'bottomContactHref', type: 'string'}),
+  ],
+})

@@ -1,12 +1,16 @@
 import { Instagram, Linkedin, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useGlobalSettings } from "@/hooks/useCmsDocuments";
+import { DEFAULT_GLOBAL_SETTINGS } from "@shared/cms/defaults";
 
 export default function Footer() {
+  const { data } = useGlobalSettings();
+  const g = data ?? DEFAULT_GLOBAL_SETTINGS;
+
   return (
     <footer className="bg-rellia-teal text-white pt-20 pb-10 px-6 md:px-10 border-t border-white/5">
       <div className="max-w-[1300px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Branding */}
           <div className="flex flex-col gap-6">
             <Link to="/" className="flex items-center">
               <img
@@ -16,13 +20,23 @@ export default function Footer() {
               />
             </Link>
             <p className="font-urbanist text-white/70 text-[15px] leading-relaxed max-w-[280px]">
-              Rellia connects promising digital health founders with industry experts, clinicians, and engaged investors.
+              {g.footerTagline}
             </p>
             <div className="flex gap-4">
-              <a href="https://www.linkedin.com/company/relliahealth" target="_blank" rel="noopener noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-white/10 transition-colors">
+              <a
+                href={g.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-white/5 rounded-full hover:bg-white/10 transition-colors"
+              >
                 <Linkedin className="w-5 h-5 text-white/80" />
               </a>
-              <a href="https://www.instagram.com/relliahealth/" target="_blank" rel="noopener noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-white/10 transition-colors">
+              <a
+                href={g.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-white/5 rounded-full hover:bg-white/10 transition-colors"
+              >
                 <Instagram className="w-5 h-5 text-white/80" />
               </a>
             </div>
@@ -61,18 +75,19 @@ export default function Footer() {
           <div className="flex flex-col gap-6">
             <h4 className="font-host-grotesk font-bold text-lg text-white">Contact us</h4>
             <div className="flex flex-col gap-5">
-              <a href="mailto:hello@relliahealth.com" className="flex items-center gap-3 group">
+              <a href={`mailto:${g.supportEmail}`} className="flex items-center gap-3 group">
                 <Mail className="w-5 h-5 text-rellia-mint shrink-0" />
-                <span className="font-urbanist text-white/70 group-hover:text-rellia-mint transition-colors text-[15px]">hello@relliahealth.com</span>
+                <span className="font-urbanist text-white/70 group-hover:text-rellia-mint transition-colors text-[15px]">
+                  {g.supportEmail}
+                </span>
               </a>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10 flex items-center justify-center">
           <p className="font-urbanist text-white/50 text-sm text-center">
-            &copy; {new Date().getFullYear()} Rellia Health. All rights reserved.
+            &copy; {new Date().getFullYear()} {g.copyrightLine}
           </p>
         </div>
       </div>

@@ -6,6 +6,11 @@
 @tailwind utilities;
 
 @layer base {
+  /* Avoid layout shift when scrollbars appear (e.g. Radix portaled dropdowns) — keeps fixed navbar stable */
+  html {
+    scrollbar-gutter: stable;
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;

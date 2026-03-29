@@ -36,10 +36,16 @@ function useCountUp(target: number, enabled: boolean, durationMs = 1200) {
   return value;
 }
 
-type Metric = {
+export type NetworkMetric = {
   label: string;
   value: number;
   suffix?: string;
+};
+
+type NetworkMetricsSectionProps = {
+  heading: string;
+  subheading: string;
+  metrics: NetworkMetric[];
 };
 
 function MetricValue({
@@ -47,7 +53,7 @@ function MetricValue({
   index,
   entered,
 }: {
-  metric: Metric;
+  metric: NetworkMetric;
   index: number;
   entered: boolean;
 }) {
@@ -66,18 +72,11 @@ function MetricValue({
   );
 }
 
-export default function NetworkMetricsSection() {
+export default function NetworkMetricsSection({ heading, subheading, metrics }: NetworkMetricsSectionProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [entered, setEntered] = useState(false);
 
-  const metrics: Metric[] = useMemo(
-    () => [
-      { label: "Members in the Rellia community", value: 291 },
-      { label: "Health tech startups", value: 81 },
-      { label: "Countries around the world", value: 11 },
-    ],
-    [],
-  );
+  const metricList = useMemo(() => metrics, [metrics]);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -108,16 +107,15 @@ export default function NetworkMetricsSection() {
       <div className="max-w-[1300px] mx-auto">
         <ScrollReveal className="mb-10 md:mb-14 flex flex-col items-center text-center">
           <h2 className="font-host-grotesk font-semibold text-black text-3xl md:text-[40px] leading-tight tracking-tight max-w-2xl">
-            The right people make all the difference.
+            {heading}
           </h2>
           <p className="font-urbanist font-medium text-black/70 leading-relaxed tracking-tight mt-4 text-base md:text-lg max-w-[680px] mx-auto">
-            Here is a look at the Rellia network—where health tech founders are connected with people
-            who understand exactly what you&apos;re up against.
+            {subheading}
           </p>
         </ScrollReveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12">
-          {metrics.map((m, i) => {
+          {metricList.map((m, i) => {
             return (
               <ScrollReveal key={m.label} delay={i * 0.08}>
                 <MetricValue metric={m} index={i} entered={entered} />

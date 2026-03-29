@@ -3,10 +3,24 @@ import { Pause, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import RelliaButton from "@/components/RelliaButton";
 import { useNavigate } from "react-router-dom";
+import type { HomePageContent } from "@shared/cms/types";
 
 const HERO_VIDEO_POSTER = "/images/heroPoster-home.png";
 
-export default function HeroSection() {
+type HeroSectionProps = {
+  content: Pick<
+    HomePageContent,
+    | "headlinePrefix"
+    | "headlineAccent"
+    | "subheadline"
+    | "primaryCtaLabel"
+    | "primaryCtaPath"
+    | "secondaryCtaLabel"
+    | "secondaryCtaPath"
+  >;
+};
+
+export default function HeroSection({ content }: HeroSectionProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const navigate = useNavigate();
@@ -65,25 +79,23 @@ export default function HeroSection() {
           className="font-host-grotesk font-extrabold text-white text-4xl sm:text-5xl md:text-6xl lg:text-[80px] leading-tight animate-fade-up"
           style={{ animationDelay: "0s" }}
         >
-          You are the future of{" "}
-          {/* Base word (white) + clipped overlay (blue) animates left→right = “fill” effect */}
+          {content.headlinePrefix}{" "}
           <span className="relative inline-block align-bottom">
-            <span className="text-white font-extrabold">healthcare.</span>
+            <span className="text-white font-extrabold">{content.headlineAccent}</span>
             <span
               className="absolute left-0 top-0 whitespace-nowrap font-extrabold text-rellia-mint motion-safe:animate-healthcare-fill motion-reduce:clip-path-none"
               aria-hidden
             >
-              healthcare.
+              {content.headlineAccent}
             </span>
           </span>
         </h1>
 
-        {/* Subheading */}
         <p
           className="font-urbanist font-semibold text-white text-lg md:text-2xl mt-10 mb-10 animate-fade-up"
           style={{ animationDelay: "0.2s" }}
         >
-          The expertise you need. The support you deserve.
+          {content.subheadline}
         </p>
 
         {/* CTA Buttons */}
@@ -93,16 +105,13 @@ export default function HeroSection() {
         >
           <RelliaButton
             className="bg-rellia-mint text-rellia-teal border-rellia-mint hover:bg-white hover:text-rellia-teal hover:border-white hover:shadow-xl"
-            onClick={() => navigate("/network")}
+            onClick={() => navigate(content.primaryCtaPath)}
           >
-            Get Involved Now
+            {content.primaryCtaLabel}
           </RelliaButton>
 
-          <RelliaButton
-            variant="secondary"
-            onClick={() => navigate("/programs")}
-          >
-            See our Programs
+          <RelliaButton variant="secondary" onClick={() => navigate(content.secondaryCtaPath)}>
+            {content.secondaryCtaLabel}
           </RelliaButton>
         </div>
       </div>
