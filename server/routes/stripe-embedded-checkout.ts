@@ -3,7 +3,7 @@ import Stripe from "stripe"
 import { isPaymentKeyValid } from "./payment-access"
 
 export const handleCreateEmbeddedCheckout: RequestHandler = async (req, res) => {
-  const key = typeof req.body?.key === "string" ? req.body.key : ""
+  const key = typeof req.body?.key === "string" ? req.body.key.trim() : ""
   if (!isPaymentKeyValid(key)) {
     res.status(403).json({ ok: false, error: "Invalid key" })
     return

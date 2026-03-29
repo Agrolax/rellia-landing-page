@@ -11,9 +11,12 @@ const publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY as string | u
 
 type GateState = "loading" | "denied" | "allowed"
 
+type DenyReason = "invalid_key" | "gate_unconfigured" | null
+
 export default function Payment() {
   const [searchParams] = useSearchParams()
   const [gate, setGate] = useState<GateState>("loading")
+  const [denyReason, setDenyReason] = useState<DenyReason>(null)
   const [paymentComplete, setPaymentComplete] = useState(false)
   const [useFallbackLink, setUseFallbackLink] = useState(false)
   const [embedLoading, setEmbedLoading] = useState(false)
@@ -31,8 +34,9 @@ export default function Payment() {
   }, [])
 
   useEffect(() => {
-    const key = searchParams.get("key")
+    const key = searchParams.get("key")?.trim() ?? ""
     if (!key) {
+      setDenyReason("invalid_key")
       setGate("denied")
       return
     }
@@ -41,12 +45,23 @@ export default function Payment() {
     const run = async () => {
       try {
         const res = await fetch(`/api/payment-access?key=${encodeURIComponent(key)}`)
+        const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string }
         if (cancelled) {
           return
         }
-        setGate(res.ok ? "allowed" : "denied")
+        if (res.ok) {
+          setDenyReason(null)
+          setGate("allowed")
+          return
+        }
+        const unconfigured =
+          res.status === 503 ||
+          (typeof data.error === "string" && data.error.toLowerCase().includes("not configured"))
+        setDenyReason(unconfigured ? "gate_unconfigured" : "invalid_key")
+        setGate("denied")
       } catch {
         if (!cancelled) {
+          setDenyReason("invalid_key")
           setGate("denied")
         }
       }
@@ -62,7 +77,7 @@ export default function Payment() {
       return
     }
 
-    const key = searchParams.get("key")
+    const key = searchParams.get("key")?.trim() ?? ""
     if (!key) {
       return
     }
@@ -164,10 +179,27 @@ export default function Payment() {
 
             {gate === "denied" ? (
               <div className="rounded-2xl border border-black/10 bg-white/95 p-8 shadow-lg md:p-10">
-                <h1 className="mb-3 text-2xl font-bold text-black md:text-3xl">Link not valid</h1>
-                <p className="font-urbanist text-base leading-relaxed text-black/60">
-                  This page requires a valid access key. If you believe this is a mistake, contact Rellia Health.
-                </p>
+                <h1 className="mb-3 text-2xl font-bold text-black md:text-3xl">
+                  {denyReason === "gate_unconfigured" ? "Payment link not active" : "Link not valid"}
+                </h1>
+                {denyReason === "gate_unconfigured" ? (
+                  <p className="font-urbanist text-base leading-relaxed text-black/60">
+                    The payment gate is not configured on this deployment. Add{" "}
+                    <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm text-rellia-teal">
+                      PAYMENT_PAGE_SECRET
+                    </code>{" "}
+                    in your host environment (e.g. Vercel project settings) to the same value as the{" "}
+                    <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">key</code> in the URL, then
+                    redeploy. Stripe checkout also needs{" "}
+                    <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">STRIPE_SECRET_KEY</code> and{" "}
+                    <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">STRIPE_PRICE_ID</code>.
+                  </p>
+                ) : (
+                  <p className="font-urbanist text-base leading-relaxed text-black/60">
+                    This page requires a valid access key that matches the server secret. If you believe this is a
+                    mistake, contact Rellia Health.
+                  </p>
+                )}
               </div>
             ) : null}
 

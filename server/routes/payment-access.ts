@@ -15,10 +15,11 @@ export const isPaymentKeyValid = (key: string): boolean => {
   if (!configured) {
     return false
   }
-  if (!key) {
+  const k = key.trim()
+  if (!k) {
     return false
   }
-  return safeCompare(key, configured)
+  return safeCompare(k, configured)
 }
 
 export const handlePaymentAccess: RequestHandler = (req, res) => {
@@ -27,7 +28,7 @@ export const handlePaymentAccess: RequestHandler = (req, res) => {
     return
   }
 
-  const key = typeof req.query.key === "string" ? req.query.key : ""
+  const key = typeof req.query.key === "string" ? req.query.key.trim() : ""
   if (!isPaymentKeyValid(key)) {
     res.status(403).json({ ok: false })
     return
