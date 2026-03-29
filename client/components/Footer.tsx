@@ -1,12 +1,10 @@
 import { Instagram, Linkedin, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useGlobalSettings } from "@/hooks/useCmsDocuments";
 import { DEFAULT_GLOBAL_SETTINGS } from "@shared/cms/defaults";
 
-export default function Footer() {
-  const { data } = useGlobalSettings();
-  const g = data ?? DEFAULT_GLOBAL_SETTINGS;
+const g = DEFAULT_GLOBAL_SETTINGS
 
+export default function Footer() {
   return (
     <footer className="bg-rellia-teal text-white pt-20 pb-10 px-6 md:px-10 border-t border-white/5">
       <div className="max-w-[1300px] mx-auto">
