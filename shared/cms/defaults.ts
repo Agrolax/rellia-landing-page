@@ -435,7 +435,7 @@ export const DEFAULT_CONTACT_PAGE: ContactPageContent = {
     firstName: "First Name",
     lastName: "Last Name",
     email: "E-mail Address",
-    phone: "Phone (optional)",
+    phone: "Phone",
     companyName: "Company Name",
     jobTitle: "Job Title",
     companySize: "Company Size",

@@ -307,7 +307,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="mt-4 inline-flex w-full shrink-0 items-center justify-center rounded-xl border-2 border-rellia-teal bg-rellia-teal px-6 py-3.5 font-host-grotesk text-sm font-semibold text-white transition-all duration-200 hover:bg-white hover:text-rellia-teal disabled:pointer-events-none disabled:opacity-60 md:py-4 md:text-base"
+                  className="mt-4 flex w-full min-w-0 shrink-0 items-center justify-center rounded-xl border-2 border-rellia-teal bg-rellia-teal px-6 py-3.5 font-host-grotesk text-sm font-semibold text-white transition-all duration-200 hover:bg-white hover:text-rellia-teal disabled:pointer-events-none disabled:opacity-60 md:py-4 md:text-base"
                 >
                   {isSubmitting ? copy.sendingLabel : copy.submitLabel}
                 </button>
