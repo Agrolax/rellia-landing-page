@@ -23,6 +23,7 @@ import {
 import { useContactPage } from "@/hooks/useCmsDocuments"
 import { DEFAULT_CONTACT_PAGE } from "@shared/cms/defaults"
 import { cn } from "@/lib/utils"
+import { Mail, User } from "lucide-react"
 
 type ContactFormValues = {
   email: string
@@ -115,20 +116,53 @@ export default function Contact() {
   )
 
   return (
-    <div className="min-h-screen bg-white font-host-grotesk overflow-x-hidden">
+    <div className="min-h-screen bg-white font-host-grotesk">
       <Navbar />
 
       <main>
-        {/* Single page scroll — no nested overflow regions */}
-        <section className="relative overflow-x-hidden bg-rellia-cream/80 pb-16 pt-[72px] md:pb-24 md:pt-[86px]">
-          <div className="pointer-events-none absolute inset-0">
-            <div className="absolute -left-10 -top-24 h-64 w-64 rounded-full bg-rellia-mint/40 blur-3xl" />
-            <div className="absolute -bottom-24 -right-10 h-80 w-80 rounded-full bg-rellia-teal/10 blur-3xl" />
-          </div>
+        <section className="relative bg-rellia-cream pb-16 pt-[72px] md:pb-24 md:pt-[86px]">
+          <div className="mx-auto grid w-full max-w-[1300px] grid-cols-1 items-stretch gap-8 px-6 md:px-10 lg:grid-cols-2 lg:gap-10">
+            {/* Left: copy + full-bleed image (no nested scroll areas) */}
+            <div className="flex min-h-0 min-w-0 flex-col gap-8">
+              <div className="shrink-0">
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-black/5 bg-white/80 px-4 py-2 text-sm font-semibold text-rellia-teal">
+                  <Mail className="h-4 w-4 text-rellia-mint" aria-hidden />
+                  <span>{copy.heroBadge}</span>
+                </div>
+                <h1 className="mb-4 text-3xl font-bold leading-tight tracking-tight text-rellia-teal md:text-5xl">
+                  {copy.pageTitle}
+                </h1>
+                <p className="max-w-xl whitespace-pre-line font-urbanist text-base leading-relaxed text-black/70 md:text-lg">
+                  {copy.intro}
+                </p>
+              </div>
 
-          <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-col px-6 py-8 md:px-10 md:py-10 lg:flex-row-reverse lg:items-start lg:gap-8 xl:gap-10">
-            {/* DOM first → visual right on lg (row-reverse). Each column 50% width. Mobile: order-2 so hero stays above. */}
-            <div className="order-2 flex w-full min-w-0 flex-col lg:order-none lg:basis-0 lg:flex-1">
+              <div className="relative min-h-[280px] w-full flex-1 overflow-hidden rounded-3xl border border-black/5 shadow-lg lg:min-h-[360px]">
+                <img
+                  src={copy.sideImageSrc}
+                  alt={copy.sideImageAlt}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-md">
+                    <p className="text-base leading-relaxed text-white md:text-lg">“{copy.quoteText}”</p>
+                    <div className="mt-4 flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15">
+                        <User className="h-5 w-5 text-white/90" aria-hidden />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-white">{copy.quoteAttributionName}</p>
+                        <p className="text-sm text-white/75">{copy.quoteAttributionRole}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: form */}
+            <div className="flex min-h-0 min-w-0 flex-col">
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col rounded-2xl border border-black/10 bg-white/95 p-6 shadow-[0_8px_40px_rgba(0,0,0,0.06)] backdrop-blur-sm md:p-7 lg:p-6"
@@ -312,21 +346,6 @@ export default function Contact() {
                   {isSubmitting ? copy.sendingLabel : copy.submitLabel}
                 </button>
               </form>
-            </div>
-
-            {/* DOM second → visual left on lg (50% width). Mobile: order-1 so copy stacks above form. */}
-            <div className="order-1 flex w-full min-w-0 flex-col justify-center pb-8 lg:order-none lg:basis-0 lg:flex-1 lg:justify-center lg:pb-0 lg:pr-4">
-              <div className="shrink-0">
-                <p className="mb-3 font-urbanist text-[11px] font-semibold uppercase tracking-[0.2em] text-black/45 md:mb-4 md:text-xs">
-                  {copy.heroBadge}
-                </p>
-                <h1 className="mb-4 text-4xl font-bold leading-[1.1] tracking-tight text-black md:mb-5 md:text-5xl lg:text-6xl">
-                  {copy.pageTitle}
-                </h1>
-                <p className="max-w-xl whitespace-pre-line font-urbanist text-base leading-relaxed text-black/55 md:text-lg">
-                  {copy.intro}
-                </p>
-              </div>
             </div>
           </div>
         </section>
