@@ -420,7 +420,7 @@ export const DEFAULT_PROGRAMS_LANDING: ProgramsLandingContent = {
 
 export const DEFAULT_CONTACT_PAGE: ContactPageContent = {
   heroBadge: "Contact",
-  pageTitle: "Let's Get in Touch",
+  pageTitle: "Send Us A Message",
   intro:
     "Have questions or want to explore opportunities with Rellia Health?\n\nWe’re here to listen, support, and collaborate. Drop us a message!",
   sideImageSrc: "/images/hero-contact.png",
