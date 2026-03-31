@@ -15,6 +15,8 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import Payment from "./pages/Payment";
+import DiagnosticLanding from "./pages/DiagnosticLanding";
+import DiagnosticSurvey from "./pages/DiagnosticSurvey";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +50,10 @@ const App = () => (
           <Route path="/programs/industry-partners" element={<PlaceholderPage title="Industry Partners" />} />
           <Route path="/programs/future" element={<PlaceholderPage title="Founders Network" />} />
           <Route path="/programs/advisors" element={<PlaceholderPage title="Advisors" />} />
+
+          {/* Diagnostics */}
+          <Route path="/diagnostics" element={<DiagnosticLanding />} />
+          <Route path="/diagnostic" element={<DiagnosticSurvey />} />
 
           {/* Misc */}
           <Route path="/contact" element={<Contact />} />
